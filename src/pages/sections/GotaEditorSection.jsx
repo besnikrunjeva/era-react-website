@@ -212,9 +212,7 @@ function UploadZone({ onUpload, uploadedFile, onRemove, label, subLabel, formats
 
 // ─── Template flow (Flow B) ────────────────────────────────────────────────────
 
-function TemplateFlow({ selectedSize, fullDesignFile, onFullDesignUpload, onFullDesignRemove }) {
-  const [templateSize, setTemplateSize] = useState(selectedSize)
-
+function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesignUpload, onFullDesignRemove }) {
   const TEMPLATE_DIMS = {
     '3.5oz': '154 × 53 mm',
     '7oz':   '182 × 73 mm',
@@ -227,17 +225,20 @@ function TemplateFlow({ selectedSize, fullDesignFile, onFullDesignUpload, onFull
       <div className="overflow-hidden rounded-xl border border-gray-100 bg-white">
         <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gray-50 px-3 py-2.5">
           <div className="flex size-5 shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#c8ddb8] bg-[#f0f9e8] text-[8px] font-black text-[#4ca706]">1</div>
-          <span className="text-[10px] font-bold text-gray-500">Zgjidh madhësinë dhe shkarko templatein</span>
+          <div>
+            <div className="text-[10px] font-bold text-gray-500">Zgjidh madhësinë dhe shkarko templatein</div>
+            <div className="text-[9px] text-gray-400">Ndikon edhe pamjen 3D të gotës</div>
+          </div>
         </div>
         <div className="p-3">
           <div className="mb-2.5 flex gap-2">
             {SIZES.map(s => (
               <button
                 key={s.id}
-                onClick={() => setTemplateSize(s.id)}
-                className={`flex-1 rounded-lg border py-2 text-center transition-all duration-150 ${templateSize === s.id ? 'border-[#4ca706] bg-[#f0f9e8]' : 'border-gray-100 bg-gray-50 hover:border-[#4ca706]/40'}`}
+                onClick={() => onSizeChange(s.id)}
+                className={`flex-1 rounded-lg border py-2 text-center transition-all duration-150 ${selectedSize === s.id ? 'border-[#4ca706] bg-[#f0f9e8]' : 'border-gray-100 bg-gray-50 hover:border-[#4ca706]/40'}`}
               >
-                <div className={`text-[12px] font-black ${templateSize === s.id ? 'text-[#4ca706]' : 'text-gray-600'}`}>{s.id}</div>
+                <div className={`text-[12px] font-black ${selectedSize === s.id ? 'text-[#4ca706]' : 'text-gray-600'}`}>{s.id}</div>
                 <div className="mt-0.5 text-[8px] text-gray-400">{TEMPLATE_DIMS[s.id]}</div>
               </button>
             ))}
@@ -649,6 +650,7 @@ export function GotaEditorSection({ lang = 'al' }) {
                   <motion.div key="template" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.18 }}>
                     <TemplateFlow
                       selectedSize={selectedSize}
+                      onSizeChange={s => startSizeTransition(() => setSelectedSize(s))}
                       fullDesignFile={fullDesignFiles[selectedSize]}
                       onFullDesignUpload={f => setFullDesignFiles(prev => ({ ...prev, [selectedSize]: f }))}
                       onFullDesignRemove={() => setFullDesignFiles(prev => ({ ...prev, [selectedSize]: null }))}
