@@ -2,6 +2,15 @@
 <html lang="sq">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (function() {
+        var p = window.location.search.match(/[?&]p=([^&]+)/);
+        if (p) {
+          var path = decodeURIComponent(p[1].replace(/~and~/g, '&'));
+          window.history.replaceState(null, null, '/' + path);
+        }
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
