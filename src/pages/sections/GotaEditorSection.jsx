@@ -248,7 +248,7 @@ function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesign
             className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white py-2.5 text-[10px] font-bold text-gray-600 transition-all hover:border-[#4ca706]/40 hover:text-[#4ca706]"
           >
             <Download className="size-3.5" />
-            Shkarko Template — {templateSize}
+            Shkarko Template — {selectedSize}
           </button>
           <div className="mt-2 flex gap-1.5">
             {['AI', 'PDF', 'PSD'].map(f => (
@@ -261,28 +261,6 @@ function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesign
       <div className="overflow-hidden rounded-xl border border-gray-100 bg-white">
         <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gray-50 px-3 py-2.5">
           <div className="flex size-5 shrink-0 items-center justify-center rounded-full border-[1.5px] border-gray-200 bg-white text-[8px] font-black text-gray-400">2</div>
-          <span className="text-[10px] font-bold text-gray-500">Dizajno sipas templateit</span>
-        </div>
-        <div className="p-3">
-          <div className="flex items-center gap-3 rounded-lg bg-gray-50 p-2.5">
-            <div className="flex shrink-0 items-center gap-1.5">
-              <div className="relative flex h-7 w-14 items-center justify-center rounded border-[1.5px] border-dashed border-gray-300 bg-white text-[6px] font-bold text-gray-400">
-                <div className="absolute inset-[3px] rounded border border-dashed border-gray-200" />
-                Bleed
-              </div>
-              <span className="text-[10px] text-gray-300">→</span>
-              <div className="h-7 w-4 rounded-[3px_3px_2px_2px] border border-gray-200 bg-white" />
-            </div>
-            <p className="text-[9px] leading-relaxed text-gray-400">
-              Templati ka <span className="font-bold text-gray-600">bleed</span> dhe <span className="font-bold text-gray-600">safe zone</span> të shënuara.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="overflow-hidden rounded-xl border border-gray-100 bg-white">
-        <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gray-50 px-3 py-2.5">
-          <div className="flex size-5 shrink-0 items-center justify-center rounded-full border-[1.5px] border-gray-200 bg-white text-[8px] font-black text-gray-400">3</div>
           <span className="text-[10px] font-bold text-gray-500">Ngarko dizajnin e plotë</span>
         </div>
         <div className="p-3">
@@ -294,6 +272,9 @@ function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesign
             subLabel="Do të shfaqet direkt në gotën 3D"
             formats={['PDF', 'AI', 'PNG']}
           />
+          <p className="mt-2 text-[9px] leading-relaxed text-gray-400">
+            Templati ka <span className="font-semibold text-gray-500">bleed</span> dhe <span className="font-semibold text-gray-500">safe zone</span> të shënuara — dizajno brenda tyre para ngarkimit.
+          </p>
         </div>
       </div>
 
