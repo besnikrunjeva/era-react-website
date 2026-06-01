@@ -11,7 +11,7 @@ import PreviewTest from '@/pages/PreviewTest'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/era-react-website">
       <SimpleHeader />
       <Routes>
         <Route path="/" element={<Home />} />
