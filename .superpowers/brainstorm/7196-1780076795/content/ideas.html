@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ERA — Creative Ideas</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1010; padding: 32px 24px; min-height: 100vh; }
+
+  h1 { color: white; font-size: 1rem; font-weight: 700; text-align: center; margin-bottom: 6px; }
+  .sub { color: #4b5563; font-size: 0.72rem; text-align: center; margin-bottom: 28px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 860px; margin: 0 auto; }
+
+  .card {
+    background: #1a1b1b; border: 1.5px solid #2d2d2d; border-radius: 14px;
+    overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.15s;
+  }
+  .card:hover { border-color: #4ca706; transform: translateY(-2px); }
+  .card.selected { border-color: #4ca706; background: #1e211a; }
+
+  .preview {
+    height: 200px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── Idea 1: Production Clock ── */
+  .clock-preview {
+    background: #0f1010;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .clock-glow {
+    position: absolute; width: 180px; height: 180px;
+    background: #4ca706; opacity: 0.12; filter: blur(50px); border-radius: 50%;
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+  }
+  .clock-label { font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.35); position: relative; z-index: 1; }
+  .clock-num { font-size: 2.8rem; font-weight: 800; color: #4ca706; letter-spacing: -0.04em; position: relative; z-index: 1; font-variant-numeric: tabular-nums; }
+  .clock-sub { font-size: 0.55rem; color: rgba(255,255,255,0.25); position: relative; z-index: 1; }
+
+  /* ── Idea 2: Ticker ── */
+  .ticker-preview { background: #0f1010; flex-direction: column; gap: 0; }
+  .ticker-row {
+    width: 100%; padding: 8px 0; display: flex; align-items: center;
+    border-top: 1px solid #1e1e1e;
+    overflow: hidden; white-space: nowrap;
+  }
+  .ticker-row:first-child { border-top: none; }
+  .ticker-track {
+    display: inline-flex; gap: 0; animation: ticker 8s linear infinite;
+  }
+  .ticker-track span {
+    font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; padding: 0 20px; white-space: nowrap;
+  }
+  .ticker-track .green { color: #4ca706; }
+  .ticker-track .white { color: rgba(255,255,255,0.5); }
+  .ticker-track .dim { color: rgba(255,255,255,0.15); }
+  .ticker-track2 { animation-direction: reverse; animation-duration: 12s; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── Idea 3: Process Steps ── */
+  .process-preview {
+    background: white;
+    flex-direction: column; gap: 0; padding: 16px 20px;
+    justify-content: space-between;
+  }
+  .step { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
+  .step-dot { width: 24px; height: 24px; border-radius: 50%; background: #4ca706; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.55rem; font-weight: 800; color: white; }
+  .step-line { width: 1px; height: 12px; background: #e5e7eb; margin-left: 11px; }
+  .step-text h4 { font-size: 0.65rem; font-weight: 700; color: #111; }
+  .step-text p  { font-size: 0.55rem; color: #9ca3af; }
+  .step-img { margin-left: auto; width: 32px; height: 32px; background: #f3f4f6; border-radius: 6px; border: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+
+  /* ── Idea 4: Paper Texture Hero ── */
+  .texture-preview {
+    background: #1a1b1b;
+    position: relative; overflow: hidden;
+  }
+  .paper-lines {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 11px, rgba(76,167,6,0.06) 12px),
+                      repeating-linear-gradient(90deg, transparent, transparent 11px, rgba(76,167,6,0.04) 12px);
+  }
+  .grain-overlay {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+  .texture-content { position: relative; z-index: 1; text-align: center; padding: 0 16px; }
+  .texture-content h3 { font-size: 1.6rem; font-weight: 900; color: white; letter-spacing: -0.04em; line-height: 1.1; }
+  .texture-content h3 span { color: #4ca706; }
+  .texture-content p { font-size: 0.6rem; color: rgba(255,255,255,0.4); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.12em; }
+
+  /* Card meta */
+  .card-body { padding: 14px 16px; }
+  .card-tag { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #4ca706; margin-bottom: 4px; }
+  .card-title { font-size: 0.85rem; font-weight: 700; color: white; margin-bottom: 4px; }
+  .card-desc { font-size: 0.72rem; color: #6b7280; line-height: 1.5; }
+  .card-where { margin-top: 8px; font-size: 0.62rem; color: rgba(76,167,6,0.7); font-weight: 600; }
+
+  /* Select indicator */
+  .select-hint { text-align: center; margin-top: 24px; font-size: 0.7rem; color: #374151; }
+
+  /* Ticker second row reversed */
+</style>
+</head>
+<body>
+
+<h1>What to add — 4 ideas</h1>
+<p class="sub">Click the one you want to build</p>
+
+<div class="grid">
+
+  <!-- 1. Production Clock -->
+  <div class="card" data-choice="clock" onclick="toggleSelect(this)">
+    <div class="preview clock-preview">
+      <div class="clock-glow"></div>
+      <div class="clock-label">Njësi të prodhuara në 2025</div>
+      <div class="clock-num" id="clock">2,847,391</div>
+      <div class="clock-sub">duke u rritur çdo sekondë · 3.9M / vit</div>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Live Counter</div>
+      <div class="card-title">Production Clock</div>
+      <div class="card-desc">A ticking real-time counter showing units produced this year, calculated from their 3.9M annual rate (~0.12 units/sec). Watching the number grow is visceral proof of scale. No packaging competitor has this.</div>
+      <div class="card-where">→ Goes in the About page stats area or its own section</div>
+    </div>
+  </div>
+
+  <!-- 2. Marquee Ticker -->
+  <div class="card" data-choice="ticker" onclick="toggleSelect(this)">
+    <div class="preview ticker-preview">
+      <div class="ticker-row">
+        <div class="ticker-track">
+          <span class="green">Gota Letre</span><span class="dim">·</span>
+          <span class="white">Kupa Pasta</span><span class="dim">·</span>
+          <span class="green">Kuti Ushqimore</span><span class="dim">·</span>
+          <span class="white">Etiketa</span><span class="dim">·</span>
+          <span class="green">Kapak Gotash</span><span class="dim">·</span>
+          <span class="white">Mbajtëse</span><span class="dim">·</span>
+          <span class="green">Gota Letre</span><span class="dim">·</span>
+          <span class="white">Kupa Pasta</span><span class="dim">·</span>
+          <span class="green">Kuti Ushqimore</span><span class="dim">·</span>
+          <span class="white">Etiketa</span><span class="dim">·</span>
+        </div>
+      </div>
+      <div class="ticker-row">
+        <div class="ticker-track ticker-track2">
+          <span class="dim">15+ Vite</span><span class="dim">·</span>
+          <span class="green">397 Klientë</span><span class="dim">·</span>
+          <span class="dim">13 Makina</span><span class="dim">·</span>
+          <span class="green">3.9M Njësi</span><span class="dim">·</span>
+          <span class="dim">Prishtinë, Kosovë</span><span class="dim">·</span>
+          <span class="green">276 Variante</span><span class="dim">·</span>
+          <span class="dim">15+ Vite</span><span class="dim">·</span>
+          <span class="green">397 Klientë</span><span class="dim">·</span>
+          <span class="dim">13 Makina</span><span class="dim">·</span>
+          <span class="green">3.9M Njësi</span><span class="dim">·</span>
+        </div>
+      </div>
+      <div class="ticker-row">
+        <div class="ticker-track">
+          <span class="dim">Kraft</span><span class="dim">·</span>
+          <span class="white">Offset Print</span><span class="dim">·</span>
+          <span class="dim">Food Safe</span><span class="dim">·</span>
+          <span class="green">Custom Logo</span><span class="dim">·</span>
+          <span class="dim">7–14 Ditë</span><span class="dim">·</span>
+          <span class="white">Ballkan</span><span class="dim">·</span>
+          <span class="green">Gjermani</span><span class="dim">·</span>
+          <span class="dim">Zvicër</span><span class="dim">·</span>
+          <span class="white">Chicago</span><span class="dim">·</span>
+          <span class="dim">Kraft</span><span class="dim">·</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Marquee Strip</div>
+      <div class="card-title">Product & Stats Ticker</div>
+      <div class="card-desc">Three infinite-scroll ticker rows — products, stats, materials — alternating directions. Like a Bloomberg terminal meets a premium fashion brand. Goes between any two sections as a visual break.</div>
+      <div class="card-where">→ Separator between any two sections (homepage or about)</div>
+    </div>
+  </div>
+
+  <!-- 3. How It's Made steps -->
+  <div class="card" data-choice="process" onclick="toggleSelect(this)">
+    <div class="preview process-preview">
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-text"><h4>Zgjidhni produktin</h4><p>Gota, kuti, etiketë — ju vendosni</p></div>
+        <div class="step-img">📦</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-text"><h4>Dërgoni dizajnin</h4><p>Logo, ngjyrat, dimensionet</p></div>
+        <div class="step-img">🎨</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-text"><h4>Prodhim & printim</h4><p>13 makina, kontroll cilësie</p></div>
+        <div class="step-img">⚙️</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-dot">4</div>
+        <div class="step-text"><h4>Dorëzim 7–14 ditë</h4><p>Direkt tek ju, kudo në rajon</p></div>
+        <div class="step-img">🚚</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Process Section</div>
+      <div class="card-title">"Si Funksionon" Steps</div>
+      <div class="card-desc">A clean 4-step "how to order" section with scroll-triggered stagger reveal. Converts hesitant buyers by making the process feel simple and safe. Every B2B buyer's unspoken question is "how complicated is this?"</div>
+      <div class="card-where">→ Homepage (between FeaturedProducts and footer) or About page</div>
+    </div>
+  </div>
+
+  <!-- 4. Dark textured quote section -->
+  <div class="card" data-choice="texture" onclick="toggleSelect(this)">
+    <div class="preview texture-preview">
+      <div class="paper-lines"></div>
+      <div class="grain-overlay"></div>
+      <div class="texture-content">
+        <h3>"Çdo paketim bart<br/><span>standardin tonë.</span>"</h3>
+        <p>— Shtypshkronja ERA, 2008</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Editorial Pull Quote</div>
+      <div class="card-title">Dark Textured Quote Break</div>
+      <div class="card-desc">A full-width dark section with paper grain texture overlay, grid lines, and a large editorial quote from the company. Feels tactile — you're making paper products, your website should feel like paper. Visually striking contrast between white sections.</div>
+      <div class="card-where">→ About page, after the story section</div>
+    </div>
+  </div>
+
+</div>
+
+<p class="select-hint">Click a card to select it — or tell me in the terminal</p>
+
+<script>
+  // Animate the production clock
+  const start = new Date(new Date().getFullYear(), 0, 1).getTime()
+  const ratePerMs = 3900000 / (365 * 24 * 60 * 60 * 1000)
+  function updateClock() {
+    const elapsed = Date.now() - start
+    const units = Math.floor(elapsed * ratePerMs)
+    document.getElementById('clock').textContent = units.toLocaleString('en-US')
+  }
+  updateClock()
+  setInterval(updateClock, 250)
+</script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<h2>Machines page — white theme</h2>
+<p class="subtitle">Same immersive scroll layout, light skin. Pick the card style you prefer.</p>
+
+<style>
+:root { --g: #4ca706; --g2: #3d8f05; }
+
+.page-mock {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+/* Hero */
+.p-hero {
+  background: linear-gradient(135deg, #f0f7eb 0%, #ffffff 60%);
+  padding: 22px 22px 18px;
+  border-bottom: 1px solid #e8f0e0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+.p-badge { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--g); margin-bottom: 6px; }
+.p-h1 { font-size: 1.3rem; font-weight: 900; color: #111; line-height: 1.15; margin-bottom: 4px; }
+.p-sub { font-size: 0.68rem; color: #888; max-width: 280px; line-height: 1.5; }
+.p-stats { display: flex; gap: 8px; }
+.p-stat { background: #fff; border: 1px solid #ddefd0; border-radius: 8px; padding: 8px 12px; text-align: center; box-shadow: 0 1px 4px rgba(76,167,6,0.08); }
+.p-stat-n { font-size: 1.1rem; font-weight: 900; color: var(--g); line-height: 1; }
+.p-stat-l { font-size: 0.5rem; color: #999; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px; }
+
+/* Body */
+.p-body { display: flex; }
+
+/* Progress rail */
+.p-rail {
+  width: 48px;
+  flex-shrink: 0;
+  background: #f9fdf6;
+  border-right: 1px solid #e8f0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 0;
+}
+.rail-item { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.rail-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #dde8d4;
+  border: 2px solid #c8ddb8;
+}
+.rail-dot.active {
+  background: var(--g);
+  border-color: var(--g);
+  box-shadow: 0 0 8px rgba(76,167,6,0.3);
+}
+.rail-num { font-size: 0.45rem; font-weight: 800; color: #bbb; letter-spacing: 0.05em; margin-top: 2px; }
+.rail-num.active { color: var(--g); }
+.rail-line { width: 1.5px; flex: 1; background: #ddefd0; min-height: 28px; }
+
+.p-content { flex: 1; overflow: hidden; }
+
+/* Category section */
+.cat-section { padding: 18px 18px 14px; }
+.cat-section + .cat-section { border-top: 1px solid #f0f0f0; }
+.cat-section.dim { opacity: 0.4; }
+
+.cat-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.cat-num { font-size: 0.6rem; font-weight: 800; color: var(--g); letter-spacing: 0.1em; text-transform: uppercase; }
+.cat-bar { height: 1px; flex: 1; background: linear-gradient(90deg, #c8ddb8, transparent); }
+.cat-name { font-size: 0.95rem; font-weight: 800; color: #111; }
+.cat-desc { font-size: 0.62rem; color: #999; margin-top: 2px; line-height: 1.5; }
+
+/* Machine badge */
+.mc-badge {
+  display: inline-block;
+  font-size: 0.5rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--g);
+  background: #edf7e3;
+  border: 1px solid #c8ddb8;
+  border-radius: 100px;
+  padding: 2px 7px;
+  margin-bottom: 5px;
+}
+.ingenuity-badge {
+  display: inline-block;
+  font-size: 0.5rem; font-weight: 700;
+  color: #b45309;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: 100px;
+  padding: 2px 7px;
+  margin-bottom: 5px;
+}
+
+/* ── CARD STYLE: Horizontal (image left) ── */
+.mc-horiz {
+  display: flex;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 6px;
+  transition: box-shadow 0.2s;
+}
+.mc-horiz:hover { box-shadow: 0 2px 12px rgba(76,167,6,0.12); border-color: #c8ddb8; }
+.mc-img-l {
+  width: 110px;
+  flex-shrink: 0;
+  background: #f0f0f0;
+  display: flex; align-items: center; justify-content: center;
+  border-right: 1px solid #eee;
+  position: relative;
+}
+.mc-img-l::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(76,167,6,0.04), transparent);
+}
+.img-ph { display: flex; flex-direction: column; align-items: center; gap: 4px; opacity: 0.35; }
+.img-ph-label { font-size: 0.45rem; text-transform: uppercase; letter-spacing: 0.08em; color: #666; }
+
+.mc-info { padding: 10px 12px; flex: 1; }
+.mc-name { font-size: 0.72rem; font-weight: 800; color: #111; margin-bottom: 5px; line-height: 1.3; }
+.mc-specs { display: flex; flex-wrap: wrap; gap: 4px; }
+.mc-spec { font-size: 0.52rem; color: #777; background: #f0f0f0; padding: 2px 6px; border-radius: 3px; }
+
+/* ── CARD STYLE: Vertical (image top) ── */
+.mc-vert {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.mc-img-top {
+  height: 72px;
+  background: #f0f0f0;
+  display: flex; align-items: center; justify-content: center;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+.mc-img-top::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(76,167,6,0.04), transparent); }
+.mc-info-row { padding: 8px 10px; display: flex; align-items: center; justify-content: space-between; }
+.mc-name-s { font-size: 0.62rem; font-weight: 700; color: #111; }
+.mc-type-s { font-size: 0.52rem; color: var(--g); }
+
+.p-fade { height: 28px; background: linear-gradient(to top, #fff, transparent); margin-top: -8px; pointer-events: none; }
+</style>
+
+<!-- ═══ OPTION A: Horizontal cards ═══ -->
+<p style="font-size:0.75rem;font-weight:700;color:#333;margin-bottom:10px">Card style A — Horizontal (image left, specs right)</p>
+<div class="page-mock">
+  <div class="p-hero">
+    <div>
+      <div class="p-badge">✦ Infrastruktura jonë</div>
+      <div class="p-h1">13 makina prodhimi<br/>të nivelit industrial</div>
+      <div class="p-sub">Nga shtypja offset Heidelberg deri tek formueset e gotave letre</div>
+    </div>
+    <div class="p-stats">
+      <div class="p-stat"><div class="p-stat-n">13</div><div class="p-stat-l">Makina</div></div>
+      <div class="p-stat"><div class="p-stat-n">4</div><div class="p-stat-l">Kategori</div></div>
+      <div class="p-stat"><div class="p-stat-n">3.9M+</div><div class="p-stat-l">Njësi/vit</div></div>
+    </div>
+  </div>
+
+  <div class="p-body">
+    <div class="p-rail">
+      <div class="rail-item"><div class="rail-dot active"></div><div class="rail-num active">01</div><div class="rail-line"></div></div>
+      <div class="rail-item"><div class="rail-dot"></div><div class="rail-num">02</div><div class="rail-line"></div></div>
+      <div class="rail-item"><div class="rail-dot"></div><div class="rail-num">03</div><div class="rail-line"></div></div>
+      <div class="rail-item"><div class="rail-dot"></div><div class="rail-num">04</div></div>
+    </div>
+
+    <div class="p-content">
+      <div class="cat-section">
+        <div class="cat-head"><div class="cat-num">01</div><div class="cat-bar"></div></div>
+        <div class="cat-name">Printimi</div>
+        <div class="cat-desc">Shtypje offset me saktësi të lartë, 4-ngjyrësh</div>
+        <div style="margin-top:10px">
+          <div class="mc-horiz">
+            <div class="mc-img-l" style="min-height:70px">
+              <div class="img-ph">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4h12v2"/></svg>
+                <span class="img-ph-label">Foto</span>
+              </div>
+            </div>
+            <div class="mc-info">
+              <span class="mc-badge">Offset Printing</span>
+              <div class="mc-name">Shtypëse Offset 4-Ngjyrësh</div>
+              <div class="mc-specs"><span class="mc-spec">Heidelberg</span><span class="mc-spec">Sheet-fed</span><span class="mc-spec">4-color CMYK</span><span class="mc-spec">B1 Format</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat-section dim">
+        <div class="cat-head"><div class="cat-num">02</div><div class="cat-bar" style="background:linear-gradient(90deg,#ddd,transparent)"></div></div>
+        <div class="cat-name" style="color:#aaa">Prerja & Stampimi</div>
+        <div style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+          <div class="mc-horiz" style="margin:0">
+            <div class="mc-img-l" style="width:70px;min-height:58px"><div class="img-ph"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/></svg></div></div>
+            <div class="mc-info" style="padding:8px 10px"><div class="mc-name" style="font-size:0.6rem">Lukes LKS-1060H</div><div class="mc-specs"><span class="mc-spec">Flatbed</span></div></div>
+          </div>
+          <div class="mc-horiz" style="margin:0">
+            <div class="mc-img-l" style="width:70px;min-height:58px"><div class="img-ph"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/></svg></div></div>
+            <div class="mc-info" style="padding:8px 10px"><div class="mc-name" style="font-size:0.6rem">TMZ Zaragoza CX-92</div><div class="mc-specs"><span class="mc-spec">Flatbed</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p-fade"></div>
+</div>
+
+<!-- ═══ OPTION B: Vertical cards ═══ -->
+<p style="font-size:0.75rem;font-weight:700;color:#333;margin-bottom:10px">Card style B — Vertical (image top, 2-col grid)</p>
+<div class="page-mock">
+  <div class="p-hero">
+    <div>
+      <div class="p-badge">✦ Infrastruktura jonë</div>
+      <div class="p-h1">13 makina prodhimi<br/>të nivelit industrial</div>
+      <div class="p-sub">Nga shtypja offset Heidelberg deri tek formueset e gotave letre</div>
+    </div>
+    <div class="p-stats">
+      <div class="p-stat"><div class="p-stat-n">13</div><div class="p-stat-l">Makina</div></div>
+      <div class="p-stat"><div class="p-stat-n">4</div><div class="p-stat-l">Kategori</div></div>
+      <div class="p-stat"><div class="p-stat-n">3.9M+</div><div class="p-stat-l">Njësi/vit</div></div>
+    </div>
+  </div>
+
+  <div class="p-body">
+    <div class="p-rail">
+      <div class="rail-item"><div class="rail-dot active"></div><div class="rail-num active">01</div><div class="rail-line"></div></div>
+      <div class="rail-item"><div class="rail-dot"></div><div class="rail-num">02</div><div class="rail-line"></div></div>
+      <div class="rail-item"><div class="rail-dot"></div><div class="rail-num">03</div><div class="rail-line"></div></div>
+      <div class="rail-item"><div class="rail-dot"></div><div class="rail-num">04</div></div>
+    </div>
+
+    <div class="p-content">
+      <div class="cat-section">
+        <div class="cat-head"><div class="cat-num">01</div><div class="cat-bar"></div></div>
+        <div class="cat-name">Printimi</div>
+        <div class="cat-desc">Shtypje offset me saktësi të lartë, 4-ngjyrësh</div>
+        <div style="margin-top:10px">
+          <div class="mc-vert">
+            <div class="mc-img-top" style="height:80px">
+              <div class="img-ph">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4h12v2"/></svg>
+                <span class="img-ph-label" style="font-size:0.45rem;color:#999;text-transform:uppercase;letter-spacing:0.08em;margin-top:3px">Foto makine</span>
+              </div>
+            </div>
+            <div class="mc-info" style="padding:10px 12px">
+              <span class="mc-badge">Offset Printing</span>
+              <div class="mc-name">Shtypëse Offset 4-Ngjyrësh</div>
+              <div class="mc-specs"><span class="mc-spec">Heidelberg</span><span class="mc-spec">Sheet-fed</span><span class="mc-spec">4-color CMYK</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat-section dim">
+        <div class="cat-head"><div class="cat-num">02</div><div class="cat-bar" style="background:linear-gradient(90deg,#ddd,transparent)"></div></div>
+        <div class="cat-name" style="color:#aaa">Prerja & Stampimi</div>
+        <div style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+          <div class="mc-vert" style="margin:0">
+            <div class="mc-img-top" style="height:55px"><div class="img-ph"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/></svg></div></div>
+            <div class="mc-info-row"><div class="mc-name-s">Lukes LKS-1060H</div><div class="mc-type-s">Flatbed</div></div>
+          </div>
+          <div class="mc-vert" style="margin:0">
+            <div class="mc-img-top" style="height:55px"><div class="img-ph"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/></svg></div></div>
+            <div class="mc-info-row"><div class="mc-name-s">TMZ Zaragoza CX-92</div><div class="mc-type-s">Flatbed</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p-fade"></div>
+</div>
+
+<div class="cards" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:4px">
+  <div class="card" data-choice="horiz" onclick="toggleSelect(this)" style="background:#f8f8f8;border-color:#e0e0e0">
+    <div class="card-body" style="background:#f8f8f8">
+      <div class="badge-g">Recommended</div>
+      <h3 style="color:#111">A — Horizontal cards</h3>
+      <p style="color:#666">Compact and information-dense. Works well on mobile too — image stays visible without taking too much space.</p>
+    </div>
+  </div>
+  <div class="card" data-choice="vert" onclick="toggleSelect(this)" style="background:#f8f8f8;border-color:#e0e0e0">
+    <div class="card-body" style="background:#f8f8f8">
+      <h3 style="color:#111">B — Vertical cards</h3>
+      <p style="color:#666">More photo-forward. When you add real machine photos the image gets more screen real estate.</p>
+    </div>
+  </div>
+</div>

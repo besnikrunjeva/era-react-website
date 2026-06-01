@@ -1,0 +1,217 @@
+<style>
+  .mock-section { border-radius: 12px; overflow: hidden; margin-bottom: 8px; }
+  .era-dark { background: #0f1010; }
+  .era-green { color: #4ca706; }
+  .mock-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+
+  /* Option A — Client Project Cards */
+  .proj-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 16px; }
+  .proj-card { background: #1a1a1a; border: 1px solid rgba(255,255,255,.07); border-radius: 10px; overflow: hidden; }
+  .proj-img { height: 90px; background: linear-gradient(135deg, #1e2e1a 0%, #2a3d24 100%); display: flex; align-items: center; justify-content: center; position: relative; }
+  .proj-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.6), transparent); }
+  .proj-logo { width: 48px; height: 24px; background: rgba(255,255,255,.15); border-radius: 4px; }
+  .proj-body { padding: 8px 10px; }
+  .proj-name { font-size: 11px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+  .proj-count { font-size: 9px; color: #4ca706; font-weight: 600; }
+  .proj-tags { display: flex; gap: 4px; margin-top: 5px; }
+  .proj-tag { font-size: 8px; background: rgba(76,167,6,.12); color: #4ca706; padding: 2px 6px; border-radius: 20px; }
+  .proj-header { padding: 14px 16px 4px; }
+  .proj-eyebrow { font-size: 9px; color: #4ca706; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
+  .proj-title { font-size: 16px; font-weight: 800; color: #fff; margin: 4px 0 2px; }
+  .proj-sub { font-size: 10px; color: rgba(255,255,255,.4); }
+
+  /* Option B — Masonry Dark Grid */
+  .masonry { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 100px 100px; gap: 6px; padding: 16px; }
+  .mas-cell { border-radius: 8px; overflow: hidden; position: relative; background: #1a2618; }
+  .mas-cell.tall { grid-row: span 2; }
+  .mas-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 50%); display: flex; align-items: flex-end; padding: 8px; }
+  .mas-label { font-size: 9px; font-weight: 700; color: #fff; }
+  .mas-dot { width: 5px; height: 5px; border-radius: 50%; background: #4ca706; margin-right: 5px; flex-shrink: 0; }
+  .mas-header { padding: 14px 16px 4px; }
+
+  /* Option C — Featured + Stack */
+  .feat-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; padding: 16px; }
+  .feat-main { background: #111; border: 1px solid rgba(255,255,255,.08); border-radius: 10px; overflow: hidden; }
+  .feat-hero { height: 130px; background: linear-gradient(135deg, #1a2e1a, #2e4a2e); position: relative; display: flex; align-items: flex-end; }
+  .feat-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.2) 60%, transparent 100%); }
+  .feat-hero-content { position: relative; z-index: 1; padding: 12px; }
+  .feat-hero-name { font-size: 14px; font-weight: 800; color: #fff; }
+  .feat-hero-sub { font-size: 9px; color: rgba(255,255,255,.5); margin-top: 2px; }
+  .feat-logo-chip { display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,.1); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,.1); border-radius: 20px; padding: 3px 8px; margin-bottom: 8px; }
+  .feat-logo-dot { width: 14px; height: 14px; background: #4b877a; border-radius: 3px; }
+  .feat-logo-text { font-size: 9px; font-weight: 700; color: #fff; }
+  .feat-stats { display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,.06); }
+  .feat-stat { flex: 1; padding: 8px; text-align: center; }
+  .feat-stat + .feat-stat { border-left: 1px solid rgba(255,255,255,.06); }
+  .feat-stat-n { font-size: 16px; font-weight: 800; color: #4ca706; }
+  .feat-stat-l { font-size: 8px; color: rgba(255,255,255,.35); margin-top: 1px; }
+  .feat-stack { display: flex; flex-direction: column; gap: 6px; }
+  .feat-mini { background: #111; border: 1px solid rgba(255,255,255,.07); border-radius: 8px; overflow: hidden; display: flex; align-items: center; gap: 0; }
+  .feat-mini-img { width: 52px; height: 52px; background: linear-gradient(135deg, #1a2618, #243620); flex-shrink: 0; }
+  .feat-mini-body { padding: 6px 8px; }
+  .feat-mini-name { font-size: 10px; font-weight: 700; color: #fff; }
+  .feat-mini-count { font-size: 8px; color: #4ca706; margin-top: 1px; }
+  .feat-header { padding: 14px 16px 4px; }
+
+  /* Product photo cells */
+  .photo-cell { background: linear-gradient(135deg, #1e2d1a 0%, #283c22 100%); }
+  .photo-cell-2 { background: linear-gradient(135deg, #1a1e2d 0%, #222840 100%); }
+  .photo-cell-3 { background: linear-gradient(135deg, #2d1a1a 0%, #3d2222 100%); }
+  .photo-cell-4 { background: linear-gradient(135deg, #2d2a1a 0%, #3d3822 100%); }
+  .photo-cell-5 { background: linear-gradient(135deg, #1a2d2a 0%, #22383d 100%); }
+
+  .section-divider { height: 1px; background: rgba(255,255,255,.05); margin: 4px 16px; }
+</style>
+
+<h2>Portfolio Section — 3 Layout Options</h2>
+<p class="subtitle">Which approach fits ERA's brand best? All use the dark ERA aesthetic.</p>
+
+<div class="cards">
+
+  <!-- Option A -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mock-section era-dark">
+        <div class="proj-header">
+          <div class="proj-eyebrow">Punët Tona</div>
+          <div class="proj-title">Projektet e Klientëve</div>
+          <div class="proj-sub">Çdo kartë = një projekt i plotë klienti</div>
+        </div>
+        <div class="proj-grid">
+          <div class="proj-card">
+            <div class="proj-img photo-cell">
+              <div class="proj-img-overlay"></div>
+              <div class="proj-logo"></div>
+            </div>
+            <div class="proj-body">
+              <div class="proj-name">Bit Restaurant</div>
+              <div class="proj-count">11 produkte</div>
+              <div class="proj-tags"><span class="proj-tag">Kuti</span><span class="proj-tag">Gota</span></div>
+            </div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-img photo-cell-2">
+              <div class="proj-img-overlay"></div>
+              <div class="proj-logo"></div>
+            </div>
+            <div class="proj-body">
+              <div class="proj-name">Kafe Soma</div>
+              <div class="proj-count">6 produkte</div>
+              <div class="proj-tags"><span class="proj-tag">Gota</span><span class="proj-tag">Mbajtëse</span></div>
+            </div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-img photo-cell-3">
+              <div class="proj-img-overlay"></div>
+              <div class="proj-logo"></div>
+            </div>
+            <div class="proj-body">
+              <div class="proj-name">Fresh Market</div>
+              <div class="proj-count">8 produkte</div>
+              <div class="proj-tags"><span class="proj-tag">Etiketa</span><span class="proj-tag">Kuti</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Client Project Cards</h3>
+      <p>Each card = one client. Shows client name, products made, category tags. Feels like a proper portfolio. Requires real client photos &amp; data.</p>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mock-section era-dark">
+        <div class="mas-header">
+          <div class="proj-eyebrow">Punët Tona</div>
+          <div class="proj-title">Ambalazhe të Prodhuara</div>
+          <div class="proj-sub">Produkte reale me printim të personalizuar</div>
+        </div>
+        <div class="masonry">
+          <div class="mas-cell tall photo-cell">
+            <div class="mas-overlay"><span class="mas-dot"></span><span class="mas-label">Gota Letre</span></div>
+          </div>
+          <div class="mas-cell photo-cell-2">
+            <div class="mas-overlay"><span class="mas-dot"></span><span class="mas-label">Kupa Pasta</span></div>
+          </div>
+          <div class="mas-cell photo-cell-4">
+            <div class="mas-overlay"><span class="mas-dot"></span><span class="mas-label">Kuti Burger</span></div>
+          </div>
+          <div class="mas-cell photo-cell-3">
+            <div class="mas-overlay"><span class="mas-dot"></span><span class="mas-label">Kuti Ushqimore</span></div>
+          </div>
+          <div class="mas-cell photo-cell-5">
+            <div class="mas-overlay"><span class="mas-dot"></span><span class="mas-label">Kupa Akullore</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Product Photo Grid</h3>
+      <p>Dense masonry grid of actual product photos. Like the old website grid but darker &amp; premium. Works with existing product images — no new content needed.</p>
+    </div>
+  </div>
+
+  <!-- Option C -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mock-section era-dark">
+        <div class="feat-header">
+          <div class="proj-eyebrow">Punët Tona</div>
+          <div class="proj-title">Projektet e Fundit</div>
+          <div class="proj-sub">Projekt i zgjedhur + lista e projekteve</div>
+        </div>
+        <div class="feat-layout">
+          <div class="feat-main">
+            <div class="feat-hero">
+              <div class="feat-hero-overlay"></div>
+              <div class="feat-hero-content">
+                <div class="feat-logo-chip">
+                  <div class="feat-logo-dot"></div>
+                  <span class="feat-logo-text">Bit Restaurant</span>
+                </div>
+                <div class="feat-hero-name">11 Lloje Ambalazhesh</div>
+                <div class="feat-hero-sub">Kuti crepa, sushi box, enë ushqimore</div>
+              </div>
+            </div>
+            <div class="feat-stats">
+              <div class="feat-stat"><div class="feat-stat-n">11</div><div class="feat-stat-l">Produkte</div></div>
+              <div class="feat-stat"><div class="feat-stat-n">4</div><div class="feat-stat-l">Madhësi</div></div>
+              <div class="feat-stat"><div class="feat-stat-n">100%</div><div class="feat-stat-l">Custom</div></div>
+            </div>
+          </div>
+          <div class="feat-stack">
+            <div class="feat-mini">
+              <div class="feat-mini-img photo-cell-2"></div>
+              <div class="feat-mini-body">
+                <div class="feat-mini-name">Kafe Soma</div>
+                <div class="feat-mini-count">6 produkte</div>
+              </div>
+            </div>
+            <div class="feat-mini">
+              <div class="feat-mini-img photo-cell-3"></div>
+              <div class="feat-mini-body">
+                <div class="feat-mini-name">Fresh Market</div>
+                <div class="feat-mini-count">8 produkte</div>
+              </div>
+            </div>
+            <div class="feat-mini">
+              <div class="feat-mini-img photo-cell-4"></div>
+              <div class="feat-mini-body">
+                <div class="feat-mini-name">Bistro 44</div>
+                <div class="feat-mini-count">4 produkte</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Featured + Side Stack</h3>
+      <p>One big featured project (like Bit) takes the spotlight with stats, smaller client cards stack on the side. Editorial feel, great for showing depth.</p>
+    </div>
+  </div>
+
+</div>

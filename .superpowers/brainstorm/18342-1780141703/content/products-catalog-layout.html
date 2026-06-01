@@ -1,0 +1,146 @@
+<h2>How should /products organize everything?</h2>
+<p class="subtitle">You have ~5 products with 3D editors + ~8 box/other products without. Pick the catalog structure.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f8faf5;padding:14px;height:220px;border-radius:8px 8px 0 0;overflow:hidden;">
+      <!-- Same as old site: 3D heroes top, boxes as list below -->
+      <div style="margin-bottom:8px;">
+        <div style="font-size:8px;font-weight:700;color:#4ca706;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px;">● Me Editor 3D</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;">
+          <div style="background:white;border:1px solid #e0ecd4;border-radius:6px;padding:6px;text-align:center;">
+            <div style="width:18px;height:26px;background:linear-gradient(#4ca706,#2d6604);border-radius:2px;margin:0 auto 3px;"></div>
+            <div style="font-size:7px;color:#333;font-weight:600;">Gota</div>
+            <div style="font-size:6px;color:#4ca706;margin-top:1px;">3D ✦</div>
+          </div>
+          <div style="background:white;border:1px solid #e0ecd4;border-radius:6px;padding:6px;text-align:center;">
+            <div style="width:22px;height:20px;background:linear-gradient(#e8e0d0,#c8c0b0);border-radius:2px;margin:0 auto 3px;"></div>
+            <div style="font-size:7px;color:#333;font-weight:600;">Kupa Pasta</div>
+            <div style="font-size:6px;color:#4ca706;margin-top:1px;">3D ✦</div>
+          </div>
+          <div style="background:white;border:1px solid #e0ecd4;border-radius:6px;padding:6px;text-align:center;">
+            <div style="width:20px;height:22px;background:linear-gradient(#d4e8ff,#a8c8f0);border-radius:3px 3px 1px 1px;margin:0 auto 3px;"></div>
+            <div style="font-size:7px;color:#333;font-weight:600;">Akullore</div>
+            <div style="font-size:6px;color:#4ca706;margin-top:1px;">3D ✦</div>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:1px solid #e8f0e0;padding-top:8px;">
+        <div style="font-size:8px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px;">Produkte të tjera</div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="background:white;border:1px solid #e5e5e5;border-radius:4px;padding:4px 8px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:8px;font-weight:600;color:#333;">Kuti Ushqimore</span><span style="font-size:8px;color:#999;">→</span>
+          </div>
+          <div style="background:white;border:1px solid #e5e5e5;border-radius:4px;padding:4px 8px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:8px;font-weight:600;color:#333;">Kuti Embëlsira</span><span style="font-size:8px;color:#999;">→</span>
+          </div>
+          <div style="background:#f9f5ff;border:1px solid #4ca706;border-radius:4px;padding:4px 8px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:8px;font-weight:700;color:#4ca706;">✦ Kuti Premium</span><span style="font-size:8px;color:#4ca706;">→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Same as old site (proven)</h3>
+      <p>3D-editor products in a featured grid at top. Box products as a clean list below. Users already understand this pattern. Fast to build.</p>
+      <div class="pros-cons" style="margin-top:8px">
+        <div class="pros"><h4>Pros</h4><ul><li>Familiar, no learning curve</li><li>3D products feel premium</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>No context — client doesn't know which box is for food vs dessert at a glance</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f8faf5;padding:14px;height:220px;border-radius:8px 8px 0 0;overflow:hidden;">
+      <!-- Category tabs: Pije, Ushqim, Embëlsira, Tjera -->
+      <div style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;">
+        <div style="background:#4ca706;color:white;font-size:7px;font-weight:700;padding:3px 7px;border-radius:20px;">Të gjitha</div>
+        <div style="background:white;border:1px solid #e0ecd4;color:#666;font-size:7px;font-weight:600;padding:3px 7px;border-radius:20px;">☕ Kafe & Pije</div>
+        <div style="background:white;border:1px solid #e0ecd4;color:#666;font-size:7px;font-weight:600;padding:3px 7px;border-radius:20px;">🍔 Ushqim</div>
+        <div style="background:white;border:1px solid #e0ecd4;color:#666;font-size:7px;font-weight:600;padding:3px 7px;border-radius:20px;">🍰 Embëlsira</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:5px;">
+        <div style="background:white;border:1.5px solid #4ca706;border-radius:6px;padding:7px;position:relative;">
+          <div style="font-size:6px;color:#4ca706;font-weight:700;position:absolute;top:4px;right:4px;">3D</div>
+          <div style="width:16px;height:24px;background:linear-gradient(#4ca706,#2d6604);border-radius:2px;margin-bottom:3px;"></div>
+          <div style="font-size:7px;font-weight:700;color:#333;">Gota Letre</div>
+          <div style="font-size:6px;color:#888;">3.5 · 7 · 12oz</div>
+        </div>
+        <div style="background:white;border:1px solid #e5e5e5;border-radius:6px;padding:7px;">
+          <div style="width:20px;height:16px;background:linear-gradient(#f0e8d8,#d8c8b0);border-radius:2px;margin-bottom:3px;"></div>
+          <div style="font-size:7px;font-weight:700;color:#333;">Kuti Ushqimore</div>
+          <div style="font-size:6px;color:#888;">Burger · Fritas · Sallata</div>
+        </div>
+        <div style="background:white;border:1px solid #e5e5e5;border-radius:6px;padding:7px;">
+          <div style="width:18px;height:18px;background:linear-gradient(#f8e8f0,#e8c8d8);border-radius:2px;margin-bottom:3px;"></div>
+          <div style="font-size:7px;font-weight:700;color:#333;">Kuti Embëlsira</div>
+          <div style="font-size:6px;color:#888;">Tortë · Byrek · Kek</div>
+        </div>
+        <div style="background:white;border:1px solid #e5e5e5;border-radius:6px;padding:7px;position:relative;">
+          <div style="font-size:6px;color:#ff9900;font-weight:700;position:absolute;top:4px;right:4px;">★ Premium</div>
+          <div style="width:18px;height:18px;background:linear-gradient(#f8e8c0,#e8c880);border-radius:2px;margin-bottom:3px;"></div>
+          <div style="font-size:7px;font-weight:700;color:#333;">Kuti Pasticeri</div>
+          <div style="font-size:6px;color:#888;">Foli ari · Premium</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Category filter tabs</h3>
+      <p>Filter tabs at top: "Kafe & Pije", "Ushqim", "Embëlsira", "Tjera". Client clicks their industry and sees only relevant products. 3D badge highlights interactive products.</p>
+      <div class="pros-cons" style="margin-top:8px">
+        <div class="pros"><h4>Pros</h4><ul><li>Clients find their product by use case</li><li>Scales well as you add products</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Slightly more complex to build</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d0d0d;padding:14px;height:220px;border-radius:8px 8px 0 0;overflow:hidden;">
+      <!-- Dark premium: 3D hero strip + catalog below -->
+      <div style="margin-bottom:8px;">
+        <div style="font-size:7px;font-weight:700;color:#4ca706;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:5px;">Personalizo në 3D</div>
+        <div style="display:flex;gap:5px;overflow:hidden;">
+          <div style="background:#111;border:1px solid rgba(76,167,6,0.3);border-radius:6px;padding:6px 8px;flex-shrink:0;min-width:55px;text-align:center;">
+            <div style="width:14px;height:22px;background:linear-gradient(#4ca706,#2d6604);border-radius:2px;margin:0 auto 3px;box-shadow:0 0 6px rgba(76,167,6,0.4);"></div>
+            <div style="font-size:6px;color:#eee;font-weight:600;">Gota</div>
+          </div>
+          <div style="background:#111;border:1px solid rgba(76,167,6,0.15);border-radius:6px;padding:6px 8px;flex-shrink:0;min-width:55px;text-align:center;">
+            <div style="width:18px;height:16px;background:linear-gradient(#c8bfb0,#a8a090);border-radius:2px;margin:0 auto 3px;"></div>
+            <div style="font-size:6px;color:#eee;font-weight:600;">Kupa Pasta</div>
+          </div>
+          <div style="background:#111;border:1px solid rgba(76,167,6,0.15);border-radius:6px;padding:6px 8px;flex-shrink:0;min-width:55px;text-align:center;">
+            <div style="width:16px;height:18px;background:linear-gradient(#b0c8e8,#88a8d0);border-radius:3px 3px 1px 1px;margin:0 auto 3px;"></div>
+            <div style="font-size:6px;color:#eee;font-weight:600;">Akullore</div>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:7px;">
+        <div style="font-size:7px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">Kuti & Paketime</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:4px 6px;">
+            <div style="font-size:7px;color:rgba(255,255,255,0.7);font-weight:600;">Kuti Ushqimore</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:4px 6px;">
+            <div style="font-size:7px;color:rgba(255,255,255,0.7);font-weight:600;">Kuti Embëlsira</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(76,167,6,0.2);border-radius:4px;padding:4px 6px;">
+            <div style="font-size:7px;color:#4ca706;font-weight:700;">★ Kuti Premium</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:4px 6px;">
+            <div style="font-size:7px;color:rgba(255,255,255,0.7);font-weight:600;">Leter Tavoline</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Dark two-zone layout</h3>
+      <p>Dark ERA aesthetic. Top zone: horizontal scrollable strip of 3D-editor products (dark cards, green glow). Bottom zone: clean grid of box/other products. Matches the rest of the site's dark branding.</p>
+      <div class="pros-cons" style="margin-top:8px">
+        <div class="pros"><h4>Pros</h4><ul><li>Consistent with site's dark aesthetic</li><li>3D products feel dramatically different</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>No category filtering</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+</div>

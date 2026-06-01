@@ -1,0 +1,146 @@
+<h2>Scroll storyboard — Gota 7oz</h2>
+<p class="subtitle">5 chapters as the user scrolls. Model stays fixed, callouts appear around it. Does this sequence feel right?</p>
+
+<style>
+.story { display:flex; flex-direction:column; gap:16px; margin-top:8px; }
+.chapter { background:#0d0d0d; border:1px solid rgba(255,255,255,0.07); border-radius:12px; overflow:hidden; display:flex; height:160px; }
+.chapter-label { width:110px; flex-shrink:0; background:#111; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-right:1px solid rgba(255,255,255,0.06); padding:12px; }
+.chapter-num { font-size:10px; font-weight:700; color:#4ca706; letter-spacing:0.15em; text-transform:uppercase; }
+.chapter-name { font-size:11px; font-weight:700; color:rgba(255,255,255,0.85); text-align:center; line-height:1.3; }
+.chapter-scroll { font-size:9px; color:rgba(255,255,255,0.25); margin-top:4px; }
+.scene { flex:1; position:relative; display:flex; align-items:center; justify-content:center; }
+/* model placeholder */
+.model-cup { width:38px; height:70px; background:linear-gradient(160deg,#e8e0d4,#c8c0b4); border-radius:5px 5px 3px 3px; position:relative; box-shadow:0 0 24px rgba(76,167,6,0.3), 0 8px 24px rgba(0,0,0,0.5); flex-shrink:0; }
+.model-cup::after { content:''; position:absolute; top:28px; left:0; right:0; height:16px; background:#4ca706; opacity:0.85; }
+/* callout boxes */
+.callout { position:absolute; background:rgba(10,18,8,0.92); border:1px solid rgba(76,167,6,0.35); border-radius:8px; padding:8px 12px; min-width:110px; }
+.callout-title { font-size:11px; font-weight:700; color:#4ca706; margin-bottom:2px; }
+.callout-sub { font-size:9px; color:rgba(255,255,255,0.45); line-height:1.4; }
+.callout-line { position:absolute; background:rgba(76,167,6,0.3); }
+/* dim = not-yet-visible callouts */
+.dim { opacity:0.15; }
+/* size pills */
+.size-row { display:flex; gap:4px; margin-top:4px; }
+.size-pill { font-size:8px; font-weight:700; padding:2px 6px; border-radius:20px; background:rgba(76,167,6,0.15); color:#4ca706; border:1px solid rgba(76,167,6,0.3); }
+.size-pill.active { background:#4ca706; color:#fff; }
+/* connector dot on model */
+.dot { position:absolute; width:5px; height:5px; background:#4ca706; border-radius:50%; box-shadow:0 0 6px #4ca706; }
+/* progress bar left */
+.progress { position:absolute; left:12px; top:16px; bottom:16px; width:2px; background:rgba(255,255,255,0.06); border-radius:1px; }
+.progress-fill { position:absolute; top:0; left:0; right:0; background:#4ca706; border-radius:1px; }
+</style>
+
+<div class="story">
+
+  <!-- Chapter 1: Intro -->
+  <div class="chapter">
+    <div class="chapter-label">
+      <span class="chapter-num">01 — Intro</span>
+      <span class="chapter-name">Cup appears</span>
+      <span class="chapter-scroll">scroll 0%</span>
+    </div>
+    <div class="scene">
+      <div class="progress"><div class="progress-fill" style="height:0%"></div></div>
+      <div style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;margin-left:20px">
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.9);letter-spacing:-0.01em;text-align:center">Gota Letre<br/><span style="color:#4ca706">me Printim</span></div>
+        <div class="model-cup"></div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.2);text-align:center">Fillo scrolling</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 2: Coffee callout -->
+  <div class="chapter">
+    <div class="chapter-label">
+      <span class="chapter-num">02 — Kafe</span>
+      <span class="chapter-name">Coffee feature</span>
+      <span class="chapter-scroll">scroll 25%</span>
+    </div>
+    <div class="scene">
+      <div class="progress"><div class="progress-fill" style="height:25%"></div></div>
+      <div style="position:relative;width:260px;height:120px;margin-left:20px;display:flex;align-items:center;justify-content:center">
+        <div class="model-cup" style="transform:rotateY(-8deg)"></div>
+        <!-- left callout: coffee -->
+        <div class="callout" style="left:0;top:10px">
+          <div class="callout-title">E përkryer për kafe</div>
+          <div class="callout-sub">Espresso, lungo,<br/>cappuccino & americano</div>
+        </div>
+        <!-- connector -->
+        <div class="dot" style="left:116px;top:30px"></div>
+        <div style="position:absolute;left:116px;top:32px;width:18px;height:1px;background:rgba(76,167,6,0.4)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 3: Sizes -->
+  <div class="chapter">
+    <div class="chapter-label">
+      <span class="chapter-num">03 — Madhësi</span>
+      <span class="chapter-name">3 sizes</span>
+      <span class="chapter-scroll">scroll 50%</span>
+    </div>
+    <div class="scene">
+      <div class="progress"><div class="progress-fill" style="height:50%"></div></div>
+      <div style="position:relative;width:260px;height:120px;margin-left:20px;display:flex;align-items:center;justify-content:center">
+        <div class="model-cup"></div>
+        <!-- right callout: sizes -->
+        <div class="callout" style="right:0;top:15px">
+          <div class="callout-title">3 madhësi</div>
+          <div class="size-row">
+            <div class="size-pill">3.5oz</div>
+            <div class="size-pill active">7oz</div>
+            <div class="size-pill">12oz</div>
+          </div>
+        </div>
+        <div class="dot" style="right:116px;top:35px"></div>
+        <div style="position:absolute;right:116px;top:37px;width:18px;height:1px;background:rgba(76,167,6,0.4)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 4: 12oz cap -->
+  <div class="chapter">
+    <div class="chapter-label">
+      <span class="chapter-num">04 — Kapak</span>
+      <span class="chapter-name">12oz + cap</span>
+      <span class="chapter-scroll">scroll 75%</span>
+    </div>
+    <div class="scene">
+      <div class="progress"><div class="progress-fill" style="height:75%"></div></div>
+      <div style="position:relative;width:260px;height:120px;margin-left:20px;display:flex;align-items:center;justify-content:center">
+        <!-- model with cap on top -->
+        <div style="position:relative">
+          <div style="width:40px;height:6px;background:#4ca706;border-radius:3px 3px 0 0;margin-bottom:-1px;box-shadow:0 0 8px rgba(76,167,6,0.5)"></div>
+          <div class="model-cup" style="transform:rotateY(8deg)"></div>
+        </div>
+        <!-- left callout: cap -->
+        <div class="callout" style="left:0;top:20px">
+          <div class="callout-title">12oz vjen me kapak</div>
+          <div class="callout-sub">Kapak PET i veçantë,<br/>i pajtueshëm me gotën</div>
+        </div>
+        <div class="dot" style="left:126px;top:30px"></div>
+        <div style="position:absolute;left:126px;top:32px;width:16px;height:1px;background:rgba(76,167,6,0.4)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 5: CTA -->
+  <div class="chapter">
+    <div class="chapter-label">
+      <span class="chapter-num">05 — CTA</span>
+      <span class="chapter-name">Order now</span>
+      <span class="chapter-scroll">scroll 100%</span>
+    </div>
+    <div class="scene">
+      <div class="progress"><div class="progress-fill" style="height:100%"></div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-left:20px">
+        <div class="model-cup" style="transform:rotateY(15deg) scale(0.9)"></div>
+        <div style="background:#4ca706;border-radius:6px;padding:6px 16px;font-size:10px;font-weight:700;color:white">Merr ofertën tënde falas →</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.2)">Pa detyrime · Përgjigje 24h</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">Does this sequence work? Let me know in the terminal if you'd change any chapter or add something.</p>

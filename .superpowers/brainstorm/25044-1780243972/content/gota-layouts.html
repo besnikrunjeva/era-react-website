@@ -1,0 +1,178 @@
+<h2>Gota Letre — Product Page Layout</h2>
+<p class="subtitle">3 approaches for the dedicated paper cups page. Which direction feels right?</p>
+
+<style>
+  .layout-cards { display: flex; flex-direction: column; gap: 20px; margin-top: 24px; }
+  .layout-card {
+    border: 2px solid transparent;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: #fff;
+  }
+  .layout-card:hover { border-color: #4ca706; box-shadow: 0 4px 20px rgba(76,167,6,0.15); }
+  .layout-card.selected { border-color: #4ca706; box-shadow: 0 4px 24px rgba(76,167,6,0.25); }
+  .layout-label {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px; background: #f8faf6; border-bottom: 1px solid #e8f0e2;
+    font-weight: 700; font-size: 13px; color: #333;
+  }
+  .layout-label .badge {
+    background: #4ca706; color: white; font-size: 10px; font-weight: 800;
+    padding: 2px 8px; border-radius: 20px; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .layout-label .rec { color: #4ca706; font-size: 11px; font-weight: 600; margin-left: auto; }
+  .preview-frame { padding: 16px; background: #f4f4f4; }
+
+  /* Layout A — Split Hero */
+  .preview-a { display: flex; gap: 0; border-radius: 10px; overflow: hidden; height: 200px; }
+  .prev-a-left { flex: 1.2; background: #0f1010; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .cup-mock { width: 70px; height: 90px; background: linear-gradient(135deg, #2a2a2a, #1a1a1a); border-radius: 4px 4px 12px 12px; border: 1px solid #4ca706; display: flex; align-items: center; justify-content: center; position: relative; }
+  .cup-mock::after { content: 'LOGO'; font-size: 8px; color: #4ca706; font-weight: 800; letter-spacing: 1px; }
+  .prev-a-right { flex: 1; background: white; padding: 18px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .prev-a-tag { font-size: 9px; color: #4ca706; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; }
+  .prev-a-title { font-size: 18px; font-weight: 800; color: #111; line-height: 1.2; }
+  .prev-a-sizes { display: flex; gap: 5px; }
+  .size-chip { padding: 3px 8px; border-radius: 20px; background: #f0f9e8; border: 1px solid #c8ddb8; font-size: 9px; color: #4ca706; font-weight: 700; }
+  .prev-a-cta { margin-top: 6px; background: #4ca706; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-size: 10px; font-weight: 700; width: fit-content; }
+
+  /* Layout B — Dark Editorial */
+  .preview-b { border-radius: 10px; overflow: hidden; height: 200px; background: #0f1010; display: flex; flex-direction: column; }
+  .prev-b-hero { flex: 1; display: flex; align-items: center; gap: 20px; padding: 20px 24px; }
+  .cup-trio { display: flex; gap: 6px; align-items: flex-end; }
+  .cup-s { width: 24px; height: 44px; background: linear-gradient(180deg, #1e2e1e, #0f1010); border: 1px solid #4ca706; border-radius: 2px 2px 8px 8px; }
+  .cup-m { width: 30px; height: 58px; background: linear-gradient(180deg, #1e2e1e, #0f1010); border: 1px solid #4ca706; border-radius: 2px 2px 8px 8px; }
+  .cup-l { width: 36px; height: 74px; background: linear-gradient(180deg, #1e2e1e, #0f1010); border: 1px solid #4ca706; border-radius: 2px 2px 8px 8px; }
+  .prev-b-text { color: white; }
+  .prev-b-tag { font-size: 9px; color: #4ca706; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 6px; }
+  .prev-b-title { font-size: 20px; font-weight: 800; line-height: 1.1; }
+  .prev-b-title span { color: #4ca706; }
+  .prev-b-sub { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 6px; }
+  .prev-b-bar { height: 44px; background: #181818; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; padding: 0 24px; gap: 20px; }
+  .prev-b-stat { text-align: center; }
+  .prev-b-stat .n { font-size: 14px; font-weight: 800; color: #4ca706; }
+  .prev-b-stat .l { font-size: 8px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* Layout C — Scroll Story */
+  .preview-c { border-radius: 10px; overflow: hidden; height: 200px; display: flex; gap: 0; }
+  .prev-c-left { width: 44px; background: white; display: flex; flex-direction: column; align-items: center; padding: 16px 0; gap: 4px; border-right: 1px solid #e8e8e8; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #4ca706; }
+  .dot.dim { background: #ddd; }
+  .dot-line { width: 1px; height: 20px; background: #ddd; }
+  .prev-c-main { flex: 1; background: white; }
+  .c-section { padding: 14px 16px; border-bottom: 1px solid #f0f0f0; }
+  .c-section:first-child { background: linear-gradient(135deg, #f0f9e8, white); }
+  .c-sec-label { font-size: 8px; color: #4ca706; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 4px; }
+  .c-sec-title { font-size: 13px; font-weight: 800; color: #111; }
+  .c-sec-desc { font-size: 9px; color: #888; margin-top: 2px; }
+  .c-size-row { display: flex; gap: 6px; margin-top: 8px; }
+  .c-size-card { flex: 1; padding: 6px; background: #f8faf6; border: 1px solid #c8ddb8; border-radius: 6px; text-align: center; }
+  .c-size-card .oz { font-size: 11px; font-weight: 800; color: #4ca706; }
+  .c-size-card .ml { font-size: 8px; color: #aaa; }
+</style>
+
+<div class="layout-cards">
+
+  <!-- Option A -->
+  <div class="layout-card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="layout-label">
+      <div class="badge">A</div>
+      Split Hero — Light &amp; Clean
+      <span class="rec">★ Good for conversion</span>
+    </div>
+    <div class="preview-frame">
+      <div class="preview-a">
+        <div class="prev-a-left">
+          <div style="text-align:center">
+            <div class="cup-mock"></div>
+            <div style="font-size:8px;color:#4ca706;margin-top:8px;letter-spacing:1px">LOGO TU KËTU</div>
+          </div>
+        </div>
+        <div class="prev-a-right">
+          <div class="prev-a-tag">Gota Letre · Custom Print</div>
+          <div class="prev-a-title">Gota me<br>logon tënde</div>
+          <div class="prev-a-sizes">
+            <div class="size-chip">3.5oz</div>
+            <div class="size-chip">7oz</div>
+            <div class="size-chip">12oz</div>
+          </div>
+          <button class="prev-a-cta">Merr Ofertë →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="layout-card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="layout-label">
+      <div class="badge">B</div>
+      Dark Editorial — Premium Showcase
+    </div>
+    <div class="preview-frame">
+      <div class="preview-b">
+        <div class="prev-b-hero">
+          <div class="cup-trio">
+            <div class="cup-s"></div>
+            <div class="cup-m"></div>
+            <div class="cup-l"></div>
+          </div>
+          <div class="prev-b-text">
+            <div class="prev-b-tag">Gota Letre · ERA</div>
+            <div class="prev-b-title">Gota me <span>printim</span><br>profesional</div>
+            <div class="prev-b-sub">3 madhësi · CMYK offset · Porosi minimum 1000 cope</div>
+          </div>
+        </div>
+        <div class="prev-b-bar">
+          <div class="prev-b-stat"><div class="n">3</div><div class="l">Madhësi</div></div>
+          <div style="width:1px;height:24px;background:rgba(255,255,255,0.07)"></div>
+          <div class="prev-b-stat"><div class="n">4 ngjyra</div><div class="l">CMYK</div></div>
+          <div style="width:1px;height:24px;background:rgba(255,255,255,0.07)"></div>
+          <div class="prev-b-stat"><div class="n">7–14 dit</div><div class="l">Prodhim</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option C -->
+  <div class="layout-card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="layout-label">
+      <div class="badge">C</div>
+      Scroll Story — Size Selector Focus
+    </div>
+    <div class="preview-frame">
+      <div class="preview-c">
+        <div class="prev-c-left">
+          <div class="dot"></div>
+          <div class="dot-line"></div>
+          <div class="dot"></div>
+          <div class="dot-line"></div>
+          <div class="dot dim"></div>
+          <div class="dot-line"></div>
+          <div class="dot dim"></div>
+        </div>
+        <div class="prev-c-main">
+          <div class="c-section">
+            <div class="c-sec-label">01 · Zgjidhni madhësinë</div>
+            <div class="c-sec-title">Cila gotë të duhet?</div>
+            <div class="c-size-row">
+              <div class="c-size-card"><div class="oz">3.5oz</div><div class="ml">100ml · Espresso</div></div>
+              <div class="c-size-card" style="border-color:#4ca706;background:#f0f9e8"><div class="oz">7oz</div><div class="ml">200ml · Filter</div></div>
+              <div class="c-size-card"><div class="oz">12oz</div><div class="ml">350ml · Latte</div></div>
+            </div>
+          </div>
+          <div class="c-section">
+            <div class="c-sec-label">02 · Materiali</div>
+            <div class="c-sec-title">Letër e bardhë ose Kraft</div>
+            <div class="c-sec-desc">Single-wall · Printim CMYK 4-ngjyrësh</div>
+          </div>
+          <div class="c-section" style="background:#f8faf6">
+            <div class="c-sec-label">03 · Oferta</div>
+            <div class="c-sec-title" style="color:#4ca706">Merr çmimin tënd →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Machines — Final Design</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #f0f0f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 24px; }
+
+:root { --g: #4ca706; --g-light: #edf7e3; --g-border: #c8ddb8; }
+
+h1.page-title { font-size: 1rem; font-weight: 700; color: #333; margin-bottom: 6px; }
+p.page-sub { font-size: 0.75rem; color: #888; margin-bottom: 20px; }
+
+/* ── Page shell ── */
+.page {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, #f4faf0 0%, #ffffff 70%);
+  padding: 28px 28px 22px;
+  border-bottom: 1px solid #e8f0e0;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(76,167,6,0.08), transparent 65%);
+  pointer-events: none;
+}
+.hero-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--g-light); border: 1px solid var(--g-border); border-radius: 100px; padding: 4px 12px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--g); margin-bottom: 10px; }
+.hero-h1 { font-size: 1.6rem; font-weight: 900; color: #0f1010; line-height: 1.15; margin-bottom: 6px; }
+.hero-h1 span { color: var(--g); }
+.hero-sub { font-size: 0.72rem; color: #888; line-height: 1.6; max-width: 300px; }
+.hero-stats { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+.stat-card { background: #fff; border: 1px solid var(--g-border); border-radius: 10px; padding: 10px 16px; text-align: center; box-shadow: 0 1px 6px rgba(76,167,6,0.07); min-width: 80px; }
+.stat-n { font-size: 1.3rem; font-weight: 900; color: var(--g); line-height: 1; }
+.stat-l { font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; color: #aaa; margin-top: 2px; }
+
+/* ── Process strip ── */
+.process-strip {
+  background: #f9fdf6;
+  border-bottom: 1px solid #e8f0e0;
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+}
+.ps-step { display: flex; align-items: center; gap: 0; flex: 1; }
+.ps-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--g); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(76,167,6,0.25); }
+.ps-dot span { font-size: 0.55rem; font-weight: 800; color: #fff; }
+.ps-info { margin-left: 6px; flex: 1; }
+.ps-name { font-size: 0.6rem; font-weight: 700; color: #222; }
+.ps-connector { flex: 1; height: 1.5px; background: linear-gradient(90deg, var(--g-border), #e0e0e0); min-width: 10px; }
+.ps-step:last-child .ps-connector { display: none; }
+
+/* ── Body: rail + content ── */
+.body { display: flex; min-height: 500px; }
+
+.rail {
+  width: 52px;
+  flex-shrink: 0;
+  background: #f9fdf6;
+  border-right: 1px solid #e8f0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+}
+.rail-item { display: flex; flex-direction: column; align-items: center; }
+.rail-dot { width: 10px; height: 10px; border-radius: 50%; background: #dde8d4; border: 2px solid var(--g-border); }
+.rail-dot.a { background: var(--g); border-color: var(--g); box-shadow: 0 0 8px rgba(76,167,6,0.4); }
+.rail-num { font-size: 0.42rem; font-weight: 800; color: #bbb; letter-spacing: 0.05em; margin-top: 3px; }
+.rail-num.a { color: var(--g); }
+.rail-line { width: 1.5px; height: 40px; background: #ddefd0; margin: 3px 0; }
+
+.content { flex: 1; }
+
+/* ── Category section ── */
+.cat { padding: 20px 22px 16px; border-bottom: 1px solid #f0f0f0; }
+.cat:last-child { border-bottom: none; }
+.cat.dim { opacity: 0.45; }
+
+.cat-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.cat-n { font-size: 0.58rem; font-weight: 800; color: var(--g); letter-spacing: 0.12em; text-transform: uppercase; }
+.cat-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--g-border), transparent); }
+.cat-name { font-size: 0.95rem; font-weight: 800; color: #111; }
+.cat-sub { font-size: 0.62rem; color: #999; margin-top: 2px; margin-bottom: 12px; line-height: 1.5; }
+
+/* ── Machine card: horizontal ── */
+.mc {
+  display: flex;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  border-radius: 9px;
+  overflow: hidden;
+  margin-bottom: 7px;
+}
+.mc:last-child { margin-bottom: 0; }
+.mc:hover { box-shadow: 0 2px 12px rgba(76,167,6,0.1); border-color: var(--g-border); }
+.mc.special { border-color: #fcd34d; background: #fffdf5; }
+
+.mc-img {
+  width: 100px;
+  flex-shrink: 0;
+  background: #f0f0f0;
+  display: flex; align-items: center; justify-content: center;
+  border-right: 1px solid #ebebeb;
+  position: relative;
+  overflow: hidden;
+}
+.mc-img::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(76,167,6,0.05), transparent); }
+.mc.special .mc-img { background: #fef9ec; border-right-color: #fcd34d; }
+.mc.special .mc-img::before { background: linear-gradient(135deg, rgba(245,158,11,0.07), transparent); }
+
+.img-ph { display: flex; flex-direction: column; align-items: center; gap: 3px; opacity: 0.3; }
+.img-ph-lbl { font-size: 0.42rem; text-transform: uppercase; letter-spacing: 0.08em; color: #555; }
+
+.mc-body { padding: 9px 12px; flex: 1; }
+.mc-badge {
+  display: inline-block;
+  font-size: 0.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--g); background: var(--g-light); border: 1px solid var(--g-border);
+  border-radius: 100px; padding: 2px 7px; margin-bottom: 4px;
+}
+.mc-badge.amber { color: #b45309; background: #fef3c7; border-color: #fcd34d; }
+.mc-name { font-size: 0.72rem; font-weight: 800; color: #111; margin-bottom: 5px; line-height: 1.3; }
+.mc-specs { display: flex; flex-wrap: wrap; gap: 3px; }
+.mc-spec { font-size: 0.5rem; color: #777; background: #f0f0f0; padding: 2px 6px; border-radius: 3px; }
+.mc.special .mc-spec { background: #fef3c7; color: #92400e; }
+
+/* ── CTA ── */
+.cta {
+  background: linear-gradient(135deg, #f4faf0, #edfae3);
+  border-top: 1px solid var(--g-border);
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.cta-text h3 { font-size: 0.95rem; font-weight: 800; color: #111; margin-bottom: 3px; }
+.cta-text p  { font-size: 0.65rem; color: #888; }
+.cta-btn { background: var(--g); color: white; border: none; border-radius: 8px; padding: 10px 20px; font-size: 0.7rem; font-weight: 700; cursor: pointer; white-space: nowrap; }
+
+/* note */
+.note { font-size: 0.65rem; color: #aaa; text-align: center; padding: 10px; border-top: 1px solid #f0f0f0; }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">Machines page — full layout preview</h1>
+<p class="page-sub">White theme · Horizontal cards · Green progress rail · All 4 categories · Image placeholders</p>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">✦ Infrastruktura jonë</div>
+        <div class="hero-h1">13 makina prodhimi<br/><span>të nivelit industrial</span></div>
+        <div class="hero-sub">Nga shtypja offset Heidelberg deri tek formueset e gotave letre — kapacitet i plotë prodhimi në Prishtinë.</div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card"><div class="stat-n">13</div><div class="stat-l">Makina</div></div>
+        <div class="stat-card"><div class="stat-n">4</div><div class="stat-l">Kategori</div></div>
+        <div class="stat-card"><div class="stat-n">3.9M+</div><div class="stat-l">Njësi/vit</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS STRIP -->
+  <div class="process-strip">
+    <div class="ps-step">
+      <div class="ps-dot"><span>1</span></div>
+      <div class="ps-info"><div class="ps-name">Dizajni</div></div>
+      <div class="ps-connector"></div>
+    </div>
+    <div class="ps-step">
+      <div class="ps-dot"><span>2</span></div>
+      <div class="ps-info"><div class="ps-name">Para-shtyp</div></div>
+      <div class="ps-connector"></div>
+    </div>
+    <div class="ps-step">
+      <div class="ps-dot"><span>3</span></div>
+      <div class="ps-info"><div class="ps-name">Printimi</div></div>
+      <div class="ps-connector"></div>
+    </div>
+    <div class="ps-step">
+      <div class="ps-dot"><span>4</span></div>
+      <div class="ps-info"><div class="ps-name">Prerja</div></div>
+      <div class="ps-connector"></div>
+    </div>
+    <div class="ps-step">
+      <div class="ps-dot"><span>5</span></div>
+      <div class="ps-info"><div class="ps-name">Dërgesa</div></div>
+      <div class="ps-connector"></div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- Rail -->
+    <div class="rail">
+      <div class="rail-item"><div class="rail-dot a"></div><div class="rail-num a">01</div><div class="rail-line"></div></div>
+      <div class="rail-item"><div class="rail-dot a"></div><div class="rail-num a">02</div><div class="rail-line"></div></div>
+      <div class="rail-item"><div class="rail-dot a"></div><div class="rail-num a">03</div><div class="rail-line"></div></div>
+      <div class="rail-item"><div class="rail-dot a"></div><div class="rail-num a">04</div></div>
+    </div>
+
+    <!-- All categories -->
+    <div class="content">
+
+      <!-- CAT 1 -->
+      <div class="cat">
+        <div class="cat-head"><div class="cat-n">01</div><div class="cat-line"></div></div>
+        <div class="cat-name">Printimi</div>
+        <div class="cat-sub">Shtypje offset me saktësi të lartë, 4-ngjyrësh CMYK</div>
+
+        <div class="mc">
+          <div class="mc-img" style="min-height:64px">
+            <div class="img-ph"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4h12v2"/><circle cx="7" cy="12" r="1.5" fill="#555"/></svg><span class="img-ph-lbl">Foto</span></div>
+          </div>
+          <div class="mc-body">
+            <span class="mc-badge">Offset Printing</span>
+            <div class="mc-name">Shtypëse Offset 4-Ngjyrësh</div>
+            <div class="mc-specs"><span class="mc-spec">Heidelberg</span><span class="mc-spec">Sheet-fed</span><span class="mc-spec">4-color CMYK</span><span class="mc-spec">B1 Format</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAT 2 -->
+      <div class="cat">
+        <div class="cat-head"><div class="cat-n">02</div><div class="cat-line"></div></div>
+        <div class="cat-name">Prerja & Stampimi</div>
+        <div class="cat-sub">Prerje dhe stampim me saktësi industriale</div>
+
+        <div class="mc">
+          <div class="mc-img" style="min-height:60px">
+            <div class="img-ph"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/></svg><span class="img-ph-lbl">Foto</span></div>
+          </div>
+          <div class="mc-body">
+            <span class="mc-badge">Die Cutting</span>
+            <div class="mc-name">Makinë Prerëse & Stampuese — Kryesore</div>
+            <div class="mc-specs"><span class="mc-spec">Lukes LKS-1060H</span><span class="mc-spec">Flatbed Die-cutter</span></div>
+          </div>
+        </div>
+
+        <div class="mc">
+          <div class="mc-img" style="min-height:60px">
+            <div class="img-ph"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/></svg><span class="img-ph-lbl">Foto</span></div>
+          </div>
+          <div class="mc-body">
+            <span class="mc-badge">Die Cutting</span>
+            <div class="mc-name">Makinë Prerëse & Stampuese — Dytësore</div>
+            <div class="mc-specs"><span class="mc-spec">TMZ Zaragoza CX-92</span><span class="mc-spec">Flatbed Die-cutter</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAT 3 -->
+      <div class="cat">
+        <div class="cat-head"><div class="cat-n">03</div><div class="cat-line"></div></div>
+        <div class="cat-name">Formimi i Kutive</div>
+        <div class="cat-sub">Palosje dhe ngjitje e kutive të gatshme</div>
+
+        <div class="mc">
+          <div class="mc-img" style="min-height:60px">
+            <div class="img-ph"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/></svg><span class="img-ph-lbl">Foto</span></div>
+          </div>
+          <div class="mc-body">
+            <span class="mc-badge">Box Forming</span>
+            <div class="mc-name">Makinë Palosëse-Ngjitëse (4 & 6 Kënde)</div>
+            <div class="mc-specs"><span class="mc-spec">GS Series</span><span class="mc-spec">Folder Gluer</span><span class="mc-spec">4 & 6 panel</span></div>
+          </div>
+        </div>
+
+        <div class="mc">
+          <div class="mc-img" style="min-height:60px">
+            <div class="img-ph"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/></svg><span class="img-ph-lbl">Foto</span></div>
+          </div>
+          <div class="mc-body">
+            <span class="mc-badge">Box Forming</span>
+            <div class="mc-name">Makinë Palosëse-Ngjitëse Lineare</div>
+            <div class="mc-specs"><span class="mc-spec">Straight-Line</span><span class="mc-spec">Folder Gluer</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAT 4 -->
+      <div class="cat">
+        <div class="cat-head"><div class="cat-n">04</div><div class="cat-line"></div></div>
+        <div class="cat-name">Paketime Ushqimore</div>
+        <div class="cat-sub">Formues të gotave, kupave dhe paketimeve të tjera ushqimore</div>
+
+        <div class="mc">
+          <div class="mc-img" style="min-height:60px">
+            <div class="img-ph"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg><span class="img-ph-lbl">Foto</span></div>
+          </div>
+          <div class="mc-body">
+            <span class="mc-badge">Food Packaging</span>
+            <div class="mc-name">3 × Makinë Formimi Gotash Letre</div>
+            <div class="mc-specs"><span class="mc-spec">Cup Forming</span><span class="mc-spec">3.5oz · 7oz · 12oz</span></div>
+          </div>
+        </div>
+
+        <div class="mc">
+          <div class="mc-img" style="min-height:60px">
+            <div class="img-ph"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12h20c0-5.52-4.48-10-10-10z"/><path d="M2 12c0 5.52 4.48 10 10 10s10-4.48 10-10"/><line x1="2" y1="12" x2="22" y2="12"/></svg><span class="img-ph-lbl">Foto</span></div>
+          </div>
+          <div class="mc-body">
+            <span class="mc-badge">Food Packaging</span>
+            <div class="mc-name">Makinë Formimi Kupash & Akullore</div>
+            <div class="mc-specs"><span class="mc-spec">MB-C12</span><span class="mc-spec">MB-C35</span><span class="mc-spec">Bowl Forming</span></div>
+          </div>
+        </div>
+
+        <div class="mc special">
+          <div class="mc-img" style="min-height:60px">
+            <div class="img-ph"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="1.5"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 00-5 5v6h5zm0 0v7"/></svg><span class="img-ph-lbl" style="color:#b45309">Foto</span></div>
+          </div>
+          <div class="mc-body">
+            <span class="mc-badge amber">⚙ Ndërtuar nga ERA</span>
+            <div class="mc-name">Makinë Paketimi Lugësh</div>
+            <div class="mc-specs"><span class="mc-spec">Cutlery Pocket</span><span class="mc-spec">Custom-built</span><span class="mc-spec">In-house</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="cta-text">
+      <h3>Gati të punojmë bashkë?</h3>
+      <p>Merr ofertën tënde falas · Përgjigje brenda 24h</p>
+    </div>
+    <button class="cta-btn">Nis bisedën →</button>
+  </div>
+
+  <div class="note">Progress rail tracks scroll position in the real page · Image placeholders replaced when photos are added</div>
+
+</div>
+
+<script>
+  // inject helper
+  if (window.parent !== window) {
+    const s = document.createElement('script');
+    s.src = '/helper.js';
+    document.head.appendChild(s);
+  }
+</script>
+</body>
+</html>

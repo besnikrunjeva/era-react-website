@@ -1,0 +1,171 @@
+<h2>How should the Machines page feel?</h2>
+<p class="subtitle">13 machines · 4 categories · This page signals industrial credibility. Pick the layout direction.</p>
+
+<style>
+  /* ERA brand tokens */
+  :root { --g: #4ca706; --dark: #0f1010; --dark2: #111; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 24px; }
+  @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
+
+  .card { border-radius: 14px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; background: #1a1a1a; }
+  .card:hover { border-color: var(--g); }
+  .card.selected { border-color: var(--g) !important; }
+
+  .card-image { padding: 20px 20px 0; height: 280px; overflow: hidden; position: relative; }
+  .card-body { padding: 18px 20px 20px; background: #1a1a1a; }
+  .card-body h3 { color: #fff; font-size: 1rem; font-weight: 700; margin: 0 0 6px; }
+  .card-body p  { color: rgba(255,255,255,0.4); font-size: 0.82rem; line-height: 1.5; margin: 0; }
+  .badge-g { display: inline-block; background: rgba(76,167,6,0.15); color: var(--g); border: 1px solid rgba(76,167,6,0.3); border-radius: 100px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; margin-bottom: 8px; }
+
+  /* ── OPTION A: Factory Floor Grid ── */
+  .a-hero { background: linear-gradient(135deg, #0a0a0a, #0f1010); padding: 14px 16px; border-radius: 8px 8px 0 0; }
+  .a-stats { display: flex; gap: 8px; margin-bottom: 10px; }
+  .a-stat { background: rgba(76,167,6,0.12); border: 1px solid rgba(76,167,6,0.25); border-radius: 6px; padding: 6px 10px; text-align: center; flex: 1; }
+  .a-stat-n { font-size: 1.1rem; font-weight: 800; color: var(--g); line-height: 1; }
+  .a-stat-l { font-size: 0.55rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+  .a-cat { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+  .a-cat-dot { width: 8px; height: 8px; background: var(--g); border-radius: 50%; }
+  .a-cat-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--g); }
+  .a-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .a-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 5px; padding: 7px 8px; }
+  .a-card-name { font-size: 0.6rem; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 3px; }
+  .a-card-spec { font-size: 0.55rem; color: rgba(255,255,255,0.3); }
+  .a-cat2 { display: flex; align-items: center; gap: 6px; margin: 7px 0 5px; }
+  .a-cat2-dot { width: 8px; height: 8px; background: #e07b00; border-radius: 50%; }
+  .a-cat2-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #e07b00; }
+
+  /* ── OPTION B: Horizontal Category Strips ── */
+  .b-strip { display: flex; gap: 0; height: 230px; border-radius: 8px 8px 0 0; overflow: hidden; }
+  .b-left { width: 90px; flex-shrink: 0; background: var(--g); display: flex; align-items: center; justify-content: center; padding: 12px 8px; }
+  .b-left-text { color: white; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
+  .b-right { flex: 1; background: #0f1010; padding: 14px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+  .b-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; }
+  .b-card-icon { width: 28px; height: 28px; background: rgba(76,167,6,0.15); border: 1px solid rgba(76,167,6,0.25); border-radius: 5px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .b-card-name { font-size: 0.62rem; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 2px; }
+  .b-card-spec { font-size: 0.55rem; color: rgba(255,255,255,0.3); }
+  .b-strip2 { display: flex; gap: 0; height: 80px; overflow: hidden; }
+  .b-left2 { width: 90px; flex-shrink: 0; background: #e07b00; display: flex; align-items: center; justify-content: center; padding: 12px 8px; }
+  .b-left2-text { color: white; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
+  .b-right2 { flex: 1; background: #0c0c0c; padding: 14px; display: flex; gap: 6px; overflow: hidden; }
+  .b-mini { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 5px; padding: 7px 8px; flex: 1; }
+  .b-mini-name { font-size: 0.58rem; font-weight: 700; color: rgba(255,255,255,0.7); }
+  .b-divider { height: 3px; background: linear-gradient(90deg, var(--g), transparent); }
+
+  /* ── OPTION C: Immersive scroll + side progress ── */
+  .c-wrap { display: flex; gap: 0; height: 270px; border-radius: 8px 8px 0 0; overflow: hidden; background: #080808; }
+  .c-sidebar { width: 36px; flex-shrink: 0; background: rgba(76,167,6,0.06); border-right: 1px solid rgba(76,167,6,0.12); display: flex; flex-direction: column; align-items: center; padding: 14px 0; gap: 0; justify-content: space-between; }
+  .c-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(76,167,6,0.2); border: 1.5px solid rgba(76,167,6,0.3); }
+  .c-dot.active { background: var(--g); box-shadow: 0 0 6px rgba(76,167,6,0.6); }
+  .c-line { flex: 1; width: 1.5px; background: rgba(76,167,6,0.15); margin: 3px 0; }
+  .c-main { flex: 1; padding: 14px 14px 14px 10px; display: flex; flex-direction: column; gap: 10px; }
+  .c-hero-num { font-size: 2rem; font-weight: 900; color: var(--g); line-height: 1; }
+  .c-hero-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.35); margin-top: 2px; }
+  .c-section-title { font-size: 0.8rem; font-weight: 800; color: white; border-left: 3px solid var(--g); padding-left: 8px; margin-bottom: 8px; }
+  .c-machine-row { display: flex; align-items: center; gap: 8px; padding: 7px; background: rgba(255,255,255,0.03); border-radius: 5px; border: 1px solid rgba(255,255,255,0.06); }
+  .c-machine-num { width: 20px; height: 20px; border-radius: 50%; background: rgba(76,167,6,0.15); border: 1px solid rgba(76,167,6,0.3); font-size: 0.55rem; font-weight: 800; color: var(--g); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .c-machine-info { flex: 1; }
+  .c-machine-name { font-size: 0.62rem; font-weight: 700; color: rgba(255,255,255,0.85); }
+  .c-machine-type { font-size: 0.55rem; color: rgba(255,255,255,0.3); }
+  .c-stats-row { display: flex; gap: 6px; margin-bottom: 6px; }
+  .c-stat-chip { background: rgba(76,167,6,0.1); border: 1px solid rgba(76,167,6,0.2); border-radius: 20px; padding: 4px 8px; }
+  .c-stat-n { font-size: 0.85rem; font-weight: 800; color: var(--g); }
+  .c-stat-l { font-size: 0.5rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.07em; }
+</style>
+
+<div class="cards">
+
+  <!-- OPTION A -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0a0a0a; padding:14px;">
+      <div class="a-stats">
+        <div class="a-stat"><div class="a-stat-n">13</div><div class="a-stat-l">Makina</div></div>
+        <div class="a-stat"><div class="a-stat-n">4</div><div class="a-stat-l">Kategori</div></div>
+        <div class="a-stat"><div class="a-stat-n">3.9M+</div><div class="a-stat-l">Njësi</div></div>
+      </div>
+      <div class="a-cat"><div class="a-cat-dot"></div><div class="a-cat-label">Printimi</div></div>
+      <div class="a-grid" style="margin-bottom:6px">
+        <div class="a-card"><div class="a-card-name">Heidelberg Offset</div><div class="a-card-spec">4-ngjyrësh · sheet-fed</div></div>
+        <div class="a-card" style="opacity:0.3"></div>
+        <div class="a-card" style="opacity:0.3"></div>
+      </div>
+      <div class="a-cat2"><div class="a-cat2-dot"></div><div class="a-cat2-label">Prerja & Stampimi</div></div>
+      <div class="a-grid">
+        <div class="a-card"><div class="a-card-name">Lukes LKS-1060H</div><div class="a-card-spec">Flatbed die-cutter</div></div>
+        <div class="a-card"><div class="a-card-name">TMZ Zaragoza CX-92</div><div class="a-card-spec">Flatbed die-cutter</div></div>
+        <div class="a-card" style="opacity:0.3"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="badge-g">Recommended</div>
+      <h3>A — Factory Floor Grid</h3>
+      <p>Dense dark grid. All 13 machines visible at once, grouped by colour-coded category. Stats bar at top. Heavy on data, signals real industrial scale.</p>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0; background:#080808;">
+      <div class="b-strip">
+        <div class="b-left"><div class="b-left-text">Printimi</div></div>
+        <div class="b-right">
+          <div class="b-card">
+            <div class="b-card-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4ca706" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4h12v2"/></svg></div>
+            <div><div class="b-card-name">Shtypëse Offset 4-Ngjyrësh</div><div class="b-card-spec">Heidelberg · Sheet-fed</div></div>
+          </div>
+          <div style="font-size:0.55rem;color:rgba(255,255,255,0.15);margin-top:auto">↓ Scroll for next category</div>
+        </div>
+      </div>
+      <div class="b-divider"></div>
+      <div class="b-strip2">
+        <div class="b-left2"><div class="b-left2-text">Prerja</div></div>
+        <div class="b-right2">
+          <div class="b-mini"><div class="b-mini-name">Lukes LKS-1060H</div></div>
+          <div class="b-mini"><div class="b-mini-name">TMZ Zaragoza CX-92</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Category Strips</h3>
+      <p>Each category is a full-width horizontal strip with a coloured left sidebar label. Scrolling reveals one category at a time. Editorial, magazine-feel.</p>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;">
+      <div class="c-wrap">
+        <div class="c-sidebar">
+          <div class="c-dot active"></div>
+          <div class="c-line"></div>
+          <div class="c-dot"></div>
+          <div class="c-line"></div>
+          <div class="c-dot"></div>
+          <div class="c-line"></div>
+          <div class="c-dot"></div>
+        </div>
+        <div class="c-main">
+          <div class="c-stats-row">
+            <div class="c-stat-chip"><div class="c-stat-n">13</div><div class="c-stat-l">Makina</div></div>
+            <div class="c-stat-chip"><div class="c-stat-n">3.9M+</div><div class="c-stat-l">Njësi/vit</div></div>
+            <div class="c-stat-chip"><div class="c-stat-n">4</div><div class="c-stat-l">Kategori</div></div>
+          </div>
+          <div class="c-section-title">01 — Printimi</div>
+          <div class="c-machine-row">
+            <div class="c-machine-num">1</div>
+            <div class="c-machine-info"><div class="c-machine-name">Shtypëse Offset 4-Ngjyrësh</div><div class="c-machine-type">Heidelberg · Sheet-fed Offset</div></div>
+          </div>
+          <div class="c-machine-row" style="opacity:0.35">
+            <div class="c-machine-num" style="border-color:rgba(76,167,6,0.1)">↓</div>
+            <div class="c-machine-info"><div class="c-machine-name" style="color:rgba(255,255,255,0.3)">02 — Prerja & Stampimi</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Immersive Scroll + Side Progress</h3>
+      <p>Thin green progress rail on the left tracks which category you're in as you scroll. Each category fades in as a full section. Cinematic, premium feel.</p>
+    </div>
+  </div>
+
+</div>

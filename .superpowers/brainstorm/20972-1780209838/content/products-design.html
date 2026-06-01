@@ -1,0 +1,265 @@
+<h2>Products page design — two zones</h2>
+<p class="subtitle">Scroll down to see both: the /products catalog and a single product page with the 3D editor.</p>
+
+<style>
+/* ── shared ── */
+.zone { border-radius:12px; overflow:hidden; margin-bottom:24px; }
+.zone-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.18em; padding:8px 14px; }
+
+/* ── /products catalog ── */
+.catalog { background:#f7faf4; border:1.5px solid #d4e8b0; }
+.catalog .zone-label { background:#4ca706; color:white; }
+.cat-hero { background:white; border-bottom:1px solid #eef4e8; padding:10px 14px; display:flex; align-items:center; justify-content:space-between; }
+.cat-hero-text h3 { font-size:13px; font-weight:800; color:#0f1a0a; margin:0 0 1px; }
+.cat-hero-text p { font-size:9px; color:#888; margin:0; }
+.cat-section-label { font-size:8px; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:#4ca706; padding:10px 14px 5px; }
+.cat-3d-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; padding:0 10px 10px; }
+.cat-3d-card { background:white; border:1.5px solid #4ca706; border-radius:8px; overflow:hidden; position:relative; }
+.cat-3d-card-img { height:52px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#0a1208,#0f1a0a); }
+.cat-3d-badge { position:absolute; top:4px; right:4px; background:#4ca706; color:white; font-size:6px; font-weight:800; padding:1px 4px; border-radius:3px; letter-spacing:.06em; }
+.cat-3d-body { padding:5px 6px; }
+.cat-3d-body h4 { font-size:8px; font-weight:700; color:#0f1a0a; margin:0 0 1px; }
+.cat-3d-body p { font-size:7px; color:#888; margin:0 0 4px; }
+.cat-3d-btns { display:flex; gap:3px; }
+.btn-outline-xs { font-size:6px; font-weight:700; padding:2px 5px; border-radius:3px; border:1px solid #4ca706; color:#4ca706; background:transparent; }
+.btn-green-xs { font-size:6px; font-weight:700; padding:2px 5px; border-radius:3px; background:#4ca706; color:white; border:none; }
+.cat-other-label { font-size:8px; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:#888; padding:8px 14px 5px; border-top:1px solid #eef4e8; margin-top:2px; }
+.cat-other-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; padding:0 10px 12px; }
+.cat-other-card { background:white; border:1px solid #e5ede0; border-radius:8px; overflow:hidden; }
+.cat-other-img { height:42px; background:#f4f9ee; display:flex; align-items:center; justify-content:center; }
+.cat-other-body { padding:5px 7px; }
+.cat-other-body h4 { font-size:8px; font-weight:700; color:#0f1a0a; margin:0 0 1px; }
+.cat-other-body p { font-size:6.5px; color:#888; margin:0 0 3px; }
+.cat-premium { border-color:#f59e0b !important; }
+.cat-premium-badge { font-size:6px; font-weight:700; color:#f59e0b; background:#fef3c7; padding:1px 4px; border-radius:2px; margin-bottom:2px; display:inline-block; }
+
+/* ── product detail page ── */
+.detail { background:#0d0d0d; border:1.5px solid rgba(76,167,6,.25); }
+.detail .zone-label { background:rgba(76,167,6,.12); color:#4ca706; border-bottom:1px solid rgba(76,167,6,.15); }
+.detail-hero { padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.05); display:flex; align-items:center; justify-content:space-between; }
+.detail-hero h3 { font-size:14px; font-weight:800; color:white; margin:0 0 2px; }
+.detail-hero p { font-size:8px; color:rgba(255,255,255,.4); margin:0; }
+.detail-specs { display:flex; gap:8px; padding:8px 14px; border-bottom:1px solid rgba(255,255,255,.05); }
+.spec-pill { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:3px 8px; font-size:7px; color:rgba(255,255,255,.6); font-weight:600; }
+.spec-pill.green { border-color:rgba(76,167,6,.4); color:#4ca706; background:rgba(76,167,6,.08); }
+/* editor zone */
+.editor-zone { display:grid; grid-template-columns:1fr 1fr; gap:0; height:130px; }
+.editor-2d { background:#111; border-right:1px solid rgba(255,255,255,.06); padding:8px 10px; display:flex; flex-direction:column; }
+.editor-2d-label { font-size:7px; font-weight:700; color:rgba(255,255,255,.3); text-transform:uppercase; letter-spacing:.12em; margin-bottom:6px; }
+.editor-upload { border:1.5px dashed rgba(76,167,6,.35); border-radius:6px; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
+.editor-upload span { font-size:8px; color:#4ca706; font-weight:700; }
+.editor-upload small { font-size:7px; color:rgba(255,255,255,.25); }
+.editor-logo-placed { border:1.5px solid rgba(76,167,6,.3); border-radius:6px; flex:1; display:flex; align-items:center; justify-content:center; background:rgba(76,167,6,.04); position:relative; overflow:hidden; }
+.logo-preview-mock { width:36px; height:14px; background:rgba(76,167,6,.6); border-radius:2px; display:flex; align-items:center; justify-content:center; }
+.logo-preview-mock span { font-size:6px; color:white; font-weight:700; }
+.drag-hint { position:absolute; bottom:4px; right:6px; font-size:6px; color:rgba(255,255,255,.2); }
+.editor-3d { background:#0a1208; padding:8px 10px; display:flex; flex-direction:column; }
+.editor-3d-label { font-size:7px; font-weight:700; color:rgba(255,255,255,.3); text-transform:uppercase; letter-spacing:.12em; margin-bottom:4px; }
+.cup-3d-mock { flex:1; display:flex; align-items:center; justify-content:center; position:relative; }
+.cup-shape { width:26px; height:46px; background:linear-gradient(160deg,#e8e0d4,#c8c0b4); border-radius:4px 4px 2px 2px; position:relative; box-shadow:0 0 16px rgba(76,167,6,.25); }
+.cup-logo-band { position:absolute; top:16px; left:0; right:0; height:13px; background:rgba(76,167,6,.75); display:flex; align-items:center; justify-content:center; }
+.cup-logo-band span { font-size:5px; color:white; font-weight:800; letter-spacing:.04em; }
+.editor-cta { padding:7px 14px; border-top:1px solid rgba(255,255,255,.06); display:flex; align-items:center; justify-content:space-between; }
+.editor-cta p { font-size:7px; color:rgba(255,255,255,.3); margin:0; }
+.btn-wa { background:#25d366; color:white; font-size:7px; font-weight:700; padding:5px 10px; border-radius:5px; border:none; display:flex; align-items:center; gap:3px; }
+/* arrow between panels */
+.editor-arrow { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); font-size:10px; color:rgba(76,167,6,.5); pointer-events:none; }
+</style>
+
+<!-- ── ZONE 1: /products catalog ── -->
+<div class="zone catalog">
+  <div class="zone-label">📋 /products — Catalog page</div>
+
+  <div class="cat-hero">
+    <div class="cat-hero-text">
+      <h3>Produktet Tona</h3>
+      <p>Ambalazhe letre me printim offset • Logo custom • 397+ klientë</p>
+    </div>
+    <div style="font-size:8px;color:#4ca706;font-weight:700;">InfiniteGrid hero ↑</div>
+  </div>
+
+  <div class="cat-section-label">✦ Me editor 3D — personalizo para se të porosisësh</div>
+  <div class="cat-3d-grid">
+    <div class="cat-3d-card">
+      <div class="cat-3d-card-img">
+        <div style="width:14px;height:24px;background:linear-gradient(#4ca706,#2d6604);border-radius:3px;box-shadow:0 0 8px rgba(76,167,6,.6)"></div>
+      </div>
+      <div class="cat-3d-badge">3D</div>
+      <div class="cat-3d-body">
+        <h4>Gota Letre</h4>
+        <p>3.5 · 7 · 12oz</p>
+        <div class="cat-3d-btns">
+          <span class="btn-outline-xs">Shiko</span>
+          <span class="btn-green-xs">Personalizo</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-3d-card">
+      <div class="cat-3d-card-img">
+        <div style="width:18px;height:18px;background:linear-gradient(#c8bfb0,#a8a090);border-radius:2px;box-shadow:0 0 6px rgba(76,167,6,.3)"></div>
+      </div>
+      <div class="cat-3d-badge">3D</div>
+      <div class="cat-3d-body">
+        <h4>Kupa Pasta</h4>
+        <p>S · M · L</p>
+        <div class="cat-3d-btns">
+          <span class="btn-outline-xs">Shiko</span>
+          <span class="btn-green-xs">Personalizo</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-3d-card">
+      <div class="cat-3d-card-img">
+        <div style="width:16px;height:20px;background:linear-gradient(#b8d0f0,#88a8d8);border-radius:3px 3px 1px 1px;box-shadow:0 0 6px rgba(76,167,6,.3)"></div>
+      </div>
+      <div class="cat-3d-badge">3D</div>
+      <div class="cat-3d-body">
+        <h4>Kupa Akullore</h4>
+        <p>H53 · H63</p>
+        <div class="cat-3d-btns">
+          <span class="btn-outline-xs">Shiko</span>
+          <span class="btn-green-xs">Personalizo</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-3d-card">
+      <div class="cat-3d-card-img">
+        <div style="width:22px;height:12px;background:linear-gradient(#e8d8b0,#c8b880);border-radius:2px;box-shadow:0 0 6px rgba(76,167,6,.3)"></div>
+      </div>
+      <div class="cat-3d-badge">3D</div>
+      <div class="cat-3d-body">
+        <h4>Leter Tavoline</h4>
+        <p>Custom print</p>
+        <div class="cat-3d-btns">
+          <span class="btn-outline-xs">Shiko</span>
+          <span class="btn-green-xs">Personalizo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cat-other-label">Paketime & Kuti</div>
+  <div class="cat-other-grid">
+    <div class="cat-other-card">
+      <div class="cat-other-img">
+        <div style="width:28px;height:20px;background:linear-gradient(#f0e8d8,#d8c8b0);border-radius:2px;"></div>
+      </div>
+      <div class="cat-other-body">
+        <h4>Kuti Ushqimore</h4>
+        <p>Burger · Fritas · Sallata</p>
+        <span class="btn-outline-xs" style="font-size:7px">Shiko →</span>
+      </div>
+    </div>
+    <div class="cat-other-card">
+      <div class="cat-other-img">
+        <div style="width:26px;height:20px;background:linear-gradient(#f8e8f0,#e8c8d8);border-radius:2px;"></div>
+      </div>
+      <div class="cat-other-body">
+        <h4>Kuti Embëlsira</h4>
+        <p>Tortë · Kek · Byrek</p>
+        <span class="btn-outline-xs" style="font-size:7px">Shiko →</span>
+      </div>
+    </div>
+    <div class="cat-other-card cat-premium">
+      <div class="cat-other-img" style="background:linear-gradient(135deg,#1a1000,#2a1800);">
+        <div style="width:26px;height:20px;background:linear-gradient(#f8e8a0,#c89820);border-radius:2px;box-shadow:0 0 8px rgba(200,152,32,.4)"></div>
+      </div>
+      <div class="cat-other-body">
+        <div class="cat-premium-badge">★ Premium</div>
+        <h4>Kuti Pasticeri</h4>
+        <p>Foli ari · Luksoz</p>
+        <span class="btn-outline-xs" style="font-size:7px;border-color:#f59e0b;color:#f59e0b">Shiko →</span>
+      </div>
+    </div>
+    <div class="cat-other-card">
+      <div class="cat-other-img">
+        <div style="width:28px;height:8px;background:linear-gradient(#e8e0d0,#c8c0b0);border-radius:1px;"></div>
+      </div>
+      <div class="cat-other-body">
+        <h4>Mbajtëse Lugësh</h4>
+        <p>Custom logo</p>
+        <span class="btn-outline-xs" style="font-size:7px">Shiko →</span>
+      </div>
+    </div>
+    <div class="cat-other-card">
+      <div class="cat-other-img">
+        <div style="width:24px;height:16px;background:linear-gradient(#e0f0e8,#c0d8c8);border-radius:2px;"></div>
+      </div>
+      <div class="cat-other-body">
+        <h4>Kapak Gote</h4>
+        <p>PET · 3 madhësi</p>
+        <span class="btn-outline-xs" style="font-size:7px">Shiko →</span>
+      </div>
+    </div>
+    <div class="cat-other-card">
+      <div class="cat-other-img">
+        <div style="width:28px;height:12px;background:linear-gradient(#f0f0e8,#d8d8c8);border-radius:1px;"></div>
+      </div>
+      <div class="cat-other-body">
+        <h4>Leter Mbeshtjellese</h4>
+        <p>Tavoline · Wrap</p>
+        <span class="btn-outline-xs" style="font-size:7px">Shiko →</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ZONE 2: individual product page with 3D editor ── -->
+<div class="zone detail">
+  <div class="zone-label">⚡ /products/gota — Individual product page (with 3D editor)</div>
+
+  <div class="detail-hero">
+    <div>
+      <h3>Gota Letre <span style="color:#4ca706">ERA</span></h3>
+      <p>Printim offset · Logo custom · Prodhim 7–14 ditë</p>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:7px;color:rgba(255,255,255,.25);">↑ InfiniteGrid hero</div>
+      <div style="font-size:7px;color:rgba(255,255,255,.25);">specs + gallery below</div>
+    </div>
+  </div>
+
+  <div class="detail-specs">
+    <span class="spec-pill green">3.5oz</span>
+    <span class="spec-pill green">7oz</span>
+    <span class="spec-pill green">12oz + kapak</span>
+    <span class="spec-pill">Min. 1,000 cope</span>
+    <span class="spec-pill">7–14 ditë</span>
+  </div>
+
+  <!-- THE EDITOR -->
+  <div style="padding:6px 14px 4px; font-size:8px;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.14em;">
+    Shiko logon tënde në 3D — falas
+  </div>
+  <div style="position:relative;">
+    <div class="editor-zone">
+      <!-- Left: 2D canvas -->
+      <div class="editor-2d">
+        <div class="editor-2d-label">1 — Ngarko logon</div>
+        <div class="editor-logo-placed">
+          <div class="logo-preview-mock"><span>LOGO</span></div>
+          <div class="drag-hint">tërhiq · shkalëzo</div>
+        </div>
+      </div>
+      <!-- Right: 3D preview -->
+      <div class="editor-3d">
+        <div class="editor-3d-label">2 — Rezultati 3D</div>
+        <div class="cup-3d-mock">
+          <div class="cup-shape">
+            <div class="cup-logo-band"><span>LOGO</span></div>
+          </div>
+          <div style="position:absolute;bottom:2px;right:4px;font-size:6px;color:rgba(76,167,6,.5);">rrotull ↻</div>
+        </div>
+      </div>
+    </div>
+    <!-- arrow overlay -->
+    <div class="editor-arrow">→</div>
+  </div>
+
+  <div class="editor-cta">
+    <p>Kënaqur me rezultatin?</p>
+    <button class="btn-wa">💬 Porosit në WhatsApp</button>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:8px;">Does this structure work? Confirm or tell me what to change.</p>

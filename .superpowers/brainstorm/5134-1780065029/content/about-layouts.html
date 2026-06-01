@@ -1,0 +1,364 @@
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; }
+
+  .question-header {
+    text-align: center;
+    padding: 28px 24px 20px;
+  }
+  .question-header h2 { font-size: 1.3rem; font-weight: 700; color: #111; margin-bottom: 6px; }
+  .question-header p { font-size: 0.875rem; color: #666; }
+
+  .layouts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 24px 32px; max-width: 1100px; margin: 0 auto; }
+
+  .layout-card {
+    background: white;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .layout-card:hover { border-color: #4ca706; box-shadow: 0 4px 16px rgba(76,167,6,0.15); }
+  .layout-card.selected { border-color: #4ca706; box-shadow: 0 4px 20px rgba(76,167,6,0.25); }
+
+  .card-label {
+    padding: 12px 16px 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; background: #4ca706; color: white; padding: 2px 8px; border-radius: 99px; }
+  .badge.rec { background: #4ca706; }
+  .badge.dark-opt { background: #0f1010; }
+  .badge.minimal { background: #6b7280; }
+  .card-label h3 { font-size: 0.9rem; font-weight: 700; color: #111; }
+
+  .card-desc { font-size: 0.78rem; color: #666; padding: 0 16px 12px; line-height: 1.5; }
+
+  /* ---- MOCKUP STYLES ---- */
+  .mockup-wrap { padding: 0 12px 12px; }
+  .page-mock { border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; }
+
+  /* Shared mini components */
+  .m-nav { background: white; border-bottom: 1px solid #e5e7eb; padding: 6px 10px; display: flex; align-items: center; justify-content: space-between; }
+  .m-logo { width: 28px; height: 10px; background: #4ca706; border-radius: 2px; }
+  .m-nav-links { display: flex; gap: 6px; }
+  .m-nav-links span { width: 20px; height: 5px; background: #d1d5db; border-radius: 2px; }
+  .m-cta-btn { width: 36px; height: 14px; background: #4ca706; border-radius: 3px; }
+
+  .m-badge { display: inline-block; background: rgba(76,167,6,0.12); color: #4ca706; font-size: 0.52rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 6px; border-radius: 99px; }
+  .m-h1 { height: 10px; background: #111; border-radius: 2px; margin: 4px 0 3px; }
+  .m-h1.sm { height: 7px; background: #374151; }
+  .m-text { height: 4px; background: #d1d5db; border-radius: 2px; margin: 3px 0; }
+  .m-text.short { width: 60%; }
+  .m-text.med { width: 80%; }
+  .m-green-line { height: 1px; background: rgba(76,167,6,0.3); margin: 6px 0; }
+  .m-img { background: #e5e7eb; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+  .m-img-icon { width: 12px; height: 12px; opacity: 0.35; }
+  .m-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; }
+  .m-stat { padding: 5px 3px; text-align: center; }
+  .m-stat-num { height: 7px; background: #4ca706; border-radius: 2px; margin: 0 auto 2px; }
+  .m-stat-lbl { height: 3px; background: #d1d5db; border-radius: 2px; margin: 0 auto; width: 70%; }
+  .m-logos { display: flex; gap: 4px; justify-content: center; padding: 4px 0; }
+  .m-logo-item { width: 18px; height: 8px; background: #d1d5db; border-radius: 2px; }
+  .m-testimonial { background: #f9fafb; border-radius: 4px; padding: 5px 6px; border-left: 2px solid #4ca706; }
+  .m-quote { height: 3px; background: #9ca3af; border-radius: 2px; margin-bottom: 2px; }
+  .m-quote.short { width: 55%; }
+  .m-author { height: 3px; background: #d1d5db; border-radius: 2px; width: 40%; }
+  .m-section-label { font-size: 0.48rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #4ca706; margin-bottom: 3px; }
+  .m-divider { height: 1px; background: #e5e7eb; margin: 6px 0; }
+  .m-machines-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 4px; padding: 5px 6px; display: flex; align-items: center; justify-content: space-between; }
+  .m-machines-arrow { width: 8px; height: 8px; background: #4ca706; border-radius: 1px; }
+  .m-cta-row { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
+  .m-cta-big { height: 12px; background: #4ca706; border-radius: 3px; width: 60px; }
+  .m-cta-outline { height: 12px; background: transparent; border: 1px solid #4ca706; border-radius: 3px; width: 50px; }
+
+  /* OPTION A — Editorial */
+  .opt-a .hero-section { background: white; padding: 10px 12px 8px; }
+  .opt-a .story-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px 12px; background: white; }
+  .opt-a .logo-section { background: #f9fafb; padding: 6px 12px; }
+  .opt-a .testimonials { background: white; padding: 8px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .opt-a .cta-section { background: #0f1010; padding: 8px 12px; }
+
+  /* OPTION B — Dark hero */
+  .opt-b .dark-hero { background: #0f1010; padding: 10px 12px 8px; }
+  .opt-b .white-story { background: white; padding: 8px 12px; }
+  .opt-b .dark-testimonials { background: #0f1010; padding: 8px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .opt-b .dark-testimonials .m-testimonial { background: rgba(255,255,255,0.05); }
+  .opt-b .dark-testimonials .m-quote { background: #4b5563; }
+  .opt-b .dark-testimonials .m-author { background: #374151; }
+  .opt-b .white-cta { background: white; padding: 8px 12px; }
+
+  /* OPTION C — Stats-forward lean */
+  .opt-c .lean-hero { background: white; padding: 10px 12px 6px; }
+  .opt-c .trust-band { background: #4ca706; padding: 5px 12px; display: flex; gap: 4px; align-items: center; justify-content: center; }
+  .opt-c .trust-band .pill { height: 8px; background: rgba(255,255,255,0.6); border-radius: 99px; }
+  .opt-c .content-cols { background: white; padding: 8px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .opt-c .logos-section { background: #f9fafb; padding: 6px 12px; }
+</style>
+
+<div class="question-header">
+  <h2>Which About page layout feels right for ERA?</h2>
+  <p>All three use ERA green (#4ca706) and match the homepage's typography and spacing.</p>
+</div>
+
+<div class="layouts">
+
+  <!-- OPTION A: Editorial / Story-driven -->
+  <div class="layout-card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <span class="badge rec">Recommended</span>
+      <h3>A — Editorial</h3>
+    </div>
+    <p class="card-desc">White-background page. Hero trust statement → stats → story + placeholder image → client logos → testimonial cards → machines callout → CTA. Matches the homepage feel exactly.</p>
+    <div class="mockup-wrap">
+      <div class="page-mock opt-a">
+        <!-- Nav -->
+        <div class="m-nav">
+          <div class="m-logo"></div>
+          <div class="m-nav-links"><span></span><span></span><span></span><span></span></div>
+          <div class="m-cta-btn"></div>
+        </div>
+        <!-- Hero -->
+        <div class="hero-section">
+          <div style="text-align:center; padding: 4px 8px;">
+            <span class="m-badge">Rreth Nesh</span>
+            <div class="m-h1" style="width:75%; margin: 5px auto 3px;"></div>
+            <div class="m-text short" style="margin: 0 auto 3px;"></div>
+            <div class="m-text med" style="margin: 0 auto;"></div>
+          </div>
+          <div style="margin-top: 8px;">
+            <div class="m-stats">
+              <div class="m-stat"><div class="m-stat-num" style="width:60%;"></div><div class="m-stat-lbl"></div></div>
+              <div class="m-stat"><div class="m-stat-num" style="width:70%;"></div><div class="m-stat-lbl"></div></div>
+              <div class="m-stat"><div class="m-stat-num" style="width:50%;"></div><div class="m-stat-lbl"></div></div>
+              <div class="m-stat"><div class="m-stat-num" style="width:65%;"></div><div class="m-stat-lbl"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="m-divider" style="margin:0;"></div>
+        <!-- Story row -->
+        <div class="story-row">
+          <div>
+            <div class="m-section-label">Historia jonë</div>
+            <div class="m-h1 sm" style="width:80%;"></div>
+            <div class="m-text" style="margin-top:4px;"></div>
+            <div class="m-text med"></div>
+            <div class="m-text short"></div>
+            <div class="m-text"></div>
+            <div class="m-text short"></div>
+          </div>
+          <div class="m-img" style="height: 70px;">
+            <svg class="m-img-icon" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        </div>
+        <div class="m-divider" style="margin:0;"></div>
+        <!-- Logos -->
+        <div class="logo-section">
+          <div class="m-section-label" style="text-align:center;">Klientët tanë</div>
+          <div class="m-logos">
+            <div class="m-logo-item"></div><div class="m-logo-item"></div>
+            <div class="m-logo-item"></div><div class="m-logo-item"></div>
+            <div class="m-logo-item"></div><div class="m-logo-item"></div>
+          </div>
+        </div>
+        <div class="m-divider" style="margin:0;"></div>
+        <!-- Testimonials -->
+        <div class="testimonials">
+          <div class="m-testimonial">
+            <div class="m-quote"></div><div class="m-quote short"></div>
+            <div style="height:4px;"></div><div class="m-author"></div>
+          </div>
+          <div class="m-testimonial">
+            <div class="m-quote"></div><div class="m-quote short"></div>
+            <div style="height:4px;"></div><div class="m-author"></div>
+          </div>
+        </div>
+        <div class="m-divider" style="margin:0;"></div>
+        <!-- Machines callout -->
+        <div style="padding: 6px 12px;">
+          <div class="m-machines-card">
+            <div>
+              <div class="m-text" style="width:80px; height:5px;"></div>
+              <div class="m-text" style="width:55px; height:3px; margin-top:2px;"></div>
+            </div>
+            <div class="m-machines-arrow"></div>
+          </div>
+        </div>
+        <!-- CTA footer -->
+        <div class="cta-section">
+          <div style="text-align:center;">
+            <div class="m-h1 sm" style="width:55%; margin: 0 auto 5px; background:#fff;"></div>
+            <div class="m-cta-row">
+              <div class="m-cta-big"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION B: Dark hero -->
+  <div class="layout-card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <span class="badge dark-opt">Premium</span>
+      <h3>B — Dark Hero</h3>
+    </div>
+    <p class="card-desc">Starts with a dark (#0f1010) hero like the footer — premium brand statement. Switches to white for story and capability content. Dark again for testimonials. More dramatic feel.</p>
+    <div class="mockup-wrap">
+      <div class="page-mock opt-b">
+        <!-- Nav -->
+        <div class="m-nav">
+          <div class="m-logo"></div>
+          <div class="m-nav-links"><span></span><span></span><span></span><span></span></div>
+          <div class="m-cta-btn"></div>
+        </div>
+        <!-- Dark hero -->
+        <div class="dark-hero">
+          <div style="text-align:center; padding: 4px 8px;">
+            <span class="m-badge">Rreth Nesh</span>
+            <div class="m-h1" style="width:75%; margin: 5px auto 3px; background: white;"></div>
+            <div class="m-text short" style="margin: 0 auto 3px; background: #4b5563;"></div>
+            <div class="m-text med" style="margin: 0 auto; background: #374151;"></div>
+          </div>
+          <div style="margin-top: 8px;">
+            <div class="m-stats" style="background: #1a1a1a; border-color: #2d2d2d;">
+              <div class="m-stat"><div class="m-stat-num" style="width:60%;"></div><div class="m-stat-lbl" style="background:#374151;"></div></div>
+              <div class="m-stat"><div class="m-stat-num" style="width:70%;"></div><div class="m-stat-lbl" style="background:#374151;"></div></div>
+              <div class="m-stat"><div class="m-stat-num" style="width:50%;"></div><div class="m-stat-lbl" style="background:#374151;"></div></div>
+              <div class="m-stat"><div class="m-stat-num" style="width:65%;"></div><div class="m-stat-lbl" style="background:#374151;"></div></div>
+            </div>
+          </div>
+        </div>
+        <!-- White story -->
+        <div class="white-story">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <div class="m-img" style="height:60px;">
+              <svg class="m-img-icon" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            </div>
+            <div>
+              <div class="m-section-label">Historia jonë</div>
+              <div class="m-h1 sm" style="width:80%;"></div>
+              <div class="m-text" style="margin-top:4px;"></div>
+              <div class="m-text med"></div>
+              <div class="m-text short"></div>
+            </div>
+          </div>
+          <div style="margin-top:6px;">
+            <div class="m-logos" style="background:#f9fafb; border-radius:4px; padding:4px;">
+              <div class="m-logo-item"></div><div class="m-logo-item"></div>
+              <div class="m-logo-item"></div><div class="m-logo-item"></div>
+              <div class="m-logo-item"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Dark testimonials -->
+        <div class="dark-testimonials">
+          <div class="m-testimonial">
+            <div class="m-quote"></div><div class="m-quote short"></div>
+            <div style="height:4px;"></div><div class="m-author"></div>
+          </div>
+          <div class="m-testimonial">
+            <div class="m-quote"></div><div class="m-quote short"></div>
+            <div style="height:4px;"></div><div class="m-author"></div>
+          </div>
+        </div>
+        <!-- Light CTA -->
+        <div class="white-cta">
+          <div style="padding: 4px 0;">
+            <div class="m-machines-card">
+              <div>
+                <div class="m-text" style="width:80px; height:5px;"></div>
+                <div class="m-text" style="width:55px; height:3px; margin-top:2px;"></div>
+              </div>
+              <div class="m-machines-arrow"></div>
+            </div>
+            <div class="m-cta-row" style="margin-top:6px;">
+              <div class="m-cta-big"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION C: Stats-forward lean -->
+  <div class="layout-card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <span class="badge minimal">Lean</span>
+      <h3>C — Stats-Forward</h3>
+    </div>
+    <p class="card-desc">No big hero image placeholder. Stats are the first thing you see, then a green trust band, then two-column story + capability text, then logos. Very fast to build. Feels thinner.</p>
+    <div class="mockup-wrap">
+      <div class="page-mock opt-c">
+        <!-- Nav -->
+        <div class="m-nav">
+          <div class="m-logo"></div>
+          <div class="m-nav-links"><span></span><span></span><span></span><span></span></div>
+          <div class="m-cta-btn"></div>
+        </div>
+        <!-- Lean hero — no image -->
+        <div class="lean-hero">
+          <div style="text-align:center; padding: 4px 8px 6px;">
+            <span class="m-badge">Rreth Nesh</span>
+            <div class="m-h1" style="width:70%; margin: 5px auto 3px;"></div>
+            <div class="m-text short" style="margin: 0 auto;"></div>
+          </div>
+          <div class="m-stats">
+            <div class="m-stat"><div class="m-stat-num" style="width:60%;"></div><div class="m-stat-lbl"></div></div>
+            <div class="m-stat"><div class="m-stat-num" style="width:70%;"></div><div class="m-stat-lbl"></div></div>
+            <div class="m-stat"><div class="m-stat-num" style="width:50%;"></div><div class="m-stat-lbl"></div></div>
+            <div class="m-stat"><div class="m-stat-num" style="width:65%;"></div><div class="m-stat-lbl"></div></div>
+          </div>
+        </div>
+        <!-- Green trust band -->
+        <div class="trust-band">
+          <div class="pill" style="width:45px;"></div>
+          <div class="pill" style="width:30px;"></div>
+          <div class="pill" style="width:55px;"></div>
+          <div class="pill" style="width:35px;"></div>
+        </div>
+        <!-- Two-column content -->
+        <div class="content-cols">
+          <div>
+            <div class="m-section-label">Kush jemi</div>
+            <div class="m-h1 sm" style="width:80%;"></div>
+            <div class="m-text" style="margin-top:4px;"></div>
+            <div class="m-text med"></div>
+            <div class="m-text short"></div>
+            <div class="m-text"></div>
+          </div>
+          <div>
+            <div class="m-section-label">Çfarë bëjmë</div>
+            <div class="m-h1 sm" style="width:75%;"></div>
+            <div class="m-text" style="margin-top:4px;"></div>
+            <div class="m-text short"></div>
+            <div class="m-text med"></div>
+            <div class="m-text"></div>
+          </div>
+        </div>
+        <div class="m-divider" style="margin:0;"></div>
+        <!-- Logos -->
+        <div class="logos-section">
+          <div class="m-logos">
+            <div class="m-logo-item"></div><div class="m-logo-item"></div>
+            <div class="m-logo-item"></div><div class="m-logo-item"></div>
+            <div class="m-logo-item"></div><div class="m-logo-item"></div>
+          </div>
+        </div>
+        <div class="m-divider" style="margin:0;"></div>
+        <!-- Testimonials placeholder row -->
+        <div style="padding:6px 12px; display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+          <div class="m-testimonial"><div class="m-quote"></div><div class="m-quote short"></div><div style="height:4px;"></div><div class="m-author"></div></div>
+          <div class="m-testimonial"><div class="m-quote"></div><div class="m-quote short"></div><div style="height:4px;"></div><div class="m-author"></div></div>
+        </div>
+        <div class="m-divider" style="margin:0;"></div>
+        <!-- CTA -->
+        <div style="padding:6px 12px; text-align:center;">
+          <div class="m-cta-row"><div class="m-cta-big"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
