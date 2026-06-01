@@ -42,7 +42,7 @@ const MODEL_URL = {
 const isDesignMat = name => {
   if (!name) return false
   const u = name.toUpperCase()
-  return u.includes('DESIGN') || u.includes('DIZAJNI')
+  return u.includes('DESIGN') || u.includes('DIZAJN')
 }
 
 // Actual flat print area dimensions per size (mm)
@@ -60,7 +60,7 @@ const CUP_CANVAS = {
 }
 
 // Full cup heights for 3D viewer proportional scaling
-const CUP_HEIGHT = { '3.5oz': 58, '7oz': 90, '12oz': 115 }
+const CUP_HEIGHT = { '3.5oz': 56.5, '7oz': 79.9, '12oz': 114.8 }
 
 const LOGO_SIZE_FACTOR = { small: 0.55, medium: 1.0, large: 1.45 }
 
