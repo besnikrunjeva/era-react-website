@@ -7,11 +7,13 @@ import { Link } from 'react-router-dom'
 import { useNormalizedScene } from '@/lib/useNormalizedScene'
 import { LightingRig } from '@/components/ui/lighting-rig'
 
+const BASE = import.meta.env.BASE_URL
+
 const FEATURED = [
   {
     id: 'gota',
     slug: '/products/gota',
-    glb: '/models/gota-7oz.glb',
+    glb: `${BASE}models/gota-7oz.glb`,
     al: 'Gota Letre',
     en: 'Paper Cups',
     variants: '3.5oz · 7oz · 12oz',
@@ -19,7 +21,7 @@ const FEATURED = [
   {
     id: 'kupa-pasta',
     slug: '/products/kupa-pasta',
-    glb: '/models/kupa-pasta.glb',
+    glb: `${BASE}models/kupa-pasta.glb`,
     al: 'Kupa Pasta & Supe',
     en: 'Pasta & Soup Cups',
     variants: 'S · M · L',
@@ -27,7 +29,7 @@ const FEATURED = [
   {
     id: 'akullore',
     slug: '/products/akullore',
-    glb: '/models/akullore.glb',
+    glb: `${BASE}models/akullore.glb`,
     al: 'Kupa Akullore',
     en: 'Ice Cream Cups',
     variants: 'H53 · H63',
@@ -35,17 +37,17 @@ const FEATURED = [
   {
     id: 'mbajtese',
     slug: '/products/mbajtese',
-    glb: '/models/mbajtese.glb',
+    glb: `${BASE}models/mbajtese.glb`,
     al: 'Mbajtëse Lugësh',
     en: 'Spoon Holders',
     variants: 'Standard',
   },
 ]
 
-useGLTF.preload('/models/gota-7oz.glb')
-useGLTF.preload('/models/kupa-pasta.glb')
-useGLTF.preload('/models/akullore.glb')
-useGLTF.preload('/models/mbajtese.glb')
+useGLTF.preload(`${BASE}models/gota-7oz.glb`)
+useGLTF.preload(`${BASE}models/kupa-pasta.glb`)
+useGLTF.preload(`${BASE}models/akullore.glb`)
+useGLTF.preload(`${BASE}models/mbajtese.glb`)
 
 function SpinningModel({ glb }) {
   const pivot = useNormalizedScene(glb)

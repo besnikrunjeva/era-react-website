@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 export function VideoScrollHero({
-  videoSrc = '/videos/machine-01.mp4',
+  videoSrc = `${import.meta.env.BASE_URL}videos/machine-01.mp4`,
   startScale = 0.28,
   title,
   subtitle,

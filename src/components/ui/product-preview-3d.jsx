@@ -130,8 +130,9 @@ export function ProductPreview3D({
   )
 }
 
-useGLTF.preload('/models/gota-7oz.glb')
-useGLTF.preload('/models/kupa-pasta.glb')
-useGLTF.preload('/models/akullore.glb')
-useGLTF.preload('/models/leter-tavoline.glb')
-useGLTF.preload('/models/mbajtese-luge.glb')
+const BASE = import.meta.env.BASE_URL
+useGLTF.preload(`${BASE}models/gota-7oz.glb`)
+useGLTF.preload(`${BASE}models/kupa-pasta.glb`)
+useGLTF.preload(`${BASE}models/akullore.glb`)
+useGLTF.preload(`${BASE}models/leter-tavoline.glb`)
+useGLTF.preload(`${BASE}models/mbajtese-luge.glb`)

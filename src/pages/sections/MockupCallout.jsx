@@ -7,15 +7,17 @@ import { useNormalizedScene } from '@/lib/useNormalizedScene'
 import { LightingRig } from '@/components/ui/lighting-rig'
 
 /* ─── model catalogue ─────────────────────────────────────── */
+const BASE = import.meta.env.BASE_URL
+
 const MODELS = [
-  { id: 'gota',     url: '/models/gota.glb',     al: 'Gota Letre',      en: 'Paper Cups'     },
-  { id: 'akullore', url: '/models/akullore.glb',  al: 'Kupa Akullore',   en: 'Ice Cream Cups'  },
-  { id: 'mbajtese', url: '/models/mbajtese.glb',  al: 'Mbajtëse Lugësh', en: 'Spoon Holders'   },
+  { id: 'gota',     url: `${BASE}models/gota.glb`,     al: 'Gota Letre',      en: 'Paper Cups'     },
+  { id: 'akullore', url: `${BASE}models/akullore.glb`,  al: 'Kupa Akullore',   en: 'Ice Cream Cups'  },
+  { id: 'mbajtese', url: `${BASE}models/mbajtese.glb`,  al: 'Mbajtëse Lugësh', en: 'Spoon Holders'   },
 ]
 
-useGLTF.preload('/models/gota.glb')
-useGLTF.preload('/models/akullore.glb')
-useGLTF.preload('/models/mbajtese.glb')
+useGLTF.preload(`${BASE}models/gota.glb`)
+useGLTF.preload(`${BASE}models/akullore.glb`)
+useGLTF.preload(`${BASE}models/mbajtese.glb`)
 
 /* ─── single spinning model ───────────────────────────────── */
 function ActiveModel({ url }) {

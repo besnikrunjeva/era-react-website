@@ -12,9 +12,11 @@ import { CanvasTexture, TextureLoader, SRGBColorSpace } from 'three'
 import { toCreasedNormals } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { useNormalizedScene } from '@/lib/useNormalizedScene'
 
-useGLTF.preload('/models/gota-3.5oz.glb')
-useGLTF.preload('/models/gota-7oz.glb')
-useGLTF.preload('/models/gota-12oz.glb')
+const BASE = import.meta.env.BASE_URL
+
+useGLTF.preload(`${BASE}models/gota-3.5oz.glb`)
+useGLTF.preload(`${BASE}models/gota-7oz.glb`)
+useGLTF.preload(`${BASE}models/gota-12oz.glb`)
 
 // ─── Static data ───────────────────────────────────────────────────────────────
 
@@ -32,9 +34,9 @@ const USE_CASES = [
 ]
 
 const MODEL_URL = {
-  '3.5oz': '/models/gota-3.5oz.glb',
-  '7oz':   '/models/gota-7oz.glb',
-  '12oz':  '/models/gota-12oz.glb',
+  '3.5oz': `${BASE}models/gota-3.5oz.glb`,
+  '7oz':   `${BASE}models/gota-7oz.glb`,
+  '12oz':  `${BASE}models/gota-12oz.glb`,
 }
 
 const isDesignMat = name => {
@@ -332,8 +334,8 @@ export function GotaEditorSection({ lang = 'al' }) {
       mvc.setAttribute('ar', '')
       mvc.setAttribute('ar-modes', 'webxr quick-look')
       mvc.setAttribute('ar-scale', 'fixed')
-      mvc.setAttribute('src', '/models/gota-compare.usdz')
-      mvc.setAttribute('ios-src', '/models/gota-compare.usdz')
+      mvc.setAttribute('src', `${BASE}models/gota-compare.usdz`)
+      mvc.setAttribute('ios-src', `${BASE}models/gota-compare.usdz`)
       mvc.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;'
       mvContainerRef.current.appendChild(mvc)
       mvCompareRef.current = mvc

@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion'
 
+const BASE = import.meta.env.BASE_URL
 const videos = [
-  { src: '/videos/machine-01.mp4', label: { al: 'Këndi 01', en: 'Angle 01' } },
-  { src: '/videos/machine-02.mp4', label: { al: 'Këndi 02', en: 'Angle 02' } },
+  { src: `${BASE}videos/machine-01.mp4`, label: { al: 'Këndi 01', en: 'Angle 01' } },
+  { src: `${BASE}videos/machine-02.mp4`, label: { al: 'Këndi 02', en: 'Angle 02' } },
 ]
 
 export function MachineVideos({ lang = 'al' }) {
