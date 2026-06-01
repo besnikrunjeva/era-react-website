@@ -60,7 +60,7 @@ const CUP_CANVAS = {
 }
 
 // Full cup heights for 3D viewer proportional scaling
-const CUP_HEIGHT = { '3.5oz': 56.5, '7oz': 79.9, '12oz': 114.8 }
+const CUP_HEIGHT = { '3.5oz': 56.0, '7oz': 79.5, '12oz': 114.8 }
 
 const LOGO_SIZE_FACTOR = { small: 0.55, medium: 1.0, large: 1.45 }
 
@@ -101,6 +101,7 @@ function GotaCup({ url, cupTexture, size }) {
       const mats = Array.isArray(child.material) ? child.material : [child.material]
       mats.forEach(m => {
         if (!m) return
+        console.log('[mat]', m.name, '→ isDesign:', isDesignMat(m.name), '| hasTexture:', !!cupTexture)
         m.color.set('#ffffff')
         m.roughness   = 0.85
         m.metalness   = 0
