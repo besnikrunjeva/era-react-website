@@ -580,7 +580,7 @@ export function GotaEditorSection({ lang = 'al' }) {
         {/* ── Left: intro + viewer (desktop only) ── */}
         <div className="flex flex-col border-gray-100 lg:border-r">
 
-          {/* Intro — hidden on mobile (sticky viewer already takes top of page) */}
+          {/* Intro — animated on desktop */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -609,6 +609,27 @@ export function GotaEditorSection({ lang = 'al' }) {
             </div>
           </motion.div>
 
+          {/* Intro — static on mobile (no transform, preserves sticky viewer z-index) */}
+          <div className="px-5 pt-5 pb-4 lg:hidden">
+            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-3 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-[#4ca706]">
+              ⬡ Editor 3D
+            </span>
+            <h1 className="text-3xl font-black leading-tight tracking-tight text-gray-900">
+              Gota me <span className="text-[#4ca706]">printim</span><br />profesional
+            </h1>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {USE_CASES.map(({ label, Icon }) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-[10px] font-bold text-gray-600"
+                >
+                  <Icon className="size-3 text-[#4ca706]" />
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
+
           {/* Desktop 3D Viewer */}
           {isDesktop && (
             <div
@@ -629,9 +650,10 @@ export function GotaEditorSection({ lang = 'al' }) {
         {/* ── Right: sticky config panel ── */}
         <div className="flex flex-col lg:sticky lg:top-14 lg:max-h-[calc(100vh-3.5rem)] lg:overflow-y-auto lg:self-start">
 
-          <div className="border-b border-[#e8f3df] bg-[#f8fdf4] px-5 py-3">
-            <p className="text-[9px] font-black uppercase tracking-[0.14em] text-[#4ca706]">⬡ Personalizo gotën tënde</p>
-            <p className="mt-0.5 text-[15px] font-black leading-tight text-gray-900 lg:hidden">Gota me <span className="text-[#4ca706]">printim</span> profesional</p>
+          <div className="flex items-center justify-between border-b border-[#e8f3df] bg-[#f8fdf4] px-5 py-3">
+            <span className="text-[9px] font-black uppercase tracking-[0.14em] text-[#4ca706]">
+              ⬡ Personalizo gotën tënde
+            </span>
           </div>
 
           <div className="flex flex-col divide-y divide-gray-100">
