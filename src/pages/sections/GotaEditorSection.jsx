@@ -52,11 +52,14 @@ const CUP_PHYS = {
   '12oz':  { w: 230, h: 112 },
 }
 
-// Canvas pixel dimensions matching each cup's UV aspect ratio
+// Canvas pixel dimensions derived from each cup's UV background image (measured in Blender):
+//   3.5oz: 832×286  → H = round(1024×286/832)  = 352
+//   7oz:   994×398  → H = round(1024×398/994)  = 410
+//   12oz: 1254×638  → H = round(1024×638/1254) = 521
 const CUP_CANVAS = {
-  '3.5oz': { W: 1024, H: Math.round(1024 * 53  / 154) },  // 352
-  '7oz':   { W: 1024, H: Math.round(1024 * 73  / 182) },  // 411
-  '12oz':  { W: 1024, H: Math.round(1024 * 112 / 230) },  // 499
+  '3.5oz': { W: 1024, H: 352 },
+  '7oz':   { W: 1024, H: 410 },
+  '12oz':  { W: 1024, H: 521 },
 }
 
 // Full cup heights for 3D viewer proportional scaling
@@ -393,10 +396,17 @@ export function GotaEditorSection({ lang = 'al' }) {
         const curr  = CUP_PHYS[selectedSize]
         const scale = Math.min(base.w / curr.w, base.h / curr.h)
         const s     = Math.min(Math.round(H * 0.72 * scale * LOGO_SIZE_FACTOR[logoSize]), Math.round(W / 2 * 0.75))
-        const y     = (H - s) / 2
+
+        // Preserve logo's natural aspect ratio within the s×s bounding box
+        const imgAR = img.naturalWidth / img.naturalHeight
+        let drawW, drawH
+        if (imgAR >= 1) { drawW = s; drawH = Math.round(s / imgAR) }
+        else             { drawH = s; drawW = Math.round(s * imgAR) }
+
+        const y = (H - drawH) / 2
         // Draw centered on front (left half) and back (right half)
-        ctx.drawImage(img, W / 4 - s / 2, y, s, s)
-        ctx.drawImage(img, 3 * W / 4 - s / 2, y, s, s)
+        ctx.drawImage(img, W / 4 - drawW / 2, y, drawW, drawH)
+        ctx.drawImage(img, 3 * W / 4 - drawW / 2, y, drawW, drawH)
 
         logoCanvasRef.current = c
         const tex = new CanvasTexture(c)
