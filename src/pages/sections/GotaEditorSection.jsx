@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, Suspense, useTransition, useMemo, useEff
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Coffee, ForkKnifeCrossed, ShoppingBag, Building2,
-  Upload, Download, X, Check, RotateCcw, Maximize2, ScanLine, Mail, ScanEye,
+  Upload, Download, X, Check, RotateCcw, Mail, ScanEye,
 } from 'lucide-react'
 import '@google/model-viewer'
 import { Canvas } from '@react-three/fiber'
@@ -101,7 +101,6 @@ function GotaCup({ url, cupTexture, size }) {
       const mats = Array.isArray(child.material) ? child.material : [child.material]
       mats.forEach(m => {
         if (!m) return
-        console.log('[mat]', m.name, '→ isDesign:', isDesignMat(m.name), '| hasTexture:', !!cupTexture)
         m.color.set('#ffffff')
         m.roughness   = 0.85
         m.metalness   = 0
@@ -432,7 +431,7 @@ export function GotaEditorSection({ lang = 'al' }) {
 
           {/* 3D Viewer */}
           <div
-            className="relative mx-5 mb-6 flex min-h-[260px] flex-1 items-center justify-center overflow-hidden rounded-2xl md:mx-8 md:mb-8 lg:min-h-[340px]"
+            className="relative mx-5 mb-2 flex min-h-[300px] flex-1 items-center justify-center overflow-hidden rounded-2xl md:mx-8 md:mb-2 lg:min-h-[460px]"
             style={{ background: 'radial-gradient(ellipse at 50% 60%, #edfae0 0%, #f8f8f8 65%)', border: '1.5px solid #f0f0f0' }}
             onPointerDown={() => setShowDragHint(false)}
           >
@@ -484,20 +483,8 @@ export function GotaEditorSection({ lang = 'al' }) {
             {/* Hidden model-viewer host */}
             <div ref={mvContainerRef} aria-hidden="true" />
 
-            {/* Compare sizes CTA */}
-            <div className="absolute bottom-14 left-1/2 z-10 -translate-x-1/2">
-              <button
-                onClick={handleARCompare}
-                title="Krahaso madhësitë në tavolinën tuaj"
-                className="flex items-center gap-2 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-4 py-1.5 text-[11px] font-bold text-[#4ca706] shadow-sm transition-all hover:bg-[#e4f5d4] whitespace-nowrap"
-              >
-                <ScanEye className="size-3.5 shrink-0" />
-                Krahaso madhësitë në tavolinën tuaj!
-              </button>
-            </div>
-
             {/* Viewer controls */}
-            <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5">
+            <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center">
               <button
                 onClick={() => orbitRef.current?.reset()}
                 title="Rinis rrotullimin"
@@ -505,22 +492,41 @@ export function GotaEditorSection({ lang = 'al' }) {
               >
                 <RotateCcw className="size-3.5" />
               </button>
-              <button className="flex size-7 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 shadow-sm transition-colors hover:text-[#4ca706]">
-                <Maximize2 className="size-3.5" />
-              </button>
-              <button className="flex size-7 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 shadow-sm transition-colors hover:text-[#4ca706]">
-                <ScanLine className="size-3.5" />
-              </button>
-              <div className="mx-0.5 h-4 w-px bg-gray-200" />
-              <button
-                onClick={handleARClick}
-                title="Shiko në AR"
-                className="flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-3 py-1 text-[10px] font-bold text-[#4ca706] shadow-sm transition-all hover:bg-[#e4f5d4]"
-              >
-                <ScanEye className="size-3.5" />
-                AR
-              </button>
             </div>
+          </div>
+
+          {/* AR CTAs */}
+          <div className="mx-5 mb-6 flex flex-col items-center gap-3 md:mx-8 md:mb-8">
+            <button
+              onClick={handleARClick}
+              className="group relative w-full overflow-hidden rounded-full bg-gradient-to-r from-[#3d9005] via-[#4ca706] to-[#5db508] px-5 py-3.5 shadow-lg shadow-[#4ca706]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#4ca706]/50 active:scale-[0.97]"
+            >
+              <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-[100%]" />
+              <div className="relative flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/20">
+                    <ScanEye className="size-5 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-[13px] font-black leading-none text-white">Shiko gotën tënde në AR</div>
+                    <div className="mt-0.5 text-[10px] text-white/70">Kamera e telefonit · iOS & Android</div>
+                  </div>
+                </div>
+                <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/20">
+                  <svg className="size-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </button>
+
+            <button
+              onClick={handleARCompare}
+              className="flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-4 py-2 text-[10px] font-bold text-[#4ca706] transition-all hover:bg-[#e4f5d4]"
+            >
+              <ScanEye className="size-3" />
+              Krahaso 3 madhësitë bashkë
+            </button>
           </div>
         </div>
 
@@ -641,41 +647,6 @@ export function GotaEditorSection({ lang = 'al' }) {
               </AnimatePresence>
             </div>
 
-            {/* Step 3: Quantity */}
-            <div className="px-5 py-5">
-              <div className="mb-3 flex items-center gap-2.5">
-                <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#4ca706] text-[10px] font-black text-white">3</div>
-                <p className="text-[12px] font-black text-gray-800">Sasia minimale</p>
-              </div>
-              <div className="flex items-center justify-between rounded-xl border border-[#4ca706] bg-[#f0f9e8] px-4 py-3">
-                <div>
-                  <div className="text-[15px] font-black text-[#4ca706]">10 000 cope</div>
-                  <div className="text-[9px] text-[#8ec85a]">Një madhësi · e njëjtë</div>
-                </div>
-                <div className="flex size-6 items-center justify-center rounded-full bg-[#4ca706]">
-                  <Check className="size-3.5 text-white" strokeWidth={2.5} />
-                </div>
-              </div>
-              <div className="my-2.5 flex items-center gap-2">
-                <div className="h-px flex-1 bg-gray-100" />
-                <span className="text-[9px] font-bold text-gray-300">OSE</span>
-                <div className="h-px flex-1 bg-gray-100" />
-              </div>
-              <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
-                <div className="mb-2 text-[8px] font-black uppercase tracking-[0.1em] text-gray-400">Kombinim 2 madhësish</div>
-                <div className="flex items-center gap-2">
-                  <div className="flex-1 rounded-lg border border-[#c8ddb8] bg-white py-2 text-center">
-                    <div className="text-[13px] font-black text-[#4ca706]">5 000</div>
-                    <div className="text-[8px] text-gray-400">cope · 3.5oz</div>
-                  </div>
-                  <span className="text-sm font-light text-gray-300">+</span>
-                  <div className="flex-1 rounded-lg border border-[#c8ddb8] bg-white py-2 text-center">
-                    <div className="text-[13px] font-black text-[#4ca706]">5 000</div>
-                    <div className="text-[8px] text-gray-400">cope · 7oz</div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* CTA */}
