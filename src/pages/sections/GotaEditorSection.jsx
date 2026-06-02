@@ -308,8 +308,8 @@ export function GotaEditorSection({ lang = 'al' }) {
       mvContainerRef.current.appendChild(mv)
       mvRef.current = mv
     }
-    mvRef.current.setAttribute('src', `/models/gota-${selectedSize}.glb`)
-    mvRef.current.setAttribute('ios-src', `/models/gota-${selectedSize}.usdz`)
+    mvRef.current.setAttribute('src', `${BASE}models/gota-${selectedSize}.glb`)
+    mvRef.current.setAttribute('ios-src', `${BASE}models/gota-${selectedSize}.usdz`)
 
     if (!mvCompareRef.current) {
       const mvc = document.createElement('model-viewer')
