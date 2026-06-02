@@ -291,10 +291,12 @@ export function GotaEditorSection({ lang = 'al' }) {
   const [fullDesignFiles, setFullDesignFiles] = useState({ '3.5oz': null, '7oz': null, '12oz': null })
   const [cupTexture, setCupTexture]           = useState(null)
   const [showDragHint, setShowDragHint]       = useState(true)
+  const [arLoading, setArLoading]             = useState(false)
   const orbitRef                              = useRef(null)
   const mvContainerRef                        = useRef(null)
   const mvRef                                 = useRef(null)
   const mvCompareRef                          = useRef(null)
+  const logoCanvasRef                         = useRef(null)
 
   // Keep model-viewer src in sync with selected size
   useEffect(() => {
@@ -324,9 +326,45 @@ export function GotaEditorSection({ lang = 'al' }) {
     }
   }, [selectedSize])
 
-  const handleARClick = useCallback(() => {
-    if (mvRef.current) mvRef.current.activateAR()
-  }, [])
+  const handleARClick = useCallback(async () => {
+    const mv = mvRef.current
+    if (!mv) return
+
+    // No logo uploaded — launch plain white cup AR directly
+    if (!logoCanvasRef.current) {
+      mv.activateAR()
+      return
+    }
+
+    // Logo uploaded — generate branded USDZ from backend, then launch AR
+    setArLoading(true)
+    try {
+      const png = await new Promise((resolve, reject) => {
+        logoCanvasRef.current.toBlob(b => b ? resolve(b) : reject(new Error('toBlob failed')), 'image/png')
+      })
+
+      const fd = new FormData()
+      fd.append('canvas', png, 'canvas.png')
+      fd.append('size', selectedSize)
+
+      const res = await fetch(
+        `${import.meta.env.VITE_AR_API_URL ?? 'http://localhost:8000'}/generate-ar`,
+        { method: 'POST', body: fd },
+      )
+      if (!res.ok) throw new Error(`Backend ${res.status}`)
+
+      const blob = await res.blob()
+      const url  = URL.createObjectURL(blob)
+      mv.setAttribute('ios-src', url)
+      mv.setAttribute('src', url)
+      mv.activateAR()
+    } catch (err) {
+      console.error('[AR] generation failed, falling back to plain cup:', err)
+      mv.activateAR()
+    } finally {
+      setArLoading(false)
+    }
+  }, [selectedSize])
 
   const handleARCompare = useCallback(() => {
     if (mvCompareRef.current) mvCompareRef.current.activateAR()
@@ -335,7 +373,7 @@ export function GotaEditorSection({ lang = 'al' }) {
   // Rebuild texture whenever upload or selected size changes
   useEffect(() => {
     const file = uploadTab === 'logo' ? logoFile : fullDesignFiles[selectedSize]
-    if (!file) { setCupTexture(null); return }
+    if (!file) { setCupTexture(null); logoCanvasRef.current = null; return }
 
     const objectUrl = URL.createObjectURL(file)
 
@@ -360,6 +398,7 @@ export function GotaEditorSection({ lang = 'al' }) {
         ctx.drawImage(img, W / 4 - s / 2, y, s, s)
         ctx.drawImage(img, 3 * W / 4 - s / 2, y, s, s)
 
+        logoCanvasRef.current = c
         const tex = new CanvasTexture(c)
         tex.colorSpace = SRGBColorSpace
         tex.flipY = false
@@ -499,16 +538,22 @@ export function GotaEditorSection({ lang = 'al' }) {
           <div className="mx-5 mb-6 flex flex-col items-center gap-3 md:mx-8 md:mb-8">
             <button
               onClick={handleARClick}
-              className="group relative flex w-full overflow-hidden rounded-full bg-gradient-to-r from-[#3d9005] via-[#4ca706] to-[#5db508] px-5 py-3.5 shadow-lg shadow-[#4ca706]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#4ca706]/50 active:scale-[0.97]"
+              disabled={arLoading}
+              className="group relative flex w-full overflow-hidden rounded-full bg-gradient-to-r from-[#3d9005] via-[#4ca706] to-[#5db508] px-5 py-3.5 shadow-lg shadow-[#4ca706]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#4ca706]/50 active:scale-[0.97] disabled:opacity-80 disabled:cursor-not-allowed"
             >
               <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-[100%]" />
               <div className="relative flex w-full items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/20">
-                    <ScanEye className="size-5 text-white" />
+                    {arLoading
+                      ? <div className="size-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                      : <ScanEye className="size-5 text-white" />
+                    }
                   </div>
                   <div className="text-left">
-                    <div className="text-[13px] font-black leading-none text-white">Shiko gotën tënde në AR</div>
+                    <div className="text-[13px] font-black leading-none text-white">
+                      {arLoading ? 'Duke përgatitur AR…' : 'Shiko gotën tënde në AR'}
+                    </div>
                     <div className="mt-0.5 text-[10px] text-white/70">Kamera e telefonit · iOS & Android</div>
                   </div>
                 </div>
