@@ -1,4 +1,11 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  React.useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
 import { SimpleHeader } from '@/components/ui/simple-header'
 import { StickyFooter } from '@/components/ui/sticky-footer'
 import Home from '@/pages/Home'
@@ -12,6 +19,7 @@ import PreviewTest from '@/pages/PreviewTest'
 function App() {
   return (
     <BrowserRouter basename="/era-react-website">
+      <ScrollToTop />
       <SimpleHeader />
       <Routes>
         <Route path="/" element={<Home />} />

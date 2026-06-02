@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, Suspense, useTransition, useMemo, useEff
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Coffee, ForkKnifeCrossed, ShoppingBag, Building2,
-  Upload, Download, X, Check, RotateCcw, Mail, ScanEye,
+  Upload, Download, X, Check, RotateCcw, ScanEye, Camera,
 } from 'lucide-react'
 import '@google/model-viewer'
 import { Canvas } from '@react-three/fiber'
@@ -521,44 +521,45 @@ export function GotaEditorSection({ lang = 'al' }) {
     </>
   )
 
-  const arButtons = (
-    <>
-      <button
-        onClick={handleARClick}
-        disabled={arLoading}
-        className="group relative flex w-full overflow-hidden rounded-full bg-gradient-to-r from-[#3d9005] via-[#4ca706] to-[#5db508] px-5 py-3.5 shadow-lg shadow-[#4ca706]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#4ca706]/50 active:scale-[0.97] disabled:opacity-80 disabled:cursor-not-allowed"
-      >
-        <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-[100%]" />
-        <div className="relative flex w-full items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/20">
-              {arLoading
-                ? <div className="size-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                : <ScanEye className="size-5 text-white" />
-              }
-            </div>
-            <div className="text-left">
-              <div className="text-[13px] font-black leading-none text-white">
-                {arLoading ? 'Duke përgatitur AR…' : 'Shiko gotën tënde në AR'}
-              </div>
-              <div className="mt-0.5 text-[10px] text-white/70">Kamera e telefonit · iOS & Android</div>
-            </div>
+  const arButtonMain = (
+    <button
+      onClick={handleARClick}
+      disabled={arLoading}
+      className="group relative flex w-full overflow-hidden rounded-full bg-gradient-to-r from-[#3d9005] via-[#4ca706] to-[#5db508] px-5 py-3.5 shadow-lg shadow-[#4ca706]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#4ca706]/50 active:scale-[0.97] disabled:opacity-80 disabled:cursor-not-allowed"
+    >
+      <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-[100%]" />
+      <div className="relative flex w-full items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/20">
+            {arLoading
+              ? <div className="size-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+              : <ScanEye className="size-5 text-white" />
+            }
           </div>
-          <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/20">
-            <svg className="size-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
+          <div className="text-left">
+            <div className="text-[13px] font-black leading-none text-white">
+              {arLoading ? 'Duke përgatitur AR…' : 'Shiko gotën tënde në AR'}
+            </div>
+            <div className="mt-0.5 text-[10px] text-white/70">Kamera e telefonit · iOS & Android</div>
           </div>
         </div>
-      </button>
-      <button
-        onClick={handleARCompare}
-        className="flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-4 py-2 text-[10px] font-bold text-[#4ca706] transition-all hover:bg-[#e4f5d4]"
-      >
-        <ScanEye className="size-3" />
-        Krahaso 3 madhësitë bashkë
-      </button>
-    </>
+        <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/20">
+          <svg className="size-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </button>
+  )
+
+  const arButtonCompare = (
+    <button
+      onClick={handleARCompare}
+      className="flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-4 py-2 text-[10px] font-bold text-[#4ca706] transition-all hover:bg-[#e4f5d4]"
+    >
+      <ScanEye className="size-3" />
+      Krahaso 3 madhësitë bashkë
+    </button>
   )
 
   return (
@@ -643,7 +644,8 @@ export function GotaEditorSection({ lang = 'al' }) {
 
           {/* AR CTAs — desktop only; mobile AR lives at bottom of right panel */}
           <div className="hidden lg:flex mx-5 mb-6 flex-col items-center gap-3 md:mx-8 md:mb-8">
-            {arButtons}
+            {arButtonMain}
+            {arButtonCompare}
           </div>
         </div>
 
@@ -766,28 +768,61 @@ export function GotaEditorSection({ lang = 'al' }) {
 
           </div>
 
-          {/* Mobile AR CTAs — shown only on mobile, after upload section */}
-          <div className="flex flex-col gap-3 px-5 py-5 lg:hidden">
-            {arButtons}
+          {/* Mobile AR CTAs — main AR handled by pill; only compare shown here */}
+          <div className={`flex flex-col gap-3 px-5 py-5 lg:hidden ${!isDesktop && cupTexture ? 'pb-24' : ''}`}>
+            {arButtonCompare}
           </div>
 
-          {/* CTA */}
-          <div className="border-t-2 border-[#e8f3df] bg-white px-5 py-5">
-            <a
-              href={buildEmailLink()}
-              className="flex w-full flex-col items-center justify-center gap-0.5 rounded-2xl bg-[#4ca706] py-4 text-white shadow-xl shadow-[#4ca706]/25 transition-all hover:bg-[#3d9005] active:scale-[0.98]"
-            >
-              <div className="flex items-center gap-2.5">
-                <Mail className="size-5" />
-                <span className="text-[15px] font-black">Merr ofertë falas</span>
-              </div>
-              <span className="text-[10px] font-medium text-white/80">info@eraprintpack.com</span>
-            </a>
-            <p className="mt-3 text-center text-[9px] text-gray-400">Përgjigje brenda 24 orësh · Pa detyrime</p>
-          </div>
 
         </div>
       </div>
+
+      {/* Sticky CTA pill — mobile only, slides up after logo/design upload */}
+      <AnimatePresence>
+        {!isDesktop && cupTexture && (
+          <motion.div
+            initial={{ y: 90, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 90, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+            className="fixed bottom-4 left-4 right-4 z-30 flex items-center justify-between rounded-2xl border-[1.5px] border-[#4ca706] bg-white px-4 py-3 shadow-xl shadow-[#4ca706]/20 lg:hidden"
+          >
+            <div>
+              <div className="text-[9px] font-semibold text-gray-400">
+                Gota {selectedSize} · {uploadTab === 'logo' ? 'logoja juaj' : 'dizajni juaj'}
+              </div>
+              <div className="text-[12.5px] font-black text-gray-900">Gati për ofertë ✓</div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleARClick}
+                disabled={arLoading}
+                className="flex h-[52px] w-[62px] flex-col items-center justify-center gap-0.5 rounded-xl border-[1.5px] border-[#4ca706] text-[#4ca706] active:bg-[#f0f9e8] disabled:opacity-60"
+              >
+                <div className="relative">
+                  {arLoading
+                    ? <div className="size-4 animate-spin rounded-full border-2 border-[#4ca706]/30 border-t-[#4ca706]" />
+                    : <Camera className="size-4" />
+                  }
+                  {!arLoading && (
+                    <span className="absolute -right-0.5 -top-0.5 size-2 rounded-full bg-[#4ca706]">
+                      <span className="absolute inset-0 animate-ping rounded-full bg-[#4ca706] opacity-75" />
+                    </span>
+                  )}
+                </div>
+                <span className="text-[9px] font-bold leading-none">Shiko live</span>
+              </button>
+              <a
+                href={buildEmailLink()}
+                className="flex h-[52px] w-[62px] flex-col items-center justify-center rounded-xl bg-[#4ca706] shadow-md shadow-[#4ca706]/30"
+              >
+                <span className="text-[11px] font-black text-white">Merr →</span>
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </section>
   )
 }
