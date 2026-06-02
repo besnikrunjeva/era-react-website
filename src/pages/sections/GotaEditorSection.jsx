@@ -497,17 +497,10 @@ export function GotaEditorSection({ lang = 'al' }) {
 
           {/* AR CTAs */}
           <div className="mx-5 mb-6 flex flex-col items-center gap-3 md:mx-8 md:mb-8">
-            {/* iOS needs a native <a rel="ar"> pointing to the USDZ; Android falls back to model-viewer WebXR */}
-            <a
-              rel="ar"
-              href={`${BASE}models/gota-${selectedSize}.usdz`}
-              onClick={(e) => {
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
-                if (!isIOS) { e.preventDefault(); mvRef.current?.activateAR() }
-              }}
+            <button
+              onClick={handleARClick}
               className="group relative flex w-full overflow-hidden rounded-full bg-gradient-to-r from-[#3d9005] via-[#4ca706] to-[#5db508] px-5 py-3.5 shadow-lg shadow-[#4ca706]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#4ca706]/50 active:scale-[0.97]"
             >
-              <img src="" alt="" className="hidden" />
               <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-[100%]" />
               <div className="relative flex w-full items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -525,21 +518,15 @@ export function GotaEditorSection({ lang = 'al' }) {
                   </svg>
                 </div>
               </div>
-            </a>
+            </button>
 
-            <a
-              rel="ar"
-              href={`${BASE}models/gota-compare.usdz`}
-              onClick={(e) => {
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
-                if (!isIOS) { e.preventDefault(); mvCompareRef.current?.activateAR() }
-              }}
+            <button
+              onClick={handleARCompare}
               className="flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-4 py-2 text-[10px] font-bold text-[#4ca706] transition-all hover:bg-[#e4f5d4]"
             >
-              <img src="" alt="" className="hidden" />
               <ScanEye className="size-3" />
               Krahaso 3 madhësitë bashkë
-            </a>
+            </button>
           </div>
         </div>
 
