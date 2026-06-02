@@ -585,7 +585,7 @@ export function GotaEditorSection({ lang = 'al' }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="hidden px-5 pt-6 pb-5 md:px-8 md:pt-8 lg:block"
+            className="px-5 pt-5 pb-4 md:px-8 md:pt-8"
           >
             <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-3 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-[#4ca706]">
               ⬡ Editor 3D
