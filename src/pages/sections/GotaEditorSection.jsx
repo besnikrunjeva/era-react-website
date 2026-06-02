@@ -418,12 +418,22 @@ export function GotaEditorSection({ lang = 'al' }) {
       img.onerror = () => URL.revokeObjectURL(objectUrl)
       img.src = objectUrl
     } else {
-      new TextureLoader().load(objectUrl, tex => {
+      const img = new Image()
+      img.onload = () => {
+        const { W, H } = CUP_CANVAS[selectedSize]
+        const c = document.createElement('canvas')
+        c.width = W
+        c.height = H
+        c.getContext('2d').drawImage(img, 0, 0, W, H)
+        logoCanvasRef.current = c
+        const tex = new CanvasTexture(c)
         tex.colorSpace = SRGBColorSpace
         tex.flipY = false
         setCupTexture(tex)
         URL.revokeObjectURL(objectUrl)
-      })
+      }
+      img.onerror = () => URL.revokeObjectURL(objectUrl)
+      img.src = objectUrl
     }
   }, [logoFile, fullDesignFiles, uploadTab, selectedSize, logoSize])
   const [, startSizeTransition]               = useTransition()
