@@ -284,6 +284,21 @@ function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesign
   )
 }
 
+// ─── Breakpoint hook ───────────────────────────────────────────────────────────
+
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches
+  )
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
+    const handler = e => setIsDesktop(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+  return isDesktop
+}
+
 // ─── Main exported component ───────────────────────────────────────────────────
 
 export function GotaEditorSection({ lang = 'al' }) {
@@ -437,6 +452,7 @@ export function GotaEditorSection({ lang = 'al' }) {
     }
   }, [logoFile, fullDesignFiles, uploadTab, selectedSize, logoSize])
   const [, startSizeTransition]               = useTransition()
+  const isDesktop                              = useIsDesktop()
 
   const buildEmailLink = () => {
     const body = [
@@ -453,18 +469,123 @@ export function GotaEditorSection({ lang = 'al' }) {
     return `mailto:info@eraprintpack.com?subject=${encodeURIComponent('Porosi Gota Letre — ' + selectedSize)}&body=${encodeURIComponent(body.join('\n'))}`
   }
 
+  // Shared viewer inner — rendered inside either the mobile sticky box or the desktop panel
+  const viewerContent = (
+    <>
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div className="h-44 w-44 rounded-full opacity-60 blur-3xl" style={{ background: 'rgba(76,167,6,0.12)' }} />
+      </div>
+      <div className="absolute left-3 top-3 z-10 flex items-center gap-1 rounded-full border border-gray-200 bg-white px-2.5 py-1 text-[9px] font-bold text-gray-400 shadow-sm">
+        {selectedSize} · {SIZES.find(s => s.id === selectedSize)?.ml}
+      </div>
+      <div className="absolute right-3 top-3 z-10 flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-2.5 py-1 text-[9px] font-bold text-[#4ca706]">
+        <span className="size-1.5 animate-pulse rounded-full bg-[#4ca706]" />
+        Live Preview
+      </div>
+      <div className="absolute inset-0">
+        <Suspense fallback={
+          <div className="flex h-full w-full items-center justify-center">
+            <div className="size-8 animate-spin rounded-full border-2 border-[#4ca706]/20 border-t-[#4ca706]" />
+          </div>
+        }>
+          <GotaCanvas size={selectedSize} orbitRef={orbitRef} cupTexture={cupTexture} />
+        </Suspense>
+      </div>
+      <AnimatePresence>
+        {showDragHint && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="pointer-events-none absolute bottom-14 left-1/2 z-20 -translate-x-1/2"
+          >
+            <div className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white/90 px-3 py-1.5 text-[9px] font-bold text-gray-400 shadow-sm backdrop-blur-sm">
+              <svg viewBox="0 0 16 16" className="size-3 fill-none stroke-current" strokeWidth="1.5">
+                <path d="M8 2v3M6 4l2-2 2 2M8 14v-3M6 12l2 2 2-2M2 8h3M4 6l-2 2 2 2M14 8h-3M12 6l2 2-2 2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Rrotullohu me tërheqje
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <div ref={mvContainerRef} aria-hidden="true" />
+      <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center">
+        <button
+          onClick={() => orbitRef.current?.reset()}
+          title="Rinis rrotullimin"
+          className="flex size-7 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 shadow-sm transition-colors hover:text-[#4ca706]"
+        >
+          <RotateCcw className="size-3.5" />
+        </button>
+      </div>
+    </>
+  )
+
+  const arButtons = (
+    <>
+      <button
+        onClick={handleARClick}
+        disabled={arLoading}
+        className="group relative flex w-full overflow-hidden rounded-full bg-gradient-to-r from-[#3d9005] via-[#4ca706] to-[#5db508] px-5 py-3.5 shadow-lg shadow-[#4ca706]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#4ca706]/50 active:scale-[0.97] disabled:opacity-80 disabled:cursor-not-allowed"
+      >
+        <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-[100%]" />
+        <div className="relative flex w-full items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/20">
+              {arLoading
+                ? <div className="size-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                : <ScanEye className="size-5 text-white" />
+              }
+            </div>
+            <div className="text-left">
+              <div className="text-[13px] font-black leading-none text-white">
+                {arLoading ? 'Duke përgatitur AR…' : 'Shiko gotën tënde në AR'}
+              </div>
+              <div className="mt-0.5 text-[10px] text-white/70">Kamera e telefonit · iOS & Android</div>
+            </div>
+          </div>
+          <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/20">
+            <svg className="size-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+      </button>
+      <button
+        onClick={handleARCompare}
+        className="flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-4 py-2 text-[10px] font-bold text-[#4ca706] transition-all hover:bg-[#e4f5d4]"
+      >
+        <ScanEye className="size-3" />
+        Krahaso 3 madhësitë bashkë
+      </button>
+    </>
+  )
+
   return (
     <section className="border-b border-gray-100 bg-white">
+
+      {/* Mobile: sticky viewer — sits outside the grid so it stays pinned through the full controls scroll */}
+      {!isDesktop && (
+        <div
+          className="sticky top-14 z-20 overflow-hidden"
+          style={{ height: '44vh', background: 'radial-gradient(ellipse at 50% 60%, #edfae0 0%, #f8f8f8 65%)', border: '1.5px solid #f0f0f0' }}
+          onPointerDown={() => setShowDragHint(false)}
+        >
+          {viewerContent}
+        </div>
+      )}
+
       <div className="mx-auto max-w-5xl lg:grid lg:grid-cols-[1fr_380px]">
 
-        {/* ── Left: intro + viewer placeholder ── */}
+        {/* ── Left: intro + viewer (desktop only) ── */}
         <div className="flex flex-col border-gray-100 lg:border-r">
 
+          {/* Intro — hidden on mobile (sticky viewer already takes top of page) */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="px-5 pt-6 pb-5 md:px-8 md:pt-8"
+            className="hidden px-5 pt-6 pb-5 md:px-8 md:pt-8 lg:block"
           >
             <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-3 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-[#4ca706]">
               ⬡ Editor 3D
@@ -488,110 +609,20 @@ export function GotaEditorSection({ lang = 'al' }) {
             </div>
           </motion.div>
 
-          {/* 3D Viewer */}
-          <div
-            className="relative mx-5 mb-2 flex min-h-[300px] flex-1 items-center justify-center overflow-hidden rounded-2xl md:mx-8 md:mb-2 lg:min-h-[460px]"
-            style={{ background: 'radial-gradient(ellipse at 50% 60%, #edfae0 0%, #f8f8f8 65%)', border: '1.5px solid #f0f0f0' }}
-            onPointerDown={() => setShowDragHint(false)}
-          >
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <div className="h-44 w-44 rounded-full opacity-60 blur-3xl" style={{ background: 'rgba(76,167,6,0.12)' }} />
-            </div>
-
-            {/* Size tag */}
-            <div className="absolute left-3 top-3 z-10 flex items-center gap-1 rounded-full border border-gray-200 bg-white px-2.5 py-1 text-[9px] font-bold text-gray-400 shadow-sm">
-              {selectedSize} · {SIZES.find(s => s.id === selectedSize)?.ml}
-            </div>
-
-            {/* Live badge */}
-            <div className="absolute right-3 top-3 z-10 flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-2.5 py-1 text-[9px] font-bold text-[#4ca706]">
-              <span className="size-1.5 animate-pulse rounded-full bg-[#4ca706]" />
-              Live Preview
-            </div>
-
-            {/* Canvas */}
-            <div className="absolute inset-0">
-              <Suspense fallback={
-                <div className="flex h-full w-full items-center justify-center">
-                  <div className="size-8 animate-spin rounded-full border-2 border-[#4ca706]/20 border-t-[#4ca706]" />
-                </div>
-              }>
-                <GotaCanvas size={selectedSize} orbitRef={orbitRef} cupTexture={cupTexture} />
-              </Suspense>
-            </div>
-
-            {/* Drag hint */}
-            <AnimatePresence>
-              {showDragHint && (
-                <motion.div
-                  initial={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="pointer-events-none absolute bottom-14 left-1/2 z-20 -translate-x-1/2"
-                >
-                  <div className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white/90 px-3 py-1.5 text-[9px] font-bold text-gray-400 shadow-sm backdrop-blur-sm">
-                    <svg viewBox="0 0 16 16" className="size-3 fill-none stroke-current" strokeWidth="1.5">
-                      <path d="M8 2v3M6 4l2-2 2 2M8 14v-3M6 12l2 2 2-2M2 8h3M4 6l-2 2 2 2M14 8h-3M12 6l2 2-2 2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    Rrotullohu me tërheqje
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Hidden model-viewer host */}
-            <div ref={mvContainerRef} aria-hidden="true" />
-
-            {/* Viewer controls */}
-            <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center">
-              <button
-                onClick={() => orbitRef.current?.reset()}
-                title="Rinis rrotullimin"
-                className="flex size-7 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 shadow-sm transition-colors hover:text-[#4ca706]"
-              >
-                <RotateCcw className="size-3.5" />
-              </button>
-            </div>
-          </div>
-
-          {/* AR CTAs */}
-          <div className="mx-5 mb-6 flex flex-col items-center gap-3 md:mx-8 md:mb-8">
-            <button
-              onClick={handleARClick}
-              disabled={arLoading}
-              className="group relative flex w-full overflow-hidden rounded-full bg-gradient-to-r from-[#3d9005] via-[#4ca706] to-[#5db508] px-5 py-3.5 shadow-lg shadow-[#4ca706]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#4ca706]/50 active:scale-[0.97] disabled:opacity-80 disabled:cursor-not-allowed"
+          {/* Desktop 3D Viewer */}
+          {isDesktop && (
+            <div
+              className="relative mx-5 mb-2 flex min-h-[300px] flex-1 items-center justify-center overflow-hidden rounded-2xl md:mx-8 md:mb-2 lg:min-h-[460px]"
+              style={{ background: 'radial-gradient(ellipse at 50% 60%, #edfae0 0%, #f8f8f8 65%)', border: '1.5px solid #f0f0f0' }}
+              onPointerDown={() => setShowDragHint(false)}
             >
-              <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-[100%]" />
-              <div className="relative flex w-full items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/20">
-                    {arLoading
-                      ? <div className="size-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                      : <ScanEye className="size-5 text-white" />
-                    }
-                  </div>
-                  <div className="text-left">
-                    <div className="text-[13px] font-black leading-none text-white">
-                      {arLoading ? 'Duke përgatitur AR…' : 'Shiko gotën tënde në AR'}
-                    </div>
-                    <div className="mt-0.5 text-[10px] text-white/70">Kamera e telefonit · iOS & Android</div>
-                  </div>
-                </div>
-                <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/20">
-                  <svg className="size-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </div>
-            </button>
+              {viewerContent}
+            </div>
+          )}
 
-            <button
-              onClick={handleARCompare}
-              className="flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-4 py-2 text-[10px] font-bold text-[#4ca706] transition-all hover:bg-[#e4f5d4]"
-            >
-              <ScanEye className="size-3" />
-              Krahaso 3 madhësitë bashkë
-            </button>
+          {/* AR CTAs — desktop only; mobile AR lives at bottom of right panel */}
+          <div className="hidden lg:flex mx-5 mb-6 flex-col items-center gap-3 md:mx-8 md:mb-8">
+            {arButtons}
           </div>
         </div>
 
@@ -712,6 +743,11 @@ export function GotaEditorSection({ lang = 'al' }) {
               </AnimatePresence>
             </div>
 
+          </div>
+
+          {/* Mobile AR CTAs — shown only on mobile, after upload section */}
+          <div className="flex flex-col gap-3 px-5 py-5 lg:hidden">
+            {arButtons}
           </div>
 
           {/* CTA */}
