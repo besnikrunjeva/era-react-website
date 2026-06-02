@@ -585,7 +585,7 @@ export function GotaEditorSection({ lang = 'al' }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="px-5 pt-5 pb-4 md:px-8 md:pt-8"
+            className="hidden px-5 pt-6 pb-5 md:px-8 md:pt-8 lg:block"
           >
             <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-3 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-[#4ca706]">
               ⬡ Editor 3D
@@ -629,10 +629,9 @@ export function GotaEditorSection({ lang = 'al' }) {
         {/* ── Right: sticky config panel ── */}
         <div className="flex flex-col lg:sticky lg:top-14 lg:max-h-[calc(100vh-3.5rem)] lg:overflow-y-auto lg:self-start">
 
-          <div className="flex items-center justify-between border-b border-[#e8f3df] bg-[#f8fdf4] px-5 py-3">
-            <span className="text-[9px] font-black uppercase tracking-[0.14em] text-[#4ca706]">
-              ⬡ Personalizo gotën tënde
-            </span>
+          <div className="border-b border-[#e8f3df] bg-[#f8fdf4] px-5 py-3">
+            <p className="text-[9px] font-black uppercase tracking-[0.14em] text-[#4ca706]">⬡ Personalizo gotën tënde</p>
+            <p className="mt-0.5 text-[15px] font-black leading-tight text-gray-900 lg:hidden">Gota me <span className="text-[#4ca706]">printim</span> profesional</p>
           </div>
 
           <div className="flex flex-col divide-y divide-gray-100">
