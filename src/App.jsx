@@ -15,6 +15,7 @@ import Products from '@/pages/Products'
 import ProductGota from '@/pages/ProductGota'
 import ProductMbajtese from '@/pages/ProductMbajtese'
 import ProductAkullore from '@/pages/ProductAkullore'
+import ProductKupaSupe from '@/pages/ProductKupaSupe'
 import Machines from '@/pages/Machines'
 import PreviewTest from '@/pages/PreviewTest'
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/products/gota" element={<ProductGota />} />
         <Route path="/products/mbajtese" element={<ProductMbajtese />} />
         <Route path="/products/akullore" element={<ProductAkullore />} />
+        <Route path="/products/kupa-supe" element={<ProductKupaSupe />} />
         <Route path="/machines" element={<Machines />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

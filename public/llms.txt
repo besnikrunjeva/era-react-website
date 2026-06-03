@@ -10,6 +10,7 @@ We produce custom-printed paper cups, food boxes, labels, and packaging for cafe
 - /products/gota — Paper cups (3.5oz espresso, 7oz coffee, 12oz cappuccino) with 3D live configurator
 - /products/mbajtese — Cutlery holders (Mbajtëse) with 3D live configurator and AR preview
 - /products/akullore — Ice cream cups (Kupa akullore) S and M sizes with 3D live configurator and AR preview
+- /products/kupa-supe — Soup cups (Kupa supe) natural kraft with 3D live configurator and AR preview
 - /machines — Our 13 production machines
 - /about — Company story, values, client sectors, regional presence
 - /contact — Order request form, WhatsApp, FAQ

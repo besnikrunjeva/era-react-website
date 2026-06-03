@@ -115,7 +115,8 @@ Run through this every time a new product page is added:
 | `/products` | `src/pages/Products.jsx` |
 | `/products/gota`     | `src/pages/ProductGota.jsx` (3D configurator) |
 | `/products/mbajtese` | `src/pages/ProductMbajtese.jsx` (3D configurator) |
-| `/products/akullore` | `src/pages/ProductAkullore.jsx` (3D configurator) |
+| `/products/akullore`  | `src/pages/ProductAkullore.jsx` (3D configurator) |
+| `/products/kupa-supe` | `src/pages/ProductKupaSupe.jsx` (3D configurator, kraft body) |
 | `/machines` | `src/pages/Machines.jsx` |
 | `/about` | `src/pages/About.jsx` |
 | `/contact` | `src/pages/Contact.jsx` |

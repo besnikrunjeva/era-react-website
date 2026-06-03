@@ -20,12 +20,13 @@ const FEATURED = [
     active: true,
   },
   {
-    id: 'kupa-pasta',
-    slug: '/products/kupa-pasta',
-    glb: `${BASE}models/kupa-pasta.glb`,
-    al: 'Kupa Pasta & Supe',
-    en: 'Pasta & Soup Cups',
-    variants: 'S · M · L',
+    id: 'kupa-supe',
+    slug: '/products/kupa-supe',
+    glb: `${BASE}models/kupa-supe.glb`,
+    al: 'Kupa Supe',
+    en: 'Soup Cups',
+    variants: 'Standarde',
+    active: true,
   },
   {
     id: 'akullore',
@@ -49,7 +50,7 @@ const FEATURED = [
 ]
 
 useGLTF.preload(`${BASE}models/gota-7oz.glb`)
-useGLTF.preload(`${BASE}models/kupa-pasta.glb`)
+useGLTF.preload(`${BASE}models/kupa-supe.glb`)
 useGLTF.preload(`${BASE}models/akullore-s.glb`)
 useGLTF.preload(`${BASE}models/mbajtese.glb`)
 
