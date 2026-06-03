@@ -29,6 +29,7 @@ jobs:
       - run: npm run build
         env:
           PUPPETEER_EXECUTABLE_PATH: google-chrome-stable
+          VITE_AR_API_URL: https://web-production-2ca4e.up.railway.app
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
