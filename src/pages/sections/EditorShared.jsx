@@ -1,4 +1,4 @@
-import { useState, useEffect, useId, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { Upload, Check, X, ScanEye } from 'lucide-react'
 
@@ -6,7 +6,6 @@ import { Upload, Check, X, ScanEye } from 'lucide-react'
 
 export function UploadZone({ onUpload, uploadedFile, onRemove, label, subLabel, formats }) {
   const [dragging, setDragging] = useState(false)
-  const inputId = useId()
   const handleFile = useCallback(file => { if (file) onUpload(file) }, [onUpload])
 
   if (uploadedFile) {
@@ -31,28 +30,33 @@ export function UploadZone({ onUpload, uploadedFile, onRemove, label, subLabel, 
   }
 
   return (
-    <label
-      htmlFor={inputId}
+    <div
       onDragOver={e => { e.preventDefault(); setDragging(true) }}
       onDragLeave={() => setDragging(false)}
       onDrop={e => { e.preventDefault(); setDragging(false); handleFile(e.dataTransfer.files[0]) }}
-      className="flex cursor-pointer flex-col items-center gap-3 rounded-2xl border-2 border-dashed px-4 py-8 transition-all duration-200"
+      className="relative flex cursor-pointer flex-col items-center gap-3 rounded-2xl border-2 border-dashed px-4 py-8 transition-all duration-200"
       style={{ borderColor: dragging ? '#4ca706' : '#c8ddb8', background: dragging ? '#f0f9e8' : '#f8fff4' }}
     >
-      <input id={inputId} type="file" accept=".svg,.png,.pdf,.ai,.jpg,.jpeg" className="hidden" onChange={e => handleFile(e.target.files[0])} />
-      <div className="flex size-12 items-center justify-center rounded-full bg-[#f0f9e8]">
+      {/* Transparent overlay input — iOS Safari opens file picker on direct tap, avoids back-navigation bug */}
+      <input
+        type="file"
+        accept=".svg,.png,.pdf,.ai,.jpg,.jpeg"
+        className="absolute inset-0 cursor-pointer opacity-0"
+        onChange={e => handleFile(e.target.files[0])}
+      />
+      <div className="pointer-events-none flex size-12 items-center justify-center rounded-full bg-[#f0f9e8]">
         <Upload className="size-5 text-[#4ca706]" />
       </div>
-      <div className="text-center">
+      <div className="pointer-events-none text-center">
         <p className="text-[13px] font-bold text-gray-700">{label}</p>
         <p className="mt-1 text-[10px] text-gray-400">{subLabel}</p>
       </div>
-      <div className="flex gap-1.5">
+      <div className="pointer-events-none flex gap-1.5">
         {formats.map(f => (
           <span key={f} className="rounded-md px-2 py-0.5 text-[9px] font-bold bg-white border border-gray-200 text-gray-400">{f}</span>
         ))}
       </div>
-    </label>
+    </div>
   )
 }
 
