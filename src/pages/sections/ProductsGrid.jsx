@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import imgGota       from '@/assets/products/gota.webp'
+import imgMbajtese   from '@/assets/products/mbajtese.webp'
 import imgKutiBurger from '@/assets/products/kuti-burger.webp'
 import imgKuti       from '@/assets/products/kuti.webp'
 import imgKapak      from '@/assets/products/kapak.webp'
@@ -17,6 +18,16 @@ const PRODUCTS = [
     al: 'Gota Letre',
     en: 'Paper Cups',
     desc: { al: 'Kafene · Restorante · Fast-food', en: 'Cafes · Restaurants · Fast-food' },
+    premium: false,
+    active: true,
+  },
+  {
+    id: 'mbajtese',
+    slug: '/products/mbajtese',
+    img: imgMbajtese,
+    al: 'Mbajtëse Lugësh',
+    en: 'Cutlery Holders',
+    desc: { al: 'Kafene · Restorante · Hotele', en: 'Cafes · Restaurants · Hotels' },
     premium: false,
     active: true,
   },

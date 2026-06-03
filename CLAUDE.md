@@ -34,6 +34,10 @@ Full business context (products, clients, pricing, revenue, brand): see `ERA_con
 
 **Tone:** Professional and trustworthy, but warm. B2B — the reader is a café or restaurant owner. Serious enough to earn trust, friendly enough to feel approachable. No filler, no hype.
 
+**Never use "markën" or "marka".** Always use "biznesin/biznesi" instead. "Marka" sounds unnatural in Kosovo Albanian business context.
+
+**Never use "ambalazhe" as a catch-all.** Use "produkte" when referring to the full range, "paketime" only for boxes/labels/wrapping, and always use the specific product name (gota letre, kuti, etiketa) where possible.
+
 **Approved product names (use exactly these):**
 | Product | Albanian name |
 |---|---|
@@ -48,6 +52,8 @@ Full business context (products, clients, pricing, revenue, brand): see `ERA_con
 **IMPORTANT:** When adding a new product, always ask Besnik for the correct Albanian name before writing any copy. Do not invent or guess product names.
 
 **Always use `ti/tënde/ty` (informal).** Never use `ju/juaj` — the brand is warm and direct, not corporate.
+
+**Always use "partnerë/partnerëve" in visible UI copy.** Never use "klientë" in headlines, stats, cards, or body text. Exception: `meta[name="description"]` only (SEO search term).
 
 **Short sentences.** Avoid passive voice. Speak directly to the client using `ti`.
 

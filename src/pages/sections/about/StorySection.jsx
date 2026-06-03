@@ -34,7 +34,7 @@ export function StorySection({ lang = 'al' }) {
                 {lang === 'al' ? (
                   <>
                     Nga një operacion i vogël, kemi rritur kapacitetin tonë gradualisht. Sot, me 13 makina
-                    prodhimi, 276 variante produktesh dhe mbi 397 klientë aktiv, jemi ndër prodhuesit
+                    prodhimi, 276 variante produktesh dhe mbi 397 partnerë aktiv, jemi ndër prodhuesit
                     kryesorë të ambalazheve letre në rajon.{' '}
                     <Link to="/products" className="font-semibold text-[#4ca706] hover:underline">
                       Shiko produktet tona →

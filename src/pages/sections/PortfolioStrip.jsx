@@ -237,7 +237,7 @@ export function PortfolioStrip({ lang = 'al' }) {
             </span>
             <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl">
               {lang === 'al'
-                ? <>Projekte të <span className="text-[#4ca706]">klientëve</span></>
+                ? <>Projekte të <span className="text-[#4ca706]">partnerëve</span></>
                 : <>Client <span className="text-[#4ca706]">projects</span></>}
             </h2>
             <p className="mt-2 max-w-md text-sm text-white/35 leading-relaxed">
@@ -251,7 +251,7 @@ export function PortfolioStrip({ lang = 'al' }) {
           <div className="hidden sm:flex flex-col items-end gap-1">
             <span className="text-3xl font-extrabold text-white tabular-nums">397<span className="text-[#4ca706]">+</span></span>
             <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/30">
-              {lang === 'al' ? 'klientë të shërbyer' : 'clients served'}
+              {lang === 'al' ? 'partnerë të shërbyer' : 'clients served'}
             </span>
           </div>
         </motion.div>

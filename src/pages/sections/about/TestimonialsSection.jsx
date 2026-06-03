@@ -23,7 +23,7 @@ export function TestimonialsSection({ lang = 'al' }) {
           className="mb-10 text-center"
         >
           <span className="text-xs font-semibold uppercase tracking-widest text-[#4ca706]">
-            {lang === 'al' ? 'Çfarë thonë klientët' : 'What clients say'}
+            {lang === 'al' ? 'Çfarë thonë partnerët' : 'What clients say'}
           </span>
           <h2 className="mt-2 text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
             {lang === 'al' ? 'Fjalë nga partnerët tanë' : 'Words from our partners'}

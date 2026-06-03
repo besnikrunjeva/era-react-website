@@ -13,6 +13,7 @@ import About from '@/pages/About'
 import Contact from '@/pages/Contact'
 import Products from '@/pages/Products'
 import ProductGota from '@/pages/ProductGota'
+import ProductMbajtese from '@/pages/ProductMbajtese'
 import Machines from '@/pages/Machines'
 import PreviewTest from '@/pages/PreviewTest'
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/gota" element={<ProductGota />} />
+        <Route path="/products/mbajtese" element={<ProductMbajtese />} />
         <Route path="/machines" element={<Machines />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

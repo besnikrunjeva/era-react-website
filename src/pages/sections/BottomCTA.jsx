@@ -72,7 +72,7 @@ export function BottomCTA({ lang = 'al' }) {
             <span>{lang === 'al' ? '✓ Pa detyrime' : '✓ No commitment'}</span>
             <span>{lang === 'al' ? '✓ Mockup 3D falas' : '✓ Free 3D mockup'}</span>
             <span>{lang === 'al' ? '✓ Përgjigje brenda 24 orësh' : '✓ Reply within 24 hours'}</span>
-            <span>{lang === 'al' ? '✓ 397+ klientë na besojnë' : '✓ 397+ clients trust us'}</span>
+            <span>{lang === 'al' ? '✓ 397+ partnerë na besojnë' : '✓ 397+ clients trust us'}</span>
           </div>
 
         </motion.div>

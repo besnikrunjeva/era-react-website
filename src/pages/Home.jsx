@@ -31,7 +31,7 @@ const clientLogos = [
 
 const stats = [
   { value: "15+",   label: { al: "Vite Eksperiencë",   en: "Years Experience" } },
-  { value: "397+",  label: { al: "Klientë Aktivë",     en: "Active Clients" } },
+  { value: "397+",  label: { al: "Partnerë Aktivë",     en: "Active Clients" } },
   { value: "13",    label: { al: "Makina Prodhimi",     en: "Production Machines" } },
   { value: "3.9M+", label: { al: "Njësi të Prodhuara", en: "Units Produced" } },
 ];
@@ -65,7 +65,7 @@ export default function Home({ lang = "al" }) {
         {/* Headline */}
         <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-gray-900 md:text-6xl lg:text-7xl">
           {lang === "al" ? (
-            <>Ambalazhja që e bën <span className="text-[#4ca706]">markën tënde të dallohet</span></>
+            <>Produktet që e bëjnë <span className="text-[#4ca706]">biznesin tënd të dallohet</span></>
           ) : (
             <>Packaging that makes your <span className="text-[#4ca706]">brand stand out</span></>
           )}
