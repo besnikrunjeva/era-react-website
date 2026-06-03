@@ -18,8 +18,8 @@ const steps = {
     {
       n: '03',
       icon: CheckCheck,
-      title: 'Shikon & Miraton',
-      desc: 'Marrin mockupin 3D falas të ambalazhes me logon tënde — shikon saktësisht si do të duket, pastaj miraton.',
+      title: 'Sheh & Miraton',
+      desc: 'Ngarko logon tënde dhe shih atë live në gotën 3D — ose vendose me AR në tavolinën tënde. Miraton vetëm kur je i kënaqur.',
       highlight: true,
     },
     {
@@ -46,7 +46,7 @@ const steps = {
       n: '03',
       icon: CheckCheck,
       title: 'See & Approve',
-      desc: 'You receive a free 3D mockup of your packaging with your logo — see exactly how it looks, then approve.',
+      desc: 'Upload your logo and see it live on the 3D cup — or place it with AR on your table. Approve only when you\'re happy.',
       highlight: true,
     },
     {

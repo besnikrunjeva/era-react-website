@@ -27,7 +27,7 @@ export function StorySection({ lang = 'al' }) {
             <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-gray-500">
               <p>
                 {lang === 'al'
-                  ? "ERA u themelua rreth vitit 2008 në Kosovë, me vizion të qartë: t'u ofrojë bizneseve vendase ambalazhe letre profesionale — të prodhuara këtu, në Kosovë."
+                  ? "ERA u themelua në vitin 2008 në Kosovë, me vizion të qartë: t'u ofrojë bizneseve vendase ambalazhe letre profesionale — të prodhuara këtu, në Kosovë."
                   : 'ERA was founded around 2008 in Kosovo with a clear vision: to offer local businesses professional paper packaging — made here, in Kosovo.'}
               </p>
               <p>

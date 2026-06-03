@@ -59,13 +59,13 @@ export default function About({ lang = 'al' }) {
           <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
             {lang === 'al' ? (
               <>
-                Prodhues i besueshëm i{' '}
-                <span className="text-[#4ca706]">ambalazheve letre</span> në Kosovë
+                Kur marka jote meriton{' '}
+                <span className="text-[#4ca706]">paketim të denjë</span>
               </>
             ) : (
               <>
-                Kosovo's trusted{' '}
-                <span className="text-[#4ca706]">paper packaging</span> manufacturer
+                When your brand deserves{' '}
+                <span className="text-[#4ca706]">packaging to match</span>
               </>
             )}
           </h1>
@@ -73,8 +73,8 @@ export default function About({ lang = 'al' }) {
           {/* Subtext */}
           <p className="max-w-xl text-base text-gray-500 md:text-lg">
             {lang === 'al'
-              ? 'Mbi 15 vite prodhim profesional — në Kosovë dhe rajon.'
-              : 'Over 15 years of professional manufacturing — in Kosovo and the region.'}
+              ? '15 vite eksperiencë, 13 makina prodhimi, 397+ klientë — e gjitha në Kosovë.'
+              : '15 years experience, 13 production machines, 397+ clients — all based in Kosovo.'}
           </p>
         </motion.div>
       </InfiniteGrid>

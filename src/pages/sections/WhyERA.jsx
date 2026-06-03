@@ -5,45 +5,45 @@ const points = {
   al: [
     {
       icon: Target,
-      title: 'Specializim i plotë',
-      desc: 'Nuk printojmë gjithçka. Prodhojmë vetëm ambalazhe letre — dhe kjo na bën më të mirët në të.',
+      title: 'Vetëm ambalazhe letre',
+      desc: 'Nuk printojmë gjithçka. Prodhojmë vetëm ambalazhe letre — fokusi është arsyeja pse cilësia tregon.',
     },
     {
       icon: Box,
-      title: 'Mockup 3D falas',
-      desc: 'Me çdo porosi të parë, krijojmë një pamje 3D falas të ambalazhes tënde para se të fillojmë prodhimin.',
+      title: 'E sheh para se paguan',
+      desc: 'Para se të porosisësh, sheh saktësisht si do të duket ambalazha — me logon dhe ngjyrat tua. Falas, pa detyrime.',
     },
     {
       icon: Clock,
-      title: 'Dorëzim 7–14 ditë',
+      title: 'Gati brenda dy javësh',
       desc: 'Nga miratimi i dizajnit deri tek dorëzimi — brenda dy javësh. Pa pritje të gjata.',
     },
     {
       icon: Users,
-      title: '397+ klientë aktivë',
-      desc: 'Kafeteri, restorante, furra dhe supermarkete — mbi 397 biznese në Kosovë na besojnë.',
+      title: '397 partnerë, jo vetëm klientë',
+      desc: 'Kafeteri, restorante, furra dhe supermarkete — mbi 397 biznese na besojnë çdo ditë.',
     },
   ],
   en: [
     {
       icon: Target,
-      title: 'Full specialisation',
-      desc: "We don't print everything. We only make paper packaging — and that makes us the best at it.",
+      title: 'Paper packaging only',
+      desc: "We don't print everything. We only make paper packaging — that focus is why the quality shows.",
     },
     {
       icon: Box,
-      title: 'Free 3D mockup',
-      desc: 'With every first order we create a free 3D preview of your packaging before production starts.',
+      title: 'See it before you pay',
+      desc: 'Before you order, see exactly how your packaging will look — with your logo and colours. Free, no strings.',
     },
     {
       icon: Clock,
-      title: '7–14 day delivery',
+      title: 'Ready in two weeks',
       desc: 'From design approval to delivery — within two weeks. No long waits.',
     },
     {
       icon: Users,
-      title: '397+ active clients',
-      desc: 'Cafés, restaurants, bakeries and supermarkets — over 397 businesses in Kosovo trust us.',
+      title: '397 partners, not just clients',
+      desc: 'Cafés, restaurants, bakeries and supermarkets — over 397 businesses trust us every day.',
     },
   ],
 }
@@ -84,12 +84,12 @@ export function WhyERA({ lang = 'al' }) {
           </span>
           <h2 className="text-3xl font-bold text-white md:text-4xl">
             {lang === 'al'
-              ? 'Të tjerët printojnë gjithçka. Noi vetëm ambalazhe.'
-              : 'Others print everything. We only do packaging.'}
+              ? 'Të tjerët printojnë gjithçka. Ne vetëm ambalazhe letre.'
+              : 'Others print everything. We only do paper packaging.'}
           </h2>
           <p className="mt-3 text-white/40 max-w-xl mx-auto text-sm">
             {lang === 'al'
-              ? 'Specializimi nuk është kufizim — është arsyeja pse cilësia jonë është e pakrahasueshme.'
+              ? 'Kur bën vetëm një gjë, e bën mirë. Çdo ditë, me çdo porosi.'
               : 'Specialisation is not a limitation — it\'s why our quality is unmatched.'}
           </p>
         </motion.div>

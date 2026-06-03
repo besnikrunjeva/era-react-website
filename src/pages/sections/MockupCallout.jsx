@@ -2,7 +2,8 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { useRef, Suspense, useState } from 'react'
 import { motion } from 'framer-motion'
-import { MessageCircle, Sparkles } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Sparkles } from 'lucide-react'
 import { useNormalizedScene } from '@/lib/useNormalizedScene'
 import { LightingRig } from '@/components/ui/lighting-rig'
 
@@ -75,7 +76,7 @@ export function MockupCallout({ lang = 'al' }) {
 
             <h2 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-white md:text-5xl">
               {lang === 'al' ? (
-                <>Para se të porosisni,<br /><span className="text-[#4ca706]">shihni saktësisht</span><br />si do të duket pakoja juaj</>
+                <>Para se të porosisësh,<br /><span className="text-[#4ca706]">shih saktësisht</span><br />si do të duket ambalazha jote</>
               ) : (
                 <>Before you order,<br /><span className="text-[#4ca706]">see exactly</span><br />how your packaging will look</>
               )}
@@ -83,19 +84,17 @@ export function MockupCallout({ lang = 'al' }) {
 
             <p className="text-base text-white/45 leading-relaxed max-w-[420px]">
               {lang === 'al'
-                ? 'Dërgoni logon — ne krijojmë një render 3D profesional të produktit me ngjyrat dhe dimensionet tuaja reale. Falas, para çdo porosie.'
-                : 'Send your logo — we create a professional 3D render of your product with your exact colours and dimensions. Free, before every order.'}
+                ? 'Ngarko logon tënde dhe shih atë live në gotën 3D — tani, pa pritur. Ose aktivizo AR dhe vendose gotën e personalizuar direkt në tavolinën tënde, me madhësinë e vërtetë.'
+                : 'Upload your logo and see it live on the 3D cup — instantly, no waiting. Or activate AR and place your custom cup right on your table, true to size.'}
             </p>
 
-            <a
-              href="https://wa.me/38344113533"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/products/gota"
               className="inline-flex w-fit items-center gap-2 rounded-md bg-[#4ca706] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#3d8f05]"
             >
-              <MessageCircle className="size-4" />
-              {lang === 'al' ? 'Merr mockupin tënd falas' : 'Get your free mockup'}
-            </a>
+              <Sparkles className="size-4" />
+              {lang === 'al' ? 'Provo konfiguratorin 3D' : 'Try the 3D configurator'}
+            </Link>
 
             <p className="text-xs text-white/25">
               {lang === 'al' ? 'Pa detyrime · Përgjigje brenda 24 orësh' : 'No commitment · Reply within 24h'}

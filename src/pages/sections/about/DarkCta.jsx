@@ -21,7 +21,7 @@ export function DarkCta({ lang = 'al' }) {
       >
         <p className="text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
           {lang === 'al'
-            ? 'Bashkohuni me 397+ bizneset që na besojnë'
+            ? 'Bashkohu me 397+ bizneset që na besojnë'
             : 'Join 397+ businesses that trust us'}
         </p>
         <p className="mt-4 text-base text-white/50">
@@ -44,7 +44,7 @@ export function DarkCta({ lang = 'al' }) {
             to="/contact"
             className="inline-flex items-center gap-2 rounded-md border border-white/20 px-7 py-3 text-sm font-semibold text-white/70 transition-colors hover:border-white/40 hover:text-white"
           >
-            {lang === 'al' ? 'Kontaktoni përmes formës' : 'Contact via form'}
+            {lang === 'al' ? 'Kontakto përmes formës' : 'Contact via form'}
           </Link>
         </div>
 

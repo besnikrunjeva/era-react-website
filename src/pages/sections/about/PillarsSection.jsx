@@ -53,7 +53,7 @@ export function PillarsSection({ lang = 'al' }) {
             {lang === 'al' ? 'Çfarë Prodhojmë dhe Si Punojmë' : 'What We Make and How We Work'}
           </span>
           <h2 className="mt-2 text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
-            {lang === 'al' ? 'Tre gjëra që i bëjmë mirë' : 'Three things we do well'}
+            {lang === 'al' ? 'Prodhim. Personalizim. Dorëzim.' : 'Production. Customisation. Delivery.'}
           </h2>
         </motion.div>
 

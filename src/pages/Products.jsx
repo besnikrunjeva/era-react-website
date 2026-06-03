@@ -42,8 +42,8 @@ export default function Products({ lang = 'al' }) {
 
           <p className="max-w-xl text-base text-gray-500 md:text-lg">
             {lang === 'al'
-              ? 'Gota, kupa, kuti dhe paketime me logo custom — prodhuar në Kosovë.'
-              : 'Cups, bowls, boxes and custom-logo packaging — made in Kosovo.'}
+              ? 'Gota letre, kupa, kuti dhe paketime me logo të personalizuar — prodhuar në Kosovë.'
+              : 'Paper cups, bowls, boxes and custom-logo packaging — made in Kosovo.'}
           </p>
         </motion.div>
       </InfiniteGrid>

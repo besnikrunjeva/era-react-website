@@ -41,8 +41,8 @@ export function BottomCTA({ lang = 'al' }) {
 
           <p className="mx-auto mt-5 max-w-md text-base text-white/45 leading-relaxed">
             {lang === 'al'
-              ? 'Dërgo logon tënde tani. Brenda 48 orësh ke mockupin 3D falas — pa asnjë detyrim.'
-              : 'Send your logo now. Within 48 hours you have a free 3D mockup — with no obligation.'}
+              ? 'Dërgo logon tënde tani. Brenda 24 orësh ke mockupin 3D falas — pa asnjë detyrim.'
+              : 'Send your logo now. Within 24 hours you have a free 3D mockup — with no obligation.'}
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">

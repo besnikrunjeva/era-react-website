@@ -74,8 +74,8 @@ export default function Home({ lang = "al" }) {
         {/* Subheadline */}
         <p className="max-w-xl text-base text-gray-500 md:text-lg">
           {lang === "al"
-            ? "Ambalazhe letre me printim profesional — gota, kuti dhe etiketa të dizajnuara bashkë me ju, brenda 7–14 ditësh. 397+ biznese në Kosovë na besojnë."
-            : "Custom paper packaging with professional printing — cups, boxes and labels designed with you, ready in 7–14 days. Trusted by 397+ businesses in Kosovo."}
+            ? "Gota letre, kuti dhe etiketa me logon tënde — prodhuar në Kosovë, brenda 7–14 ditësh. 397+ biznese na besojnë."
+            : "Paper cups, boxes and labels with your logo — made in Kosovo, ready in 7–14 days. Trusted by 397+ businesses."}
         </p>
 
         {/* CTAs */}
