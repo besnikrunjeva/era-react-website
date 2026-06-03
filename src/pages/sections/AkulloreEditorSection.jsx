@@ -10,7 +10,6 @@ import { Canvas } from '@react-three/fiber'
 import { Float, OrbitControls, useGLTF, useEnvironment } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { CanvasTexture, SRGBColorSpace } from 'three'
-import { toCreasedNormals } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { useNormalizedScene } from '@/lib/useNormalizedScene'
 
 const BASE = import.meta.env.BASE_URL
@@ -74,12 +73,12 @@ function AkulloreModel({ size, cupTexture }) {
   useEffect(() => {
     pivot.traverse(child => {
       if (!child.isMesh) return
-      child.geometry = toCreasedNormals(child.geometry, Math.PI / 6)
+      // Keep Blender's baked smooth normals — do NOT re-compute with toCreasedNormals
       const mats = Array.isArray(child.material) ? child.material : [child.material]
       mats.forEach(m => {
         if (!m) return
         m.color.set('#ffffff')
-        m.roughness   = 0.85
+        m.roughness   = 0.7
         m.metalness   = 0
         m.map         = (isPrintable(m.name) && cupTexture) ? cupTexture : null
         m.needsUpdate = true
