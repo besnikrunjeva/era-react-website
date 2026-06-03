@@ -17,6 +17,7 @@ const FEATURED = [
     al: 'Gota Letre',
     en: 'Paper Cups',
     variants: '3.5oz · 7oz · 12oz',
+    active: true,
   },
   {
     id: 'kupa-pasta',
@@ -41,6 +42,7 @@ const FEATURED = [
     al: 'Mbajtëse Lugësh',
     en: 'Spoon Holders',
     variants: 'Standard',
+    active: true,
   },
 ]
 
@@ -145,7 +147,7 @@ export function Featured3DStrip({ lang = 'al' }) {
               </div>
 
               <div className="flex gap-2 mt-1">
-                {product.id === 'gota' ? (
+                {product.active ? (
                   <>
                     <Link
                       to={product.slug}
