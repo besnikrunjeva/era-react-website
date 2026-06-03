@@ -47,7 +47,9 @@ Full business context (products, clients, pricing, revenue, brand): see `ERA_con
 
 **IMPORTANT:** When adding a new product, always ask Besnik for the correct Albanian name before writing any copy. Do not invent or guess product names.
 
-**Short sentences.** Avoid passive voice. Use "ju" (you) to speak directly to the client.
+**Always use `ti/tënde/ty` (informal).** Never use `ju/juaj` — the brand is warm and direct, not corporate.
+
+**Short sentences.** Avoid passive voice. Speak directly to the client using `ti`.
 
 ---
 
