@@ -30,10 +30,11 @@ const FEATURED = [
   {
     id: 'akullore',
     slug: '/products/akullore',
-    glb: `${BASE}models/akullore.glb`,
+    glb: `${BASE}models/akullore-s.glb`,
     al: 'Kupa Akullore',
     en: 'Ice Cream Cups',
-    variants: 'H53 · H63',
+    variants: 'S · M',
+    active: true,
   },
   {
     id: 'mbajtese',
@@ -43,13 +44,13 @@ const FEATURED = [
     en: 'Spoon Holders',
     variants: 'Standard',
     active: true,
-    rotationOffset: [Math.PI / 2, 0, 0],
+    rotationOffset: [Math.PI / 2 - 0.5, 0, 0.5],
   },
 ]
 
 useGLTF.preload(`${BASE}models/gota-7oz.glb`)
 useGLTF.preload(`${BASE}models/kupa-pasta.glb`)
-useGLTF.preload(`${BASE}models/akullore.glb`)
+useGLTF.preload(`${BASE}models/akullore-s.glb`)
 useGLTF.preload(`${BASE}models/mbajtese.glb`)
 
 function SpinningModel({ glb, rotationOffset }) {

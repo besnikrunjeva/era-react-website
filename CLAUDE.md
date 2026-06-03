@@ -113,7 +113,9 @@ Run through this every time a new product page is added:
 |---|---|
 | `/` | `src/pages/Home.jsx` |
 | `/products` | `src/pages/Products.jsx` |
-| `/products/gota` | `src/pages/ProductGota.jsx` (3D configurator) |
+| `/products/gota`     | `src/pages/ProductGota.jsx` (3D configurator) |
+| `/products/mbajtese` | `src/pages/ProductMbajtese.jsx` (3D configurator) |
+| `/products/akullore` | `src/pages/ProductAkullore.jsx` (3D configurator) |
 | `/machines` | `src/pages/Machines.jsx` |
 | `/about` | `src/pages/About.jsx` |
 | `/contact` | `src/pages/Contact.jsx` |

@@ -23,7 +23,7 @@ const STEPS = [
 
 const RELATED = [
   { slug: '/products/gota',       img: imgGota,     al: 'Gota Letre',    sub: '3.5oz · 7oz · 12oz', available: true  },
-  { slug: '/products/akullore',   img: imgAkullore, al: 'Kupa Akullore', sub: 'H53 · H63',           available: false },
+  { slug: '/products/akullore',   img: imgAkullore, al: 'Kupa Akullore', sub: 'S · M',               available: true  },
   { slug: '/products/kupa-pasta', img: imgKupa,     al: 'Kupa Paste',    sub: 'S · M · L',            available: false },
 ]
 

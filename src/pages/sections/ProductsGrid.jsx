@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import imgGota       from '@/assets/products/gota.webp'
 import imgMbajtese   from '@/assets/products/mbajtese.webp'
+import imgAkullore   from '@/assets/products/akullore.webp'
 import imgKutiBurger from '@/assets/products/kuti-burger.webp'
 import imgKuti       from '@/assets/products/kuti.webp'
 import imgKapak      from '@/assets/products/kapak.webp'
@@ -28,6 +29,16 @@ const PRODUCTS = [
     al: 'Mbajtëse Lugësh',
     en: 'Cutlery Holders',
     desc: { al: 'Kafene · Restorante · Hotele', en: 'Cafes · Restaurants · Hotels' },
+    premium: false,
+    active: true,
+  },
+  {
+    id: 'akullore',
+    slug: '/products/akullore',
+    img: imgAkullore,
+    al: 'Kupa Akullore',
+    en: 'Ice Cream Cups',
+    desc: { al: 'Akullore · Kafene · Fast-food', en: 'Ice cream · Cafes · Fast-food' },
     premium: false,
     active: true,
   },

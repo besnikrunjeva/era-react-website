@@ -3,7 +3,7 @@ const { run } = require('react-snap')
 run({
   source: 'dist',
   publicPath: '/era-react-website',
-  include: ['/', '/products', '/products/gota', '/machines', '/about', '/contact'],
+  include: ['/', '/products', '/products/gota', '/products/mbajtese', '/products/akullore', '/machines', '/about', '/contact'],
   puppeteerExecutablePath: process.env.PUPPETEER_EXECUTABLE_PATH ||
     '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
   puppeteerArgs: ['--no-sandbox', '--disable-setuid-sandbox'],
