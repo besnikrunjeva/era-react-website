@@ -241,6 +241,11 @@ function useIsDesktop() {
 }
 
 export function MbajtesesEditorSection({ lang = 'al' }) {
+  // Warm up Railway backend on mount so AR is ready when user clicks
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_AR_API_URL ?? 'http://localhost:8000'}/health`).catch(() => {})
+  }, [])
+
   const [uploadTab, setUploadTab]       = useState('logo')
   const [logoFile, setLogoFile]         = useState(null)
   const [logoSize, setLogoSize]         = useState('medium')

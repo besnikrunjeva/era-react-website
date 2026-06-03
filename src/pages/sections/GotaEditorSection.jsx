@@ -305,6 +305,10 @@ function useIsDesktop() {
 // ─── Main exported component ───────────────────────────────────────────────────
 
 export function GotaEditorSection({ lang = 'al' }) {
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_AR_API_URL ?? 'http://localhost:8000'}/health`).catch(() => {})
+  }, [])
+
   const [selectedSize, setSelectedSize]       = useState('7oz')
   const [uploadTab, setUploadTab]             = useState('logo')
   const [logoFile, setLogoFile]               = useState(null)
