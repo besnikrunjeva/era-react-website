@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useId, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { Upload, Check, X, ScanEye } from 'lucide-react'
 
@@ -6,7 +6,7 @@ import { Upload, Check, X, ScanEye } from 'lucide-react'
 
 export function UploadZone({ onUpload, uploadedFile, onRemove, label, subLabel, formats }) {
   const [dragging, setDragging] = useState(false)
-  const inputRef = useRef(null)
+  const inputId = useId()
   const handleFile = useCallback(file => { if (file) onUpload(file) }, [onUpload])
 
   if (uploadedFile) {
@@ -31,15 +31,15 @@ export function UploadZone({ onUpload, uploadedFile, onRemove, label, subLabel, 
   }
 
   return (
-    <div
+    <label
+      htmlFor={inputId}
       onDragOver={e => { e.preventDefault(); setDragging(true) }}
       onDragLeave={() => setDragging(false)}
       onDrop={e => { e.preventDefault(); setDragging(false); handleFile(e.dataTransfer.files[0]) }}
-      onClick={() => inputRef.current?.click()}
       className="flex cursor-pointer flex-col items-center gap-3 rounded-2xl border-2 border-dashed px-4 py-8 transition-all duration-200"
       style={{ borderColor: dragging ? '#4ca706' : '#c8ddb8', background: dragging ? '#f0f9e8' : '#f8fff4' }}
     >
-      <input ref={inputRef} type="file" accept=".svg,.png,.pdf,.ai,.jpg,.jpeg" className="hidden" onChange={e => handleFile(e.target.files[0])} />
+      <input id={inputId} type="file" accept=".svg,.png,.pdf,.ai,.jpg,.jpeg" className="hidden" onChange={e => handleFile(e.target.files[0])} />
       <div className="flex size-12 items-center justify-center rounded-full bg-[#f0f9e8]">
         <Upload className="size-5 text-[#4ca706]" />
       </div>
@@ -52,7 +52,7 @@ export function UploadZone({ onUpload, uploadedFile, onRemove, label, subLabel, 
           <span key={f} className="rounded-md px-2 py-0.5 text-[9px] font-bold bg-white border border-gray-200 text-gray-400">{f}</span>
         ))}
       </div>
-    </div>
+    </label>
   )
 }
 
