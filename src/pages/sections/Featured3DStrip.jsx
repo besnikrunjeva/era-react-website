@@ -43,7 +43,7 @@ const FEATURED = [
     en: 'Spoon Holders',
     variants: 'Standard',
     active: true,
-    rotationOffset: [-Math.PI / 2, 0, 0],
+    rotationOffset: [Math.PI / 2, 0, 0],
   },
 ]
 
