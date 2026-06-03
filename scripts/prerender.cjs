@@ -1,0 +1,14 @@
+const { run } = require('react-snap')
+
+run({
+  source: 'dist',
+  publicPath: '/era-react-website',
+  include: ['/', '/products', '/products/gota', '/machines', '/about', '/contact'],
+  puppeteerExecutablePath: process.env.PUPPETEER_EXECUTABLE_PATH ||
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  puppeteerArgs: ['--no-sandbox', '--disable-setuid-sandbox'],
+  skipThirdPartyRequests: true,
+  viewport: { width: 1440, height: 900 },
+  crawl: false,
+  saveAs: 'html',
+})

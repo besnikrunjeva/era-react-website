@@ -41,6 +41,7 @@ We produce custom-printed paper cups, food boxes, labels, and packaging for cafe
 ## What makes ERA different
 
 - Free 3D mockup with every order — clients preview their logo on the actual product before printing
+- **Augmented Reality preview** — clients can point their phone camera at their table and see the actual cup or product at true real-world size with their own design on it, before placing an order
 - Custom design service — ERA positions and sizes the logo automatically
 - Family-owned manufacturer — direct contact with production, no middlemen
 - 13 production machines in-house — full control over quality and timelines

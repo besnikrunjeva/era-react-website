@@ -6,27 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "react-snap",
+    "postbuild": "node scripts/prerender.cjs",
     "lint": "eslint .",
     "preview": "vite preview"
-  },
-  "reactSnap": {
-    "source": "dist",
-    "publicPath": "/era-react-website",
-    "include": [
-      "/",
-      "/products",
-      "/products/gota",
-      "/machines",
-      "/about",
-      "/contact"
-    ],
-    "puppeteerExecutablePath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
-    "skipThirdPartyRequests": true,
-    "viewport": { "width": 1440, "height": 900 },
-    "crawl": false,
-    "saveAs": "html"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
