@@ -83,9 +83,11 @@ function MbajtesesModel({ cupTexture }) {
   }, [pivot, cupTexture])
 
   return (
-    <Float speed={1.4} rotationIntensity={0.05} floatIntensity={0.2}>
-      <primitive object={pivot} />
-    </Float>
+    <group rotation={[-Math.PI / 2, 0, 0]}>
+      <Float speed={1.4} rotationIntensity={0.05} floatIntensity={0.2}>
+        <primitive object={pivot} />
+      </Float>
+    </group>
   )
 }
 

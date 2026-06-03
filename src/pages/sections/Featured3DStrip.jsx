@@ -43,6 +43,7 @@ const FEATURED = [
     en: 'Spoon Holders',
     variants: 'Standard',
     active: true,
+    rotationOffset: [-Math.PI / 2, 0, 0],
   },
 ]
 
@@ -51,20 +52,22 @@ useGLTF.preload(`${BASE}models/kupa-pasta.glb`)
 useGLTF.preload(`${BASE}models/akullore.glb`)
 useGLTF.preload(`${BASE}models/mbajtese.glb`)
 
-function SpinningModel({ glb }) {
+function SpinningModel({ glb, rotationOffset }) {
   const pivot = useNormalizedScene(glb)
   const ref   = useRef()
   useFrame(() => { ref.current.rotation.y += 0.004 })
   return (
-    <Float speed={1.4} rotationIntensity={0.08} floatIntensity={0.3}>
-      <group ref={ref}>
-        <primitive object={pivot} />
-      </group>
-    </Float>
+    <group rotation={rotationOffset ?? [0, 0, 0]}>
+      <Float speed={1.4} rotationIntensity={0.08} floatIntensity={0.3}>
+        <group ref={ref}>
+          <primitive object={pivot} />
+        </group>
+      </Float>
+    </group>
   )
 }
 
-function ModelCanvas({ glb }) {
+function ModelCanvas({ glb, rotationOffset }) {
   return (
     <div className="h-40 w-full overflow-hidden rounded-xl bg-[#0a1208]">
       <Suspense fallback={
@@ -80,7 +83,7 @@ function ModelCanvas({ glb }) {
           <color attach="background" args={['#0a1208']} />
           <LightingRig />
           <Suspense fallback={null}>
-            <SpinningModel glb={glb} />
+            <SpinningModel glb={glb} rotationOffset={rotationOffset} />
           </Suspense>
         </Canvas>
       </Suspense>
@@ -137,7 +140,7 @@ export function Featured3DStrip({ lang = 'al' }) {
                 3D
               </span>
 
-              <ModelCanvas glb={product.glb} />
+              <ModelCanvas glb={product.glb} rotationOffset={product.rotationOffset} />
 
               <div className="flex flex-col gap-1 flex-1">
                 <h3 className="text-sm font-bold text-white leading-snug">
