@@ -14,10 +14,9 @@ const MODEL_URL = `${BASE}models/mbajtese.glb`
 
 useGLTF.preload(MODEL_URL)
 
-// UV map is 232×1056 — tall strip. Scale 4x for texture sharpness.
-// Front outer face sits at ~top quarter, back outer at ~bottom quarter.
+// UV map is 232×1056 — tall strip. 2x upscale is enough for sharp logos.
 // Adjust FRONT_Y / BACK_Y if logos land in the wrong spot.
-const CANVAS  = { W: 928, H: 4224 }
+const CANVAS  = { W: 464, H: 2112 }
 const FRONT_Y = 0.18   // centre of front face in UV space (0–1)
 const BACK_Y  = 0.72   // centre of back outer face in UV space (0–1)
 
@@ -278,10 +277,10 @@ export function MbajtesesEditorSection({ lang = 'al' }) {
     try {
       if (logoCanvasRef.current) {
         const png = await new Promise((resolve, reject) => {
-          logoCanvasRef.current.toBlob(b => b ? resolve(b) : reject(new Error('toBlob failed')), 'image/png')
+          logoCanvasRef.current.toBlob(b => b ? resolve(b) : reject(new Error('toBlob failed')), 'image/jpeg', 0.85)
         })
         const fd = new FormData()
-        fd.append('canvas', png, 'canvas.png')
+        fd.append('canvas', png, 'canvas.jpg')
         fd.append('model', 'mbajtese')
         const res = await fetch(
           `${import.meta.env.VITE_AR_API_URL ?? 'http://localhost:8000'}/generate-ar`,
