@@ -20,13 +20,22 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://era-printpack.com/" />
 
-    <!-- Open Graph (WhatsApp / Facebook link previews) -->
+    <!-- Open Graph (WhatsApp / Facebook / AI link previews) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://era-printpack.com/" />
     <meta property="og:title" content="Ambalazhe Letre Kosovë | ERA Print Pack" />
     <meta property="og:description" content="Gota, kuti dhe etiketa me printim profesional. Dizajn 3D falas, dërgim brenda 7–14 ditësh. Bazë në Kosovë." />
+    <meta property="og:image" content="https://era-printpack.com/era-logo.png" />
+    <meta property="og:image:alt" content="ERA Print Pack — Prodhues ambalazhesh letre në Kosovë" />
     <meta property="og:locale" content="sq_AL" />
+    <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:site_name" content="ERA Print Pack" />
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Ambalazhe Letre Kosovë | ERA Print Pack" />
+    <meta name="twitter:description" content="Gota, kuti dhe etiketa me printim profesional. Dizajn 3D falas, dërgim brenda 7–14 ditësh. Bazë në Kosovë." />
+    <meta name="twitter:image" content="https://era-printpack.com/era-logo.png" />
 
     <!-- Schema: Organization + LocalBusiness -->
     <script type="application/ld+json">
@@ -37,35 +46,58 @@
           "@type": "Organization",
           "@id": "https://era-printpack.com/#organization",
           "name": "NPT Shtypshkronja ERA",
-          "alternateName": "ERA Print Pack",
+          "alternateName": ["ERA Print Pack", "ERA", "Shtypshkronja ERA"],
           "url": "https://era-printpack.com/",
-          "logo": "https://era-printpack.com/era-logo.png",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://era-printpack.com/era-logo.png"
+          },
           "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+383-44-113-533",
             "contactType": "sales",
             "availableLanguage": ["Albanian", "English"]
-          }
+          },
+          "sameAs": []
         },
         {
           "@type": "LocalBusiness",
           "@id": "https://era-printpack.com/#localbusiness",
           "name": "NPT Shtypshkronja ERA",
+          "alternateName": "ERA Print Pack",
           "image": "https://era-printpack.com/era-logo.png",
           "url": "https://era-printpack.com/",
           "telephone": "+383-44-113-533",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Prishtinë",
+            "addressRegion": "Pristina",
             "addressCountry": "XK"
           },
-          "description": "Prodhues i ambalazheve nga lëtër në Kosovë. Gota, kupa, kuti dhe etiketa me printim të personalizuar.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "42.6629",
+            "longitude": "21.1655"
+          },
+          "description": "Prodhues i ambalazheve nga lëtër në Kosovë. Gota, kupa, kuti dhe etiketa me printim të personalizuar. 15+ vite eksperiencë, 397+ klientë aktivë.",
           "priceRange": "$$",
+          "currenciesAccepted": "EUR",
+          "paymentAccepted": "Cash, Bank Transfer",
           "openingHoursSpecification": {
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
             "opens": "08:00",
             "closes": "17:00"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Produktet ERA Print Pack",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Gota Letre me Printim", "description": "Gota letre 3.5oz, 7oz, 12oz me printim të personalizuar" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Kuti Ushqimore me Printim", "description": "Kuti burgeri, patate, sallate, tortë me dizajn të personalizuar" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Etiketa Personalizuara", "description": "Etiketa ngjitëse për produkte ushqimore dhe pijeje" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Kupa Pasta dhe Supe", "description": "Kupa letre S, M, L për pasta, supe dhe noodles" } }
+            ]
           }
         },
         {

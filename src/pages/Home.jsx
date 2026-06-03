@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { MessageCircle, Package, Box } from "lucide-react";
@@ -36,6 +37,16 @@ const stats = [
 ];
 
 export default function Home({ lang = "al" }) {
+  useEffect(() => {
+    document.title = lang === 'al'
+      ? 'Ambalazhe Letre Kosovë | ERA Print Pack'
+      : 'Paper Packaging Kosovo | ERA Print Pack'
+    const meta = document.querySelector('meta[name="description"]')
+    if (meta) meta.setAttribute('content', lang === 'al'
+      ? 'ERA Print Pack prodhon ambalazhe letre me printim profesional në Kosovë. Gota, kuti dhe etiketa personalizuara — dërgim brenda 7–14 ditësh. 397+ klientë aktivë.'
+      : 'ERA Print Pack manufactures custom-printed paper packaging in Kosovo. Cups, boxes and labels — delivery in 7–14 days. 397+ active clients.')
+  }, [lang])
+
   return (
     <>
     <InfiniteGrid>

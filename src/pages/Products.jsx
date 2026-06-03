@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Package } from 'lucide-react'
 import { InfiniteGrid } from '@/components/ui/infinite-grid'
@@ -6,6 +7,16 @@ import { ProductsGrid } from '@/pages/sections/ProductsGrid'
 import { BottomCTA } from '@/pages/sections/BottomCTA'
 
 export default function Products({ lang = 'al' }) {
+  useEffect(() => {
+    document.title = lang === 'al'
+      ? 'Produktet — Gota, Kuti, Etiketa | ERA Print Pack Kosovë'
+      : 'Products — Cups, Boxes, Labels | ERA Print Pack Kosovo'
+    const meta = document.querySelector('meta[name="description"]')
+    if (meta) meta.setAttribute('content', lang === 'al'
+      ? 'Shiko gamën e plotë të ambalazheve ERA: gota letre, kupa paste, kuti ushqimore, etiketa dhe më shumë. Printim i personalizuar. Porosi nga 500 copë.'
+      : 'Browse ERA\'s full range: paper cups, pasta cups, food boxes, labels and more. Custom printed. Orders from 500 pieces.')
+  }, [lang])
+
   return (
     <>
       {/* Hero */}

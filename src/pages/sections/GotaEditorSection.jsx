@@ -262,8 +262,11 @@ function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesign
 
       <div className="overflow-hidden rounded-xl border border-gray-100 bg-white">
         <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gray-50 px-3 py-2.5">
-          <div className="flex size-5 shrink-0 items-center justify-center rounded-full border-[1.5px] border-gray-200 bg-white text-[8px] font-black text-gray-400">2</div>
-          <span className="text-[10px] font-bold text-gray-500">Ngarko dizajnin e plotë</span>
+          <div className="flex size-5 shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#c8ddb8] bg-[#f0f9e8] text-[8px] font-black text-[#4ca706]">2</div>
+          <div>
+            <div className="text-[10px] font-bold text-gray-500">Ngarko dizajnin e plotë</div>
+            <div className="text-[9px] text-gray-400">Skedari vendoset direkt mbi gotën 3D</div>
+          </div>
         </div>
         <div className="p-3">
           <UploadZone
@@ -662,9 +665,12 @@ export function GotaEditorSection({ lang = 'al' }) {
 
             {/* Step 1: Size */}
             <div className="px-5 py-5">
-              <div className="mb-3 flex items-center gap-2.5">
-                <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#4ca706] text-[10px] font-black text-white">1</div>
-                <p className="text-[12px] font-black text-gray-800">Zgjidh madhësinë</p>
+              <div className="mb-3 flex items-start gap-2.5">
+                <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#4ca706] text-[10px] font-black text-white mt-0.5">1</div>
+                <div>
+                  <p className="text-[12px] font-black text-gray-800">Zgjidh madhësinë e gotës</p>
+                  <p className="mt-0.5 text-[10px] text-gray-400">Ndikon çmimin dhe madhësinë e printimit</p>
+                </div>
               </div>
               <div className="flex gap-2">
                 {SIZES.map(s => (
@@ -685,9 +691,12 @@ export function GotaEditorSection({ lang = 'al' }) {
 
             {/* Step 2: Logo / Template */}
             <div className="px-5 py-5">
-              <div className="mb-3 flex items-center gap-2.5">
-                <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#4ca706] text-[10px] font-black text-white">2</div>
-                <p className="text-[12px] font-black text-gray-800">Ngarko logon ose dizajnin</p>
+              <div className="mb-3 flex items-start gap-2.5">
+                <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#4ca706] text-[10px] font-black text-white mt-0.5">2</div>
+                <div>
+                  <p className="text-[12px] font-black text-gray-800">Shto logon ose dizajnin tënd</p>
+                  <p className="mt-0.5 text-[10px] text-gray-400">ERA e vendos dhe pozicionon automatikisht në gotë</p>
+                </div>
               </div>
               <div className="mb-3 flex gap-2">
                 {[{ id: 'logo', label: 'Kam logo gati' }, { id: 'template', label: 'Dizajn i plotë' }].map(tab => (

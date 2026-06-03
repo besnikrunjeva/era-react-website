@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ChevronRight, Check } from 'lucide-react'
@@ -134,6 +135,16 @@ function RelatedSection() {
 }
 
 export default function ProductGota({ lang = 'al' }) {
+  useEffect(() => {
+    document.title = lang === 'al'
+      ? 'Gota Letre me Printim 3D — 3.5oz, 7oz, 12oz | ERA Print Pack'
+      : 'Custom Printed Paper Cups 3D — 3.5oz, 7oz, 12oz | ERA Print Pack'
+    const meta = document.querySelector('meta[name="description"]')
+    if (meta) meta.setAttribute('content', lang === 'al'
+      ? 'Personalizo gotën tënde të letrës me logo ose dizajn të plotë. Madhësi 3.5oz, 7oz, 12oz. Konfigurator 3D live. Prodhim brenda 7–14 ditësh. ERA Print Pack, Kosovë.'
+      : 'Customize your paper cup with logo or full design. Sizes 3.5oz, 7oz, 12oz. Live 3D configurator. Production in 7–14 days. ERA Print Pack, Kosovo.')
+  }, [lang])
+
   return (
     <>
       <Breadcrumb />

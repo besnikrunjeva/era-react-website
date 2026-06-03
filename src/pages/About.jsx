@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Building2 } from 'lucide-react'
 import { InfiniteGrid } from '@/components/ui/infinite-grid'
@@ -28,6 +29,16 @@ const clientLogos = [
 ]
 
 export default function About({ lang = 'al' }) {
+  useEffect(() => {
+    document.title = lang === 'al'
+      ? 'Rreth Nesh — Shtypshkronja ERA | Prodhues Ambalazhesh Kosovë'
+      : 'About Us — Shtypshkronja ERA | Packaging Manufacturer Kosovo'
+    const meta = document.querySelector('meta[name="description"]')
+    if (meta) meta.setAttribute('content', lang === 'al'
+      ? 'Shtypshkronja ERA — prodhues familjar i ambalazheve nga lëtër në Kosovë. 15+ vite eksperiencë, 397+ klientë, 13 makina prodhimi. Bazë në Prishtinë.'
+      : 'Shtypshkronja ERA — family-owned paper packaging manufacturer in Kosovo. 15+ years experience, 397+ clients, 13 production machines. Based in Pristina.')
+  }, [lang])
+
   return (
     <>
       {/* 1. Hero — InfiniteGrid background */}
