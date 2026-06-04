@@ -60,6 +60,18 @@ const FEATURED = [
       { glb: `${BASE}models/mbajtese.glb`, texture: `${BASE}textures/mbajtese.png` },
     ],
   },
+  {
+    id: 'leter-tavoline',
+    slug: '/products/leter-tavoline',
+    al: 'Letër Tavoline',
+    en: 'Table Paper',
+    variantLabel: 'Roll',
+    active: true,
+    rotationOffset: [-Math.PI / 2, 0.3, 0],
+    models: [
+      { glb: `${BASE}models/leter-tavoline.glb` },
+    ],
+  },
 ]
 
 useGLTF.preload(`${BASE}models/gota-3.5oz.glb`)
@@ -69,6 +81,7 @@ useGLTF.preload(`${BASE}models/kupa-supe.glb`)
 useGLTF.preload(`${BASE}models/akullore-m.glb`)
 useGLTF.preload(`${BASE}models/akullore-s.glb`)
 useGLTF.preload(`${BASE}models/mbajtese.glb`)
+useGLTF.preload(`${BASE}models/leter-tavoline.glb`)
 
 useTexture.preload(`${BASE}textures/gota-3.5oz.png`)
 useTexture.preload(`${BASE}textures/gota-7oz.png`)
@@ -214,7 +227,7 @@ export function Featured3DStrip({ lang = 'al' }) {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {FEATURED.map((product, i) => (
             <motion.div
               key={product.id}
