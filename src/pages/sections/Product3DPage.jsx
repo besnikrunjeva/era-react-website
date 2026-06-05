@@ -132,3 +132,5 @@ export function Product3DPage({ lang = 'al', crumbLabel, specs, steps, related, 
     </>
   )
 }
+
+export { Breadcrumb, SpecsSection, RelatedSection }
