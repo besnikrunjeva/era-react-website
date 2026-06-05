@@ -79,15 +79,12 @@ export function WhyERA({ lang = 'al' }) {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 text-center"
         >
-          <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-[#4ca706]">
-            {lang === 'al' ? 'Pse ERA' : 'Why ERA'}
-          </span>
           <h2 className="text-3xl font-bold text-white md:text-4xl">
             {lang === 'al'
               ? 'Të tjerët printojnë gjithçka. Ne vetëm ambalazhe letre.'
               : 'Others print everything. We only do paper packaging.'}
           </h2>
-          <p className="mt-3 text-white/40 max-w-xl mx-auto text-sm">
+          <p className="mt-3 text-white/60 max-w-xl mx-auto text-sm">
             {lang === 'al'
               ? 'Kur bën vetëm një gjë, e bën mirë. Çdo ditë, me çdo porosi.'
               : 'Specialisation is not a limitation — it\'s why our quality is unmatched.'}
@@ -113,7 +110,7 @@ export function WhyERA({ lang = 'al' }) {
                   <Icon className="size-5 text-[#4ca706]" />
                 </div>
                 <h3 className="mb-2 text-base font-bold text-white">{p.title}</h3>
-                <p className="text-sm leading-relaxed text-white/45">{p.desc}</p>
+                <p className="text-sm leading-relaxed text-white/60">{p.desc}</p>
               </motion.div>
             )
           })}

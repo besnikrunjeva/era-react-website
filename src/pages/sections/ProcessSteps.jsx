@@ -81,13 +81,11 @@ export function ProcessSteps({ lang = 'al' }) {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 text-center"
         >
-          <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-[#4ca706]">
-            {lang === 'al' ? 'Si funksionon' : 'How it works'}
-          </span>
+
           <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">
             {lang === 'al' ? 'Katër hapa deri tek ambalazha jote' : 'Four steps to your custom packaging'}
           </h2>
-          <p className="mt-3 text-gray-400 max-w-xl mx-auto text-sm">
+          <p className="mt-3 text-gray-600 max-w-xl mx-auto text-sm">
             {lang === 'al'
               ? 'Procesi ynë është i thjeshtë dhe transparent. Ti sheh çdo hap para se të paguash gjë.'
               : 'Our process is simple and transparent. You see every step before paying anything.'}
@@ -140,7 +138,7 @@ export function ProcessSteps({ lang = 'al' }) {
                     </span>
                   )}
                 </h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{step.desc}</p>
+                <p className="text-sm text-gray-600 leading-relaxed">{step.desc}</p>
               </motion.div>
             )
           })}

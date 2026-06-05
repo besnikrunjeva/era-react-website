@@ -152,7 +152,7 @@ export default function ProductKutiHamburgeri({ lang = 'al' }) {
 
 ### `ProductHeroFlat`
 
-**Layout:** 2-column grid on md+. Left: text. Right: image. Stacks vertically on mobile (image top, text bottom on mobile — or text top, image bottom — confirm during impl).
+**Layout:** 2-column grid on md+. Left: text. Right: image. Stacks vertically on mobile: **image top, text below** (matches e-commerce convention and how ERA's existing product cards behave).
 
 **Left column content (top → bottom):**
 1. Product name — `text-4xl font-black tracking-tight text-gray-900 md:text-5xl` (large, confident)
@@ -197,13 +197,29 @@ import { ProductHighlights } from './ProductHighlights'
 import { BottomCTA } from './BottomCTA'
 
 export function ProductFlatPage({ lang = 'al', product }) {
+  // SpecsSection and RelatedSection were built for the 3D pages and expect
+  // pre-resolved strings (not bilingual objects). Resolve lang here so the
+  // shared components need zero changes.
+  const resolvedSteps = product.steps.map(s => ({
+    n: s.n,
+    title: s.title[lang],
+    desc:  s.desc[lang],
+  }))
+  const resolvedRelated = product.related.map(r => ({
+    slug:      r.slug,
+    img:       r.img,
+    al:        lang === 'al' ? r.al : r.en,
+    sub:       r.sub,
+    available: r.available,
+  }))
+
   return (
     <>
       <Breadcrumb label={product.name[lang]} />
       <ProductHeroFlat lang={lang} product={product} />
       <ProductHighlights lang={lang} highlights={product.highlights} />
-      <SpecsSection specs={product.specs} steps={product.steps} lang={lang} />
-      <RelatedSection related={product.related} lang={lang} />
+      <SpecsSection specs={product.specs} steps={resolvedSteps} />
+      <RelatedSection related={resolvedRelated} />
       <BottomCTA lang={lang} />
     </>
   )

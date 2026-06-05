@@ -55,13 +55,15 @@ function IBLSetup() {
   return null
 }
 
-function LeterModel({ cupTexture }) {
+function LeterModel({ cupTexture, dragging }) {
   const pivot = useNormalizedScene(MODEL_URL)
   const swingRef = useRef()
 
   useFrame(({ clock }) => {
-    if (swingRef.current) {
-      swingRef.current.rotation.z = Math.sin(clock.elapsedTime * 0.7) * 0.3
+    if (!swingRef.current) return
+    // While user is dragging, boomerang pauses (OrbitControls takes over camera)
+    if (!dragging) {
+      swingRef.current.rotation.z = Math.sin(clock.elapsedTime * 0.5) * 0.14
     }
   })
 
@@ -89,7 +91,7 @@ function LeterModel({ cupTexture }) {
   )
 }
 
-function ModelCanvas({ orbitRef, cupTexture }) {
+function ModelCanvas({ orbitRef, cupTexture, dragging }) {
   return (
     <Canvas
       camera={{ position: [0, 0.4, 3.2], fov: 44 }}
@@ -106,12 +108,14 @@ function ModelCanvas({ orbitRef, cupTexture }) {
       <directionalLight position={[-4, 4, -2]} intensity={0.7} color="#ffffff" />
       <directionalLight position={[0, -2, 4]}  intensity={0.25} color="#ffffff" />
       <Suspense fallback={null}>
-        <LeterModel cupTexture={cupTexture} />
+        <LeterModel cupTexture={cupTexture} dragging={dragging} />
       </Suspense>
       <OrbitControls
         ref={orbitRef}
         enableZoom={false}
         enablePan={false}
+        enableDamping
+        dampingFactor={0.06}
         minPolarAngle={Math.PI / 6}
         maxPolarAngle={Math.PI * 0.75}
       />
@@ -183,12 +187,27 @@ export function LeterTavolineEditorSection({ lang = 'al' }) {
   const [fullDesignFile, setFullDesignFile] = useState(null)
   const [cupTexture, setCupTexture]     = useState(null)
   const [showDragHint, setShowDragHint] = useState(true)
+  const [dragging, setDragging]         = useState(false)
   const [arLoading, setArLoading]       = useState(false)
-  const orbitRef       = useRef(null)
-  const mvContainerRef = useRef(null)
-  const mvRef          = useRef(null)
-  const logoCanvasRef  = useRef(null)
-  const isDesktop      = useIsDesktop()
+  const orbitRef        = useRef(null)
+  const mvContainerRef  = useRef(null)
+  const mvRef           = useRef(null)
+  const logoCanvasRef   = useRef(null)
+  const returnTimer     = useRef(null)
+  const isDesktop       = useIsDesktop()
+
+  const handleViewerPointerDown = () => {
+    clearTimeout(returnTimer.current)
+    setDragging(true)
+    setShowDragHint(false)
+  }
+
+  const handleViewerPointerUp = () => {
+    setDragging(false)
+    returnTimer.current = setTimeout(() => {
+      orbitRef.current?.reset()
+    }, 1200)
+  }
 
   useEffect(() => {
     if (!mvContainerRef.current) return
@@ -289,7 +308,7 @@ export function LeterTavolineEditorSection({ lang = 'al' }) {
             <div className="size-8 animate-spin rounded-full border-2 border-[#4ca706]/20 border-t-[#4ca706]" />
           </div>
         }>
-          <ModelCanvas orbitRef={orbitRef} cupTexture={cupTexture} />
+          <ModelCanvas orbitRef={orbitRef} cupTexture={cupTexture} dragging={dragging} />
         </Suspense>
       </div>
       <AnimatePresence>
@@ -331,7 +350,7 @@ export function LeterTavolineEditorSection({ lang = 'al' }) {
         <div
           className="sticky top-14 z-20 overflow-hidden"
           style={{ height: '44vh', background: 'radial-gradient(ellipse at 50% 60%, #edfae0 0%, #f8f8f8 65%)', border: '1.5px solid #f0f0f0' }}
-          onPointerDown={() => setShowDragHint(false)}
+          onPointerDown={handleViewerPointerDown} onPointerUp={handleViewerPointerUp}
         >
           {viewerContent}
         </div>
@@ -394,7 +413,7 @@ export function LeterTavolineEditorSection({ lang = 'al' }) {
             <div
               className="relative mx-5 mb-2 flex min-h-[300px] flex-1 items-center justify-center overflow-hidden rounded-2xl md:mx-8 md:mb-2 lg:min-h-[460px]"
               style={{ background: 'radial-gradient(ellipse at 50% 60%, #edfae0 0%, #f8f8f8 65%)', border: '1.5px solid #f0f0f0' }}
-              onPointerDown={() => setShowDragHint(false)}
+              onPointerDown={handleViewerPointerDown} onPointerUp={handleViewerPointerUp}
             >
               {viewerContent}
             </div>

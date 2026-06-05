@@ -78,8 +78,8 @@ export function InfiniteGrid({ children, className }) {
         <div className="absolute left-[-5%] bottom-[-10%] h-[30%] w-[30%] rounded-full bg-[#4ca706]/10 blur-[100px]" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 w-full pt-16 pb-10 md:py-0">
+      {/* Content — slight upward offset on desktop to compensate for nav height */}
+      <div className="relative z-10 w-full pt-16 pb-10 md:py-0 md:-mt-16">
         {children}
       </div>
 

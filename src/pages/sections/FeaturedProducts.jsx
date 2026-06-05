@@ -37,7 +37,7 @@ export function FeaturedProducts({ lang = 'al' }) {
               ? 'Shiko ambalazhën tënde para se ta porosisësh'
               : 'See your packaging before you order'}
           </h2>
-          <p className="mt-3 text-gray-400 max-w-xl mx-auto">
+          <p className="mt-3 text-gray-600 max-w-xl mx-auto">
             {lang === 'al'
               ? 'Çdo produkt mund të personalizohet me logon dhe ngjyrat tuaja. Shiko rezultatin në 3D para se të bësh porosinë.'
               : 'Every product can be customized with your logo and colors. Preview the result in 3D before placing your order.'}

@@ -26,11 +26,6 @@ export function BottomCTA({ lang = 'al' }) {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
 
-          {/* Eyebrow */}
-          <span className="mb-6 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-[#4ca706]">
-            {lang === 'al' ? 'Fillo sot' : 'Start today'}
-          </span>
-
           <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
             {lang === 'al' ? (
               <>Gati të fillojmë<br /><span className="text-[#4ca706]">bashkë?</span></>
@@ -39,7 +34,7 @@ export function BottomCTA({ lang = 'al' }) {
             )}
           </h2>
 
-          <p className="mx-auto mt-5 max-w-md text-base text-white/45 leading-relaxed">
+          <p className="mx-auto mt-5 max-w-md text-base text-white/60 leading-relaxed">
             {lang === 'al'
               ? 'Dërgo logon tënde tani. Brenda 24 orësh ke mockupin 3D falas — pa asnjë detyrim.'
               : 'Send your logo now. Within 24 hours you have a free 3D mockup — with no obligation.'}

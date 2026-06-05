@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { MessageCircle, Package, Box } from "lucide-react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { MessageCircle, Package, Cuboid } from "lucide-react";
 import { InfiniteGrid } from "@/components/ui/infinite-grid";
 import { StatsPanel } from "@/components/ui/stat-card";
 import { LogoCloud } from "@/components/ui/logo-cloud";
 import { FeaturedProducts } from "@/pages/sections/FeaturedProducts"
-import { ProductionClock } from "@/pages/sections/ProductionClock"
+import { Featured3DStrip } from "@/pages/sections/Featured3DStrip"
+
 import { WhyERA } from "@/pages/sections/WhyERA"
 import { ProcessSteps } from "@/pages/sections/ProcessSteps"
-import { MockupCallout } from "@/pages/sections/MockupCallout"
 import { PortfolioStrip } from "@/pages/sections/PortfolioStrip"
 import { BottomCTA } from "@/pages/sections/BottomCTA"
 
@@ -37,6 +37,12 @@ const stats = [
 ];
 
 export default function Home({ lang = "al" }) {
+  const prefersReduced = useReducedMotion()
+  const { scrollY } = useScroll()
+  const heroOpacity = useTransform(scrollY, [0, 380], prefersReduced ? [1, 1] : [1, 0])
+  const heroScale  = useTransform(scrollY, [0, 380], prefersReduced ? [1, 1] : [1, 0.96])
+  const heroY      = useTransform(scrollY, [0, 380], prefersReduced ? [0, 0] : [0, -24])
+
   useEffect(() => {
     document.title = lang === 'al'
       ? 'Ambalazhe Letre Kosovë | ERA Print Pack'
@@ -50,6 +56,7 @@ export default function Home({ lang = "al" }) {
   return (
     <>
     <InfiniteGrid>
+      <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -58,24 +65,24 @@ export default function Home({ lang = "al" }) {
       >
         {/* Badge */}
         <div className="inline-flex items-center gap-2 rounded-full border border-[#4ca706]/40 bg-[#4ca706]/10 px-4 py-1.5 text-xs font-medium text-[#4ca706] tracking-wide">
-          <Box className="size-3.5" />
-          {lang === "al" ? "Dizajni 3D falas me çdo porosi" : "Free 3D mockup with every order"}
+          <Cuboid className="size-3.5" />
+          {lang === "al" ? "Konfigurator 3D & AR · Falas" : "3D & AR Configurator · Free"}
         </div>
 
         {/* Headline */}
         <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-gray-900 md:text-6xl lg:text-7xl">
           {lang === "al" ? (
-            <>Produktet që e bëjnë <span className="text-[#4ca706]">biznesin tënd të dallohet</span></>
+            <>Ambalazhe letre me logon tënde,{" "}<span className="text-[#4ca706]">shiko 3D para se të porosisësh</span></>
           ) : (
-            <>Packaging that makes your <span className="text-[#4ca706]">brand stand out</span></>
+            <>Paper packaging with your logo,{" "}<span className="text-[#4ca706]">see it in 3D before you order</span></>
           )}
         </h1>
 
         {/* Subheadline */}
         <p className="max-w-xl text-base text-gray-500 md:text-lg">
           {lang === "al"
-            ? "Gota letre, kuti dhe etiketa me logon tënde — prodhuar në Kosovë, brenda 7–14 ditësh. 397+ biznese na besojnë."
-            : "Paper cups, boxes and labels with your logo — made in Kosovo, ready in 7–14 days. Trusted by 397+ businesses."}
+            ? "Gota, kupa, mbajtëse e letër tavoline — personalizo me konfigurator 3D falas. Prodhohet në Kosovë, gati brenda 14 ditësh."
+            : "Cups, bowls, holders and table paper — personalise with our free 3D configurator. Made in Kosovo, ready in 14 days."}
         </p>
 
         {/* CTAs */}
@@ -94,17 +101,13 @@ export default function Home({ lang = "al" }) {
             className="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50"
           >
             <Package className="size-4" />
-            {lang === "al" ? "Shiko Produktet" : "Browse Products"}
+            {lang === "al" ? "Provo 3D falas" : "Try 3D free"}
           </Link>
         </div>
 
-        {/* Friction reducer */}
-        <p className="text-xs text-gray-400">
-          {lang === "al" ? "Pa detyrime · Përgjigje brenda 24 orësh" : "No commitment · Reply within 24 hours"}
-        </p>
-
         {/* Stats */}
         <StatsPanel stats={stats.map(s => ({ value: s.value, label: s.label[lang] }))} />
+      </motion.div>
       </motion.div>
     </InfiniteGrid>
 
@@ -126,10 +129,9 @@ export default function Home({ lang = "al" }) {
       </div>
     </section>
 
-    <WhyERA lang={lang} />
+    <Featured3DStrip lang={lang} />
     <ProcessSteps lang={lang} />
-    <MockupCallout lang={lang} />
-    <ProductionClock lang={lang} />
+    <WhyERA lang={lang} />
     <FeaturedProducts lang={lang} />
     <PortfolioStrip lang={lang} />
     <BottomCTA lang={lang} />

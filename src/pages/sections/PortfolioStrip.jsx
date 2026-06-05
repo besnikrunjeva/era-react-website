@@ -240,7 +240,7 @@ export function PortfolioStrip({ lang = 'al' }) {
                 ? <>Projekte të <span className="text-[#4ca706]">partnerëve</span></>
                 : <>Client <span className="text-[#4ca706]">projects</span></>}
             </h2>
-            <p className="mt-2 max-w-md text-sm text-white/35 leading-relaxed">
+            <p className="mt-2 max-w-md text-sm text-white/60 leading-relaxed">
               {lang === 'al'
                 ? 'Ambalazhe të personalizuara të prodhuara për biznese reale — me logo, ngjyra dhe dimensione sipas kërkesës.'
                 : 'Custom packaging produced for real businesses — with logo, colours and dimensions to order.'}
