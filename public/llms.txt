@@ -12,6 +12,7 @@ We produce custom-printed paper cups, food boxes, labels, and packaging for cafe
 - /products/akullore — Ice cream cups (Kupa akullore) S and M sizes with 3D live configurator and AR preview
 - /products/kupa-supe — Soup cups (Kupa supe) natural kraft with 3D live configurator and AR preview
 - /products/leter-tavoline — Table paper (Letër tavoline) custom printed rolls with 3D live configurator and AR preview
+- /products/kuti-hamburgeri — Burger boxes (Kuti hamburgeri) food-grade cardboard with custom CMYK print, min 500 pcs, 7–14 day production
 - /machines — Our 13 production machines
 - /about — Company story, values, client sectors, regional presence
 - /contact — Order request form, WhatsApp, FAQ
@@ -21,7 +22,7 @@ We produce custom-printed paper cups, food boxes, labels, and packaging for cafe
 - Paper cups (Gota letre): 3.5oz, 7oz, 12oz — custom printed with client logo or full design
 - Pasta and soup cups (Kupa): S, M, L sizes
 - Ice cream cups (Kupa akullore): H53, H63 sizes
-- Food boxes (Kuti ushqimore): burger boxes, fries boxes, salad boxes, cake boxes, Dubai gold foil gift boxes
+- Food boxes (Kuti ushqimore): burger boxes (/products/kuti-hamburgeri), fries boxes, salad boxes, cake boxes, Dubai gold foil gift boxes
 - Cutlery holders (Mbajtese): spoon holders, 2-slot coffee holders, universal coffee holders
 - Custom labels and stickers (Etiketa): self-adhesive, for food, beverages, olive oil
 - Table paper (Leter tavoline): disposable rolls for restaurants
