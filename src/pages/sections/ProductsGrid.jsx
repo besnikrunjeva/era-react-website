@@ -102,9 +102,20 @@ function ProductCard({ product, lang, index }) {
               {lang === 'al' ? 'Shiko detajet' : 'View details'}
             </span>
           )}
-          <span className="flex-1 cursor-not-allowed rounded-lg bg-[#4ca706]/10 py-2 text-center text-[11px] font-semibold text-[#4ca706]/40">
-            {lang === 'al' ? 'Interesohu' : 'Get notified'}
-          </span>
+          {product.available ? (
+            <a
+              href="https://wa.me/38344113533"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 rounded-lg bg-[#4ca706]/10 py-2 text-center text-[11px] font-semibold text-[#4ca706] transition-colors hover:bg-[#4ca706]/20"
+            >
+              {lang === 'al' ? 'Merr ofertë' : 'Get a quote'}
+            </a>
+          ) : (
+            <span className="flex-1 cursor-not-allowed rounded-lg bg-[#4ca706]/10 py-2 text-center text-[11px] font-semibold text-[#4ca706]/40">
+              {lang === 'al' ? 'Interesohu' : 'Get notified'}
+            </span>
+          )}
         </div>
       </div>
     </motion.div>
