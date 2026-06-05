@@ -15,11 +15,12 @@ const GROUPS = [
     products: [
       {
         id: 'kuti-ushqimore',
-        slug: '/products/kuti-ushqimore',
+        slug: '/products/kuti-hamburgeri',
         img: imgKutiBurger,
         al: 'Kuti Ushqimore',
         en: 'Food Boxes',
         desc: { al: 'Burger · Fritas · Sallata', en: 'Burger · Fries · Salad' },
+        available: true,
       },
       {
         id: 'kuti-embelsira',
@@ -73,9 +74,11 @@ function ProductCard({ product, lang, index }) {
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           loading="lazy"
         />
-        <span className="absolute right-3 top-3 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-bold text-white/80 backdrop-blur-sm">
-          {lang === 'al' ? 'Së shpejti' : 'Coming soon'}
-        </span>
+        {!product.available && (
+          <span className="absolute right-3 top-3 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-bold text-white/80 backdrop-blur-sm">
+            {lang === 'al' ? 'Së shpejti' : 'Coming soon'}
+          </span>
+        )}
       </div>
 
       {/* Info panel */}
@@ -87,9 +90,18 @@ function ProductCard({ product, lang, index }) {
           </h3>
         </div>
         <div className="mt-auto flex gap-2 pt-1">
-          <span className="flex-1 cursor-not-allowed rounded-lg border border-black/[0.08] py-2 text-center text-[11px] font-semibold text-black/25">
-            {lang === 'al' ? 'Shiko detajet' : 'View details'}
-          </span>
+          {product.available ? (
+            <Link
+              to={product.slug}
+              className="flex-1 rounded-lg border border-black/[0.08] py-2 text-center text-[11px] font-semibold text-black/60 transition-colors hover:border-[#4ca706]/40 hover:text-[#4ca706]"
+            >
+              {lang === 'al' ? 'Shiko detajet' : 'View details'}
+            </Link>
+          ) : (
+            <span className="flex-1 cursor-not-allowed rounded-lg border border-black/[0.08] py-2 text-center text-[11px] font-semibold text-black/25">
+              {lang === 'al' ? 'Shiko detajet' : 'View details'}
+            </span>
+          )}
           <span className="flex-1 cursor-not-allowed rounded-lg bg-[#4ca706]/10 py-2 text-center text-[11px] font-semibold text-[#4ca706]/40">
             {lang === 'al' ? 'Interesohu' : 'Get notified'}
           </span>

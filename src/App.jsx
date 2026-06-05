@@ -17,6 +17,7 @@ import ProductMbajtese from '@/pages/ProductMbajtese'
 import ProductAkullore from '@/pages/ProductAkullore'
 import ProductKupaSupe from '@/pages/ProductKupaSupe'
 import ProductLeterTavoline from '@/pages/ProductLeterTavoline'
+import ProductKutiHamburgeri from '@/pages/ProductKutiHamburgeri'
 import Machines from '@/pages/Machines'
 import PreviewTest from '@/pages/PreviewTest'
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/products/akullore" element={<ProductAkullore />} />
         <Route path="/products/kupa-supe" element={<ProductKupaSupe />} />
         <Route path="/products/leter-tavoline" element={<ProductLeterTavoline />} />
+        <Route path="/products/kuti-hamburgeri" element={<ProductKutiHamburgeri />} />
         <Route path="/machines" element={<Machines />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
