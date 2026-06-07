@@ -2,24 +2,101 @@ import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
-import imgKutiBurger from '@/assets/products/kuti-burger.webp'
-import imgKuti       from '@/assets/products/kuti.webp'
-import imgKapak      from '@/assets/products/kapak.webp'
-import imgLeter      from '@/assets/products/leter.webp'
+import imgKutiBurger  from '@/assets/products/kuti-burger.webp'
+import imgKutiSllajder  from '@/assets/products/kuti-sllajder-1.png'
+import imgKutiFastFood  from '@/assets/products/kuti-fast-food-v1.png'
+import imgKuti6Pika     from '@/assets/products/kuti-6pika-gold.png'
+import imgKutiHapur    from '@/assets/products/kuti-hapur-l.png'
+import imgKutiKrepa    from '@/assets/products/kuti-krepa-cone.png'
+import imgKutiSallata    from '@/assets/products/kuti-sallata-closed.png'
+import imgKutiMakaronash from '@/assets/products/kuti-makaronash-s.png'
+import imgKuti         from '@/assets/products/kuti.webp'
+import imgKapak        from '@/assets/products/kapak.webp'
+import imgLeter        from '@/assets/products/leter.webp'
 
 const GROUPS = [
   {
     id: 'kuti-ushqimore',
-    al: 'Kuti Ushqimore',
-    en: 'Food Boxes',
+    al: 'Kuti',
+    en: 'Boxes',
     products: [
       {
-        id: 'kuti-ushqimore',
+        id: 'kuti-hamburgeri',
         slug: '/products/kuti-hamburgeri',
         img: imgKutiBurger,
-        al: 'Kuti Ushqimore',
-        en: 'Food Boxes',
+        al: 'Kuti Hamburgeri',
+        en: 'Burger Boxes',
         desc: { al: 'Burger · Fritas · Sallata', en: 'Burger · Fries · Salad' },
+        available: true,
+      },
+      {
+        id: 'kuti-sllajder',
+        slug: '/products/kuti-sllajder',
+        img: imgKutiSllajder,
+        al: 'Kuti Sllajder',
+        en: 'Slider Boxes',
+        desc: { al: 'Pizza · Embëlsira · Furra · Kafete', en: 'Pizza · Sweets · Bakery · Café' },
+        available: true,
+      },
+      {
+        id: 'kuti-fast-food',
+        slug: '/products/kuti-fast-food',
+        img: imgKutiFastFood,
+        al: 'Kuti Fast Food',
+        en: 'Fast Food Boxes',
+        desc: { al: 'Shawarme · Pule · Nuggets · Snacks', en: 'Shawarma · Chicken · Nuggets · Snacks' },
+        available: true,
+      },
+      {
+        id: 'kuti-sallata',
+        slug: '/products/kuti-sallata',
+        img: imgKutiSallata,
+        al: 'Kuti për Sallata',
+        en: 'Salad Boxes',
+        desc: { al: 'Sallata · Oriz · Pule · Fast food', en: 'Salad · Rice · Chicken · Fast food' },
+        available: true,
+      },
+      {
+        id: 'kuti-hapur',
+        slug: '/products/kuti-hapur',
+        img: imgKutiHapur,
+        al: 'Kuti e Hapur',
+        en: 'Open Tray Box',
+        desc: { al: 'Fast Food · Embëlsira · Sushi', en: 'Fast Food · Pastries · Sushi' },
+        available: true,
+      },
+    ],
+  },
+  {
+    id: 'pasticeri',
+    al: 'Pastiçeri',
+    en: 'Pastry',
+    products: [
+      {
+        id: 'kuti-makaronash',
+        slug: '/products/kuti-makaronash',
+        img: imgKutiMakaronash,
+        al: 'Kuti Makaronash',
+        en: 'Macaron Boxes',
+        desc: { al: 'S · M · Gjatë — kapak sllajder', en: 'S · M · Long — sliding lid' },
+        available: true,
+      },
+      {
+        id: 'kuti-krepa',
+        slug: '/products/kuti-krepa',
+        img: imgKutiKrepa,
+        al: 'Kuti Krepa',
+        en: 'Crepe Boxes',
+        desc: { al: 'Kon handheld · Kuti trekëndore', en: 'Cone holder · Triangle box' },
+        available: true,
+      },
+      {
+        id: 'kuti-6pika',
+        slug: '/products/kuti-6pika',
+        img: imgKuti6Pika,
+        al: 'Kuti me 6 Pika',
+        en: '6-Corner Boxes',
+        desc: { al: 'Foli ari · Foli argjend · E montuar gati', en: 'Gold foil · Silver foil · Pre-assembled' },
         available: true,
       },
       {
@@ -57,7 +134,7 @@ const GROUPS = [
   },
 ]
 
-function ProductCard({ product, lang, index }) {
+function ProductCard({ product, lang, index, compact = false }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -67,7 +144,7 @@ function ProductCard({ product, lang, index }) {
       className="group flex flex-col overflow-hidden rounded-2xl border border-black/[0.07] bg-[#eeedea]"
     >
       {/* Photo */}
-      <div className="relative h-52 overflow-hidden">
+      <div className={`relative overflow-hidden ${compact ? 'h-36' : 'h-52'}`}>
         <img
           src={product.img}
           alt={lang === 'al' ? product.al : product.en}
@@ -75,21 +152,21 @@ function ProductCard({ product, lang, index }) {
           loading="lazy"
         />
         {!product.available && (
-          <span className="absolute right-3 top-3 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-bold text-white/80 backdrop-blur-sm">
-            {lang === 'al' ? 'Së shpejti' : 'Coming soon'}
+          <span className="absolute right-2 top-2 rounded-full bg-black/50 px-2 py-0.5 text-[9px] font-bold text-white/80 backdrop-blur-sm">
+            {lang === 'al' ? 'Së shpejti' : 'Soon'}
           </span>
         )}
       </div>
 
       {/* Info panel */}
-      <div className="flex flex-1 flex-col gap-3 bg-[#eeedea] p-5">
+      <div className={`flex flex-1 flex-col bg-[#eeedea] ${compact ? 'gap-2 p-3' : 'gap-3 p-5'}`}>
         <div>
-          <p className="text-[11px] font-medium tracking-wide text-black/35">{product.desc[lang]}</p>
-          <h3 className="mt-1 text-lg font-extrabold leading-snug text-black/80">
+          <p className="text-[10px] font-medium tracking-wide text-black/35 truncate">{product.desc[lang]}</p>
+          <h3 className={`mt-0.5 font-extrabold leading-snug text-black/80 ${compact ? 'text-sm' : 'text-lg'}`}>
             {lang === 'al' ? product.al : product.en}
           </h3>
         </div>
-        <div className="mt-auto flex gap-2 pt-1">
+        <div className={`mt-auto flex pt-1 ${compact ? 'flex-col gap-1.5' : 'flex-row gap-2'}`}>
           {product.available ? (
             <Link
               to={product.slug}
@@ -200,27 +277,31 @@ export function ProductsGrid({ lang = 'al' }) {
     <section className="bg-[#f5f4f0] py-20 px-4">
       <div className="mx-auto max-w-6xl flex flex-col gap-16">
 
-        {/* Group 1: Kuti Ushqimore */}
+        {/* Group 1: Kuti — always 2-col */}
         <div>
-          <CategoryHeading label={lang === 'al' ? 'Kuti Ushqimore' : 'Food Boxes'} lang={lang} index={0} />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <CategoryHeading label={lang === 'al' ? 'Kuti' : 'Boxes'} lang={lang} index={0} />
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             {GROUPS[0].products.map((p, i) => (
-              <ProductCard key={p.id} product={p} lang={lang} index={i} />
+              <ProductCard key={p.id} product={p} lang={lang} index={i} compact />
             ))}
           </div>
         </div>
 
-        {/* Group 2: Kuti Premium — standalone dark card */}
+        {/* Group 3: Pastiçeri */}
         <div>
-          <PremiumCategoryHeading lang={lang} index={1} />
-          <PremiumCard lang={lang} index={0} />
+          <CategoryHeading label={lang === 'al' ? 'Pastiçeri' : 'Pastry'} lang={lang} index={1} />
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            {GROUPS[1].products.map((p, i) => (
+              <ProductCard key={p.id} product={p} lang={lang} index={i} compact />
+            ))}
+          </div>
         </div>
 
-        {/* Group 3: Aksesorë & Letër */}
+        {/* Group 4: Aksesorë & Letër */}
         <div>
           <CategoryHeading label={lang === 'al' ? 'Aksesorë & Letër' : 'Accessories & Paper'} lang={lang} index={2} />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {GROUPS[1].products.map((p, i) => (
+            {GROUPS[2].products.map((p, i) => (
               <ProductCard key={p.id} product={p} lang={lang} index={i} />
             ))}
           </div>

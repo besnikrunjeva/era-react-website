@@ -18,6 +18,13 @@ import ProductAkullore from '@/pages/ProductAkullore'
 import ProductKupaSupe from '@/pages/ProductKupaSupe'
 import ProductLeterTavoline from '@/pages/ProductLeterTavoline'
 import ProductKutiHamburgeri from '@/pages/ProductKutiHamburgeri'
+import ProductKutiSllajder from '@/pages/ProductKutiSllajder'
+import ProductKutiFastFood from '@/pages/ProductKutiFastFood'
+import ProductKuti6Pika from '@/pages/ProductKuti6Pika'
+import ProductKutiHapur from '@/pages/ProductKutiHapur'
+import ProductKutiKrepa from '@/pages/ProductKutiKrepa'
+import ProductKutiSallata from '@/pages/ProductKutiSallata'
+import ProductKutiMakaronash from '@/pages/ProductKutiMakaronash'
 import Machines from '@/pages/Machines'
 import PreviewTest from '@/pages/PreviewTest'
 
@@ -35,6 +42,13 @@ function App() {
         <Route path="/products/kupa-supe" element={<ProductKupaSupe />} />
         <Route path="/products/leter-tavoline" element={<ProductLeterTavoline />} />
         <Route path="/products/kuti-hamburgeri" element={<ProductKutiHamburgeri />} />
+        <Route path="/products/kuti-sllajder" element={<ProductKutiSllajder />} />
+        <Route path="/products/kuti-fast-food" element={<ProductKutiFastFood />} />
+        <Route path="/products/kuti-6pika" element={<ProductKuti6Pika />} />
+        <Route path="/products/kuti-hapur" element={<ProductKutiHapur />} />
+        <Route path="/products/kuti-krepa" element={<ProductKutiKrepa />} />
+        <Route path="/products/kuti-sallata" element={<ProductKutiSallata />} />
+        <Route path="/products/kuti-makaronash" element={<ProductKutiMakaronash />} />
         <Route path="/machines" element={<Machines />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

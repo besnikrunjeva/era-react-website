@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { MessageCircle, Phone } from 'lucide-react'
+import { SizeGallery } from '@/pages/sections/SizeGallery'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -12,20 +13,24 @@ export function ProductHeroFlat({ lang = 'al', product }) {
     <section className="bg-white px-5 py-14 md:px-8 md:py-20">
       <div className="mx-auto grid max-w-5xl grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16">
 
-        {/* Image — top on mobile (order-first), right on desktop (order-last) */}
+        {/* Image / Size gallery — top on mobile, right on desktop */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: EASE }}
-          className="order-first overflow-hidden rounded-2xl md:order-last"
+          className="order-first md:order-last"
         >
-          <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-gray-50">
-            <img
-              src={product.img}
-              alt={product.imgAlt[lang]}
-              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-            />
-          </div>
+          {product.sizes ? (
+            <SizeGallery sizes={product.sizes} lang={lang} />
+          ) : (
+            <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-gray-50">
+              <img
+                src={product.img}
+                alt={product.imgAlt[lang]}
+                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+              />
+            </div>
+          )}
         </motion.div>
 
         {/* Text — below image on mobile, left on desktop */}

@@ -13,6 +13,13 @@ We produce custom-printed paper cups, food boxes, labels, and packaging for cafe
 - /products/kupa-supe — Soup cups (Kupa supe) natural kraft with 3D live configurator and AR preview
 - /products/leter-tavoline — Table paper (Letër tavoline) custom printed rolls with 3D live configurator and AR preview
 - /products/kuti-hamburgeri — Burger boxes (Kuti hamburgeri) food-grade cardboard with custom CMYK print, min 500 pcs, 7–14 day production
+- /products/kuti-sllajder — Slider boxes (Kuti sllajder) with or without window, custom CMYK print, min 500 pcs
+- /products/kuti-fast-food — Fast food boxes (Kuti fast food) gable-top and square, custom CMYK print, min 500 pcs
+- /products/kuti-6pika — 6-corner premium pastry boxes (Kuti me 6 pika), pre-assembled, gold foil / silver foil / CMYK print
+- /products/kuti-hapur — Open tray boxes (Kuti e hapur) in 3 sizes L, M, S, food-grade with custom CMYK print, ideal for fast food, pastries and sushi
+- /products/kuti-krepa — Crepe boxes (Kuti krepa) in two formats: handheld open cone holder and closing triangle box, custom CMYK print
+- /products/kuti-makaronash — Macaron boxes (Kuti makaronash) sliding lid drawer boxes in 3 sizes: S (2 pcs), M (4 pcs), long (8 pcs), custom CMYK print
+- /products/kuti-sallata — Salad boxes (Kuti per sallata) clam-shell food-grade with hinged lid and dual tab-lock, custom CMYK print, ideal for salads, rice, chicken
 - /machines — Our 13 production machines
 - /about — Company story, values, client sectors, regional presence
 - /contact — Order request form, WhatsApp, FAQ

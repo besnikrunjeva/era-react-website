@@ -2,6 +2,9 @@ import imgKutiBurger from '@/assets/products/kuti-burger.webp'
 import imgGota       from '@/assets/products/gota.webp'
 import imgAkullore   from '@/assets/products/akullore.webp'
 import imgMbajtese   from '@/assets/products/mbajtese.webp'
+import imgSize1 from '@/assets/products/kuti-burger-s1.png'
+import imgSize2 from '@/assets/products/kuti-burger-s2.png'
+import imgSize3 from '@/assets/products/kuti-burger-s3.png'
 
 export const PRODUCT = {
   slug: '/products/kuti-hamburgeri',
@@ -16,11 +19,29 @@ export const PRODUCT = {
     en: 'Food-grade cardboard with full CMYK print.',
   },
 
-  img: imgKutiBurger,
+  img: imgSize1,
   imgAlt: {
     al: 'Kuti hamburgeri me printim të personalizuar — ERA Print Pack Kosovë',
     en: 'Custom printed burger boxes — ERA Print Pack Kosovo',
   },
+
+  sizes: [
+    {
+      img: imgSize1,
+      label: { al: 'Small',  en: 'Small'  },
+      imgAlt: { al: 'Kuti hamburgeri Small — ERA Print Pack', en: 'Burger box Small — ERA Print Pack' },
+    },
+    {
+      img: imgSize2,
+      label: { al: 'Medium', en: 'Medium' },
+      imgAlt: { al: 'Kuti hamburgeri Medium — ERA Print Pack', en: 'Burger box Medium — ERA Print Pack' },
+    },
+    {
+      img: imgSize3,
+      label: { al: 'Large',  en: 'Large'  },
+      imgAlt: { al: 'Kuti hamburgeri Large — ERA Print Pack', en: 'Burger box Large — ERA Print Pack' },
+    },
+  ],
 
   badges: [
     { al: 'Printim CMYK',         en: 'CMYK Print'        },
