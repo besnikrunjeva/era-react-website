@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { MenuToggle } from '@/components/ui/menu-toggle'
+import { Globe } from 'lucide-react'
 import eraLogo from '@/assets/era-logo.png'
+
+const LANGS = [
+  { code: 'al', flag: '🇽🇰', name: 'Shqip',   sub: 'Kosovë · Shqipëri' },
+  { code: 'en', flag: '🇬🇧', name: 'English', sub: 'International'      },
+]
 
 const links = [
   { label: { al: 'Ballina', en: 'Home' }, href: '/' },
@@ -11,9 +17,54 @@ const links = [
   { label: { al: 'Kontakt', en: 'Contact' }, href: '/contact' },
 ]
 
-export function SimpleHeader() {
+function LangDropdown({ lang, setLang, align = 'right' }) {
   const [open, setOpen] = React.useState(false)
-  const [lang, setLang] = React.useState('al')
+  const ref = React.useRef(null)
+
+  React.useEffect(() => {
+    function handler(e) { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen(v => !v)}
+        className="flex items-center gap-1.5 rounded-md border border-gray-200 px-2.5 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:border-[#4ca706]/40 hover:text-[#4ca706]"
+      >
+        <Globe className="size-3.5" />
+        <span>{LANGS.find(l => l.code === lang)?.flag}</span>
+        <span>{lang.toUpperCase()}</span>
+        <svg className={`size-3 transition-transform duration-150 ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+      </button>
+      {open && (
+        <div className={`absolute top-full z-50 mt-1.5 w-44 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg ${align === 'right' ? 'right-0' : 'left-0'}`}>
+          <p className="px-3 py-2 text-[9px] font-bold uppercase tracking-widest text-gray-400">
+            {lang === 'al' ? 'Gjuha' : 'Language'}
+          </p>
+          {LANGS.map(l => (
+            <button
+              key={l.code}
+              onClick={() => { setLang(l.code); setOpen(false) }}
+              className={`flex w-full items-center gap-3 px-3 py-2 transition-colors hover:bg-gray-50 ${lang === l.code ? 'bg-[#f0f9e8]' : ''}`}
+            >
+              <span className="text-lg leading-none">{l.flag}</span>
+              <div className="text-left">
+                <p className={`text-[12px] font-bold ${lang === l.code ? 'text-[#4ca706]' : 'text-gray-700'}`}>{l.name}</p>
+                <p className="text-[9px] text-gray-400">{l.sub}</p>
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export function SimpleHeader({ lang = 'al', onLangChange }) {
+  const [open, setOpen] = React.useState(false)
+  const setLang = (l) => onLangChange?.(l)
   const location = useLocation()
 
   const t = (obj) => obj[lang]
@@ -53,30 +104,20 @@ export function SimpleHeader() {
             ))}
           </div>
 
-          {/* Desktop right: lang toggle + CTA */}
+          {/* Desktop right: lang dropdown + CTA */}
           <div className="hidden items-center gap-3 lg:flex">
-            <div className="flex items-center rounded-md border border-gray-200 overflow-hidden text-sm font-medium">
-              <button
-                onClick={() => setLang('al')}
-                className={`px-3 py-1.5 transition-colors ${lang === 'al' ? 'bg-[#4ca706] text-white' : 'text-gray-600 hover:bg-gray-100'}`}
-              >
-                AL
-              </button>
-              <button
-                onClick={() => setLang('en')}
-                className={`px-3 py-1.5 transition-colors ${lang === 'en' ? 'bg-[#4ca706] text-white' : 'text-gray-600 hover:bg-gray-100'}`}
-              >
-                EN
-              </button>
-            </div>
+            <LangDropdown lang={lang} setLang={setLang} align="right" />
             <Link to="/contact" className="inline-flex items-center justify-center rounded-md bg-[#4ca706] px-4 py-2 text-sm font-medium text-white hover:bg-[#3d8f05] transition-colors">
               {lang === 'al' ? 'Merr Ofertë' : 'Get a Quote'}
             </Link>
           </div>
 
-          {/* Mobile hamburger */}
-          <div className="lg:hidden p-2 text-gray-700">
-            <MenuToggle strokeWidth={2.5} open={open} onOpenChange={setOpen} className="size-6" />
+          {/* Mobile: lang dropdown + hamburger */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <LangDropdown lang={lang} setLang={setLang} align="right" />
+            <div className="p-2 text-gray-700">
+              <MenuToggle strokeWidth={2.5} open={open} onOpenChange={setOpen} className="size-6" />
+            </div>
           </div>
 
         </nav>
@@ -124,28 +165,14 @@ export function SimpleHeader() {
           ))}
         </nav>
 
-        {/* CTA + lang toggle */}
-        <div className="flex items-center gap-3 px-5 pt-3 pb-8">
+        {/* CTA */}
+        <div className="px-5 pt-3 pb-8">
           <Link
             to="/contact"
-            className="flex-1 rounded-xl bg-[#4ca706] py-3.5 text-center text-sm font-bold text-white"
+            className="block rounded-xl bg-[#4ca706] py-3.5 text-center text-sm font-bold text-white"
           >
             {lang === 'al' ? 'Merr Ofertë →' : 'Get a Quote →'}
           </Link>
-          <div className="flex overflow-hidden rounded-xl border border-gray-200 text-sm font-bold">
-            <button
-              onClick={() => setLang('al')}
-              className={`px-4 py-3.5 transition-colors ${lang === 'al' ? 'bg-[#4ca706] text-white' : 'text-gray-500'}`}
-            >
-              AL
-            </button>
-            <button
-              onClick={() => setLang('en')}
-              className={`px-4 py-3.5 transition-colors ${lang === 'en' ? 'bg-[#4ca706] text-white' : 'text-gray-500'}`}
-            >
-              EN
-            </button>
-          </div>
         </div>
       </div>
     </>

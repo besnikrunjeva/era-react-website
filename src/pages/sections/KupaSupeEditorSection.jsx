@@ -15,10 +15,10 @@ const MODEL_URL = `${BASE}models/kupa-supe.glb`
 useGLTF.preload(MODEL_URL)
 
 const USE_CASES = [
-  { label: 'Restorante', Icon: ForkKnifeCrossed },
-  { label: 'Fast-food',  Icon: ShoppingBag      },
-  { label: 'Hotele',     Icon: Building2        },
-  { label: 'Kafene',     Icon: Coffee           },
+  { al: 'Restorante', en: 'Restaurants', Icon: ForkKnifeCrossed },
+  { al: 'Fast-food',  en: 'Fast Food',   Icon: ShoppingBag      },
+  { al: 'Hotele',     en: 'Hotels',      Icon: Building2        },
+  { al: 'Kafene',     en: 'Cafés',       Icon: Coffee           },
 ]
 
 // UV wrap is wide & short: 2348×298 → canvas ratio ≈ 7.88:1
@@ -112,24 +112,24 @@ function ModelCanvas({ orbitRef, cupTexture }) {
   )
 }
 
-function TemplateFlow({ fullDesignFile, onFullDesignUpload, onFullDesignRemove }) {
+function TemplateFlow({ fullDesignFile, onFullDesignUpload, onFullDesignRemove, lang = 'al' }) {
   return (
     <div className="flex flex-col gap-2">
       <div className="overflow-hidden rounded-xl border border-gray-100 bg-white">
         <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gray-50 px-3 py-2.5">
           <div className="flex size-5 shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#c8ddb8] bg-[#f0f9e8] text-[8px] font-black text-[#4ca706]">1</div>
           <div>
-            <div className="text-[10px] font-bold text-gray-500">Shkarko templatein</div>
-            <div className="text-[9px] text-gray-400">Sipërfaqja e printimit — brez horizontal</div>
+            <div className="text-[10px] font-bold text-gray-500">{lang === 'al' ? 'Shkarko templatein' : 'Download template'}</div>
+            <div className="text-[9px] text-gray-400">{lang === 'al' ? 'Sipërfaqja e printimit — brez horizontal' : 'Print area — horizontal band'}</div>
           </div>
         </div>
         <div className="p-3">
           <button
-            onClick={() => alert('Templatet do të jenë të disponueshme së shpejti.')}
+            onClick={() => alert(lang === 'al' ? 'Templatet do të jenë të disponueshme së shpejti.' : 'Templates will be available with the 3D editor.')}
             className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white py-2.5 text-[10px] font-bold text-gray-600 transition-all hover:border-[#4ca706]/40 hover:text-[#4ca706]"
           >
             <Download className="size-3.5" />
-            Shkarko Template — Kupa Supe
+            {lang === 'al' ? 'Shkarko Template — Kupa Supe' : 'Download Template — Soup Cup'}
           </button>
           <div className="mt-2 flex gap-1.5">
             {['AI', 'PDF', 'PSD'].map(f => (
@@ -143,8 +143,8 @@ function TemplateFlow({ fullDesignFile, onFullDesignUpload, onFullDesignRemove }
         <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gray-50 px-3 py-2.5">
           <div className="flex size-5 shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#c8ddb8] bg-[#f0f9e8] text-[8px] font-black text-[#4ca706]">2</div>
           <div>
-            <div className="text-[10px] font-bold text-gray-500">Ngarko dizajnin e plotë</div>
-            <div className="text-[9px] text-gray-400">Vendoset direkt mbi brezan e kupës 3D</div>
+            <div className="text-[10px] font-bold text-gray-500">{lang === 'al' ? 'Ngarko dizajnin e plotë' : 'Upload the full design'}</div>
+            <div className="text-[9px] text-gray-400">{lang === 'al' ? 'Vendoset direkt mbi brezan e kupës 3D' : 'Placed directly on the 3D cup band'}</div>
           </div>
         </div>
         <div className="p-3">
@@ -152,12 +152,15 @@ function TemplateFlow({ fullDesignFile, onFullDesignUpload, onFullDesignRemove }
             onUpload={onFullDesignUpload}
             uploadedFile={fullDesignFile}
             onRemove={onFullDesignRemove}
-            label="Ngarko dizajnin e përfunduar"
-            subLabel="Do të shfaqet direkt në kupë 3D"
+            label={lang === 'al' ? 'Ngarko dizajnin e përfunduar' : 'Upload the finished design'}
+            subLabel={lang === 'al' ? 'Do të shfaqet direkt në kupë 3D' : 'Will appear directly on the 3D cup'}
             formats={['PDF', 'AI', 'PNG']}
           />
           <p className="mt-2 text-[9px] leading-relaxed text-gray-400">
-            Templati ka <span className="font-semibold text-gray-500">bleed</span> dhe <span className="font-semibold text-gray-500">safe zone</span> të shënuara.
+            {lang === 'al'
+              ? <>{`Templati ka `}<span className="font-semibold text-gray-500">bleed</span>{` dhe `}<span className="font-semibold text-gray-500">safe zone</span>{` të shënuara.`}</>
+              : <>{`The template has `}<span className="font-semibold text-gray-500">bleed</span>{` and `}<span className="font-semibold text-gray-500">safe zone</span>{` marked.`}</>
+            }
           </p>
         </div>
       </div>
@@ -301,7 +304,7 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
               <svg viewBox="0 0 16 16" className="size-3 fill-none stroke-current" strokeWidth="1.5">
                 <path d="M8 2v3M6 4l2-2 2 2M8 14v-3M6 12l2 2 2-2M2 8h3M4 6l-2 2 2 2M14 8h-3M12 6l2 2-2 2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Rrotullohu me tërheqje
+              {lang === 'al' ? 'Rrotullohu me tërheqje' : 'Drag to rotate'}
             </div>
           </motion.div>
         )}
@@ -310,7 +313,7 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
       <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center">
         <button
           onClick={() => orbitRef.current?.reset()}
-          title="Rinis rrotullimin"
+          title={lang === 'al' ? 'Rinis rrotullimin' : 'Reset rotation'}
           className="flex size-7 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 shadow-sm transition-colors hover:text-[#4ca706]"
         >
           <RotateCcw className="size-3.5" />
@@ -319,7 +322,7 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
     </>
   )
 
-  const arButton = <ARButton onClick={handleARClick} loading={arLoading} label="Shiko kupën tënde në AR" />
+  const arButton = <ARButton onClick={handleARClick} loading={arLoading} label={lang === 'al' ? 'Shiko kupën tënde në AR' : 'See your cup in AR'} />
 
   return (
     <section className="border-b border-gray-100 bg-white">
@@ -349,19 +352,19 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
               ⬡ Editor 3D
             </span>
             <h1 className="text-3xl font-black leading-tight tracking-tight text-gray-900 md:text-4xl">
-              Kupa supe me <span className="text-[#4ca706]">printim</span><br />profesional
+              {lang === 'al' ? <>Kupa supe me <span className="text-[#4ca706]">printim</span><br />profesional</> : <>Soup cups with <span className="text-[#4ca706]">professional</span><br />print</>}
             </h1>
             <div className="mt-4 flex flex-wrap gap-2">
-              {USE_CASES.map(({ label, Icon }, i) => (
+              {USE_CASES.map((uc, i) => (
                 <motion.span
-                  key={label}
+                  key={uc.al}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: i * 0.07 }}
                   className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-[10px] font-bold text-gray-600"
                 >
-                  <Icon className="size-3 text-[#4ca706]" />
-                  {label}
+                  <uc.Icon className="size-3 text-[#4ca706]" />
+                  {uc[lang]}
                 </motion.span>
               ))}
             </div>
@@ -372,13 +375,13 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
               ⬡ Editor 3D
             </span>
             <h1 className="text-3xl font-black leading-tight tracking-tight text-gray-900">
-              Kupa supe me <span className="text-[#4ca706]">printim</span><br />profesional
+              {lang === 'al' ? <>Kupa supe me <span className="text-[#4ca706]">printim</span><br />profesional</> : <>Soup cups with <span className="text-[#4ca706]">professional</span><br />print</>}
             </h1>
             <div className="mt-4 flex flex-wrap gap-2">
-              {USE_CASES.map(({ label, Icon }) => (
-                <span key={label} className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-[10px] font-bold text-gray-600">
-                  <Icon className="size-3 text-[#4ca706]" />
-                  {label}
+              {USE_CASES.map(uc => (
+                <span key={uc.al} className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-[10px] font-bold text-gray-600">
+                  <uc.Icon className="size-3 text-[#4ca706]" />
+                  {uc[lang]}
                 </span>
               ))}
             </div>
@@ -404,7 +407,7 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
 
           <div className="flex items-center border-b border-[#e8f3df] bg-[#f8fdf4] px-5 py-3">
             <span className="text-[9px] font-black uppercase tracking-[0.14em] text-[#4ca706]">
-              ⬡ Personalizo kupën tënde
+              ⬡ {lang === 'al' ? 'Personalizo kupën tënde' : 'Customise your cup'}
             </span>
           </div>
 
@@ -413,13 +416,13 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
               <div className="mb-3 flex items-start gap-2.5">
                 <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#4ca706] text-[10px] font-black text-white mt-0.5">1</div>
                 <div>
-                  <p className="text-[12px] font-black text-gray-800">Shto logon ose dizajnin tënd</p>
-                  <p className="mt-0.5 text-[10px] text-gray-400">Vendoset automatikisht në brezan e kupës</p>
+                  <p className="text-[12px] font-black text-gray-800">{lang === 'al' ? 'Shto logon ose dizajnin tënd' : 'Add your logo or design'}</p>
+                  <p className="mt-0.5 text-[10px] text-gray-400">{lang === 'al' ? 'Vendoset automatikisht në brezan e kupës' : 'ERA positions it automatically on the cup band'}</p>
                 </div>
               </div>
 
               <div className="mb-3 flex gap-2">
-                {[{ id: 'logo', label: 'Kam logo gati' }, { id: 'template', label: 'Dizajn i plotë' }].map(tab => (
+                {[{ id: 'logo', al: 'Kam logo gati', en: 'I have a logo' }, { id: 'template', al: 'Dizajn i plotë', en: 'Full design' }].map(tab => (
                   <button
                     key={tab.id}
                     onClick={() => setUploadTab(tab.id)}
@@ -427,15 +430,15 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
                       uploadTab === tab.id ? 'border-[#4ca706] bg-[#f0f9e8] text-[#4ca706]' : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'
                     }`}
                   >
-                    {tab.label}
+                    {tab[lang]}
                   </button>
                 ))}
               </div>
 
               <p className="mb-3 text-[9px] leading-relaxed text-gray-400">
                 {uploadTab === 'logo'
-                  ? 'ERA e vendos logon automatikisht në brezan e printimit. Karta kraft dhe pjesa e bardhë mbeten të pandryshura.'
-                  : 'Shkarko templatein, vizatoje me dizajnerin tënd, ngarko rezultatin.'}
+                  ? (lang === 'al' ? 'ERA e vendos logon automatikisht në brezan e printimit. Karta kraft dhe pjesa e bardhë mbeten të pandryshura.' : 'ERA positions the logo automatically on the print band. Kraft card and white area remain unchanged.')
+                  : (lang === 'al' ? 'Shkarko templatein, vizatoje me dizajnerin tënd, ngarko rezultatin.' : 'Download the template, design with your designer, upload the result.')}
               </p>
 
               <AnimatePresence mode="wait">
@@ -445,20 +448,20 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
                       onUpload={setLogoFile}
                       uploadedFile={logoFile}
                       onRemove={() => setLogoFile(null)}
-                      label="Ngarko logon tënde"
-                      subLabel="SVG, PNG, PDF ose AI"
+                      label={lang === 'al' ? 'Ngarko logon tënde' : 'Upload your logo'}
+                      subLabel={lang === 'al' ? 'SVG, PNG, PDF ose AI' : 'SVG, PNG, PDF or AI'}
                       formats={['SVG', 'PNG', 'PDF', 'AI']}
                     />
                     {!logoFile && (
                       <a href="mailto:info@eraprintpack.com?subject=Logo%20për%20Kupa%20Supe" className="mt-1 block text-center text-[9px] font-bold text-gray-400 transition-colors hover:text-[#4ca706]">
-                        Nuk ke skedar gati? Dërgona logon me email →
+                        {lang === 'al' ? 'Nuk ke skedar gati? Dërgona logon me email →' : "Don't have a file ready? Send us your logo by email →"}
                       </a>
                     )}
                     {logoFile && (
                       <div className="flex flex-col gap-2">
                         <LogoSizePicker logoSize={logoSize} setLogoSize={setLogoSize} />
                         <p className="rounded-lg border border-[#e8f3df] bg-[#f8fdf4] px-3 py-2 text-[9px] leading-relaxed text-gray-500">
-                          <span className="font-bold text-[#4ca706]">Logo vendoset</span> në të dy anët e brezit të printimit.
+                          <span className="font-bold text-[#4ca706]">{lang === 'al' ? 'Logo vendoset' : 'Logo is placed'}</span> {lang === 'al' ? 'në të dy anët e brezit të printimit.' : 'on both sides of the print band.'}
                         </p>
                       </div>
                     )}
@@ -470,6 +473,7 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
                       fullDesignFile={fullDesignFile}
                       onFullDesignUpload={setFullDesignFile}
                       onFullDesignRemove={() => setFullDesignFile(null)}
+                      lang={lang}
                     />
                   </motion.div>
                 )}
@@ -481,7 +485,10 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
               <div className="flex items-start gap-2.5 rounded-xl border border-amber-100 bg-amber-50 px-3 py-2.5">
                 <div className="mt-0.5 size-2 shrink-0 rounded-full bg-amber-400" />
                 <p className="text-[9px] leading-relaxed text-amber-700">
-                  <span className="font-bold">Kraft natyral</span> — materiali i brendshëm dhe shtylla e jashtme ruajnë strukturën origjinale të letrës kraft. Vetëm brezi i printimit personalizohet.
+                  {lang === 'al'
+                    ? <><span className="font-bold">Kraft natyral</span> — materiali i brendshëm dhe shtylla e jashtme ruajnë strukturën origjinale të letrës kraft. Vetëm brezi i printimit personalizohet.</>
+                    : <><span className="font-bold">Natural kraft</span> — the inner material and outer column retain the original kraft paper structure. Only the print band is customised.</>
+                  }
                 </p>
               </div>
             </div>
@@ -504,8 +511,8 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
             className="fixed bottom-4 left-4 right-4 z-30 flex items-center justify-between rounded-2xl border-[1.5px] border-[#4ca706] bg-white px-4 py-3 shadow-xl shadow-[#4ca706]/20 lg:hidden"
           >
             <div>
-              <div className="text-[9px] font-semibold text-gray-400">Kupa supe · logoja jote</div>
-              <div className="text-[12.5px] font-black text-gray-900">Gati për ofertë ✓</div>
+              <div className="text-[9px] font-semibold text-gray-400">{lang === 'al' ? 'Kupa supe · logoja jote' : 'Soup cup · your logo'}</div>
+              <div className="text-[12.5px] font-black text-gray-900">{lang === 'al' ? 'Gati për ofertë ✓' : 'Ready for a quote ✓'}</div>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -524,7 +531,7 @@ export function KupaSupeEditorSection({ lang = 'al' }) {
                     </span>
                   )}
                 </div>
-                <span className="text-[9px] font-bold leading-none">Shiko live</span>
+                <span className="text-[9px] font-bold leading-none">{lang === 'al' ? 'Shiko live' : 'View live'}</span>
               </button>
               <a
                 href={`mailto:info@eraprintpack.com?subject=${encodeURIComponent('Porosi Kupa Supe')}&body=${encodeURIComponent('Përshëndetje,\n\nDëshiroj të porosis Kupa Supe me logo të personalizuar.\n• Sasia: 5,000 copë\n\nMund të na jepni ofertë?')}`}

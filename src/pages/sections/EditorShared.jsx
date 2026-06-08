@@ -4,7 +4,7 @@ import { Upload, Check, X, ScanEye } from 'lucide-react'
 
 // ─── Upload zone ──────────────────────────────────────────────────────────────
 
-export function UploadZone({ onUpload, uploadedFile, onRemove, label, subLabel, formats }) {
+export function UploadZone({ onUpload, uploadedFile, onRemove, label, subLabel, formats, lang = 'al' }) {
   const [dragging, setDragging] = useState(false)
   const handleFile = useCallback(file => { if (file) onUpload(file) }, [onUpload])
 
@@ -20,7 +20,7 @@ export function UploadZone({ onUpload, uploadedFile, onRemove, label, subLabel, 
         </div>
         <div className="min-w-0 flex-1">
           <p className="truncate text-[11px] font-bold text-gray-800">{uploadedFile.name}</p>
-          <p className="text-[9px] text-[#7ec050]">Ngarkuar me sukses</p>
+          <p className="text-[9px] text-[#7ec050]">{lang === 'al' ? 'Ngarkuar me sukses' : 'Uploaded successfully'}</p>
         </div>
         <button onClick={onRemove} className="shrink-0 text-gray-300 transition-colors hover:text-red-400">
           <X className="size-4" />
@@ -62,7 +62,7 @@ export function UploadZone({ onUpload, uploadedFile, onRemove, label, subLabel, 
 
 // ─── AR button ────────────────────────────────────────────────────────────────
 
-export function ARButton({ onClick, loading, label }) {
+export function ARButton({ onClick, loading, label, lang = 'al' }) {
   return (
     <button
       onClick={onClick}
@@ -80,9 +80,11 @@ export function ARButton({ onClick, loading, label }) {
           </div>
           <div className="text-left">
             <div className="text-[13px] font-black leading-none text-white">
-              {loading ? 'Duke përgatitur AR…' : label}
+              {loading ? (lang === 'al' ? 'Duke përgatitur AR…' : 'Preparing AR…') : label}
             </div>
-            <div className="mt-0.5 text-[10px] text-white/70">Kamera e telefonit · iOS & Android</div>
+            <div className="mt-0.5 text-[10px] text-white/70">
+              {lang === 'al' ? 'Kamera e telefonit · iOS & Android' : 'Phone camera · iOS & Android'}
+            </div>
           </div>
         </div>
         <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/20">
@@ -97,10 +99,10 @@ export function ARButton({ onClick, loading, label }) {
 
 // ─── Logo size picker (S / M / L) ─────────────────────────────────────────────
 
-export function LogoSizePicker({ logoSize, setLogoSize }) {
+export function LogoSizePicker({ logoSize, setLogoSize, lang = 'al' }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[9px] font-bold text-gray-400 shrink-0">Madhësia:</span>
+      <span className="text-[9px] font-bold text-gray-400 shrink-0">{lang === 'al' ? 'Madhësia:' : 'Size:'}</span>
       <div className="flex flex-1 gap-1.5">
         {[{ id: 'small', label: 'S' }, { id: 'medium', label: 'M' }, { id: 'large', label: 'L' }].map(opt => (
           <button

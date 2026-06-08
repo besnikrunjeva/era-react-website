@@ -11,34 +11,34 @@ const socialLinks = [
   { title: 'WhatsApp',  href: 'https://wa.me/38344113533', icon: MessageCircle },
 ]
 
-const footerLinkGroups = [
+const getFooterLinkGroups = (lang) => [
   {
-    label: 'Produktet',
+    label: lang === 'al' ? 'Produktet' : 'Products',
     links: [
-      { title: 'Gota Letre',        href: '/products/gota' },
-      { title: 'Kupa Pasta & Supe', href: '/products/kupa-pasta' },
-      { title: 'Kupa Akullore',     href: '/products/akullore' },
-      { title: 'Mbajtëse Lugësh',  href: '/products/mbajtese' },
-      { title: 'Letër Tavoline',    href: '/products/leter-tavoline' },
-      { title: 'Kapak Gotash',      href: '/products/kapak' },
-      { title: 'Kuti Ushqimore',    href: '/products/kuti' },
+      { title: lang === 'al' ? 'Gota Letre'        : 'Paper Cups',         href: '/products/gota' },
+      { title: lang === 'al' ? 'Kupa Pasta & Supe' : 'Pasta & Soup Cups',  href: '/products/kupa-pasta' },
+      { title: lang === 'al' ? 'Kupa Akullore'     : 'Ice Cream Cups',     href: '/products/akullore' },
+      { title: lang === 'al' ? 'Mbajtëse Lugësh'   : 'Cutlery Holders',    href: '/products/mbajtese' },
+      { title: lang === 'al' ? 'Letër Tavoline'    : 'Table Paper',        href: '/products/leter-tavoline' },
+      { title: lang === 'al' ? 'Kapak Gotash'      : 'Cup Lids',           href: '/products/kapak' },
+      { title: lang === 'al' ? 'Kuti Ushqimore'    : 'Food Boxes',         href: '/products/kuti' },
     ],
   },
   {
-    label: 'Kompania',
+    label: lang === 'al' ? 'Kompania' : 'Company',
     links: [
-      { title: 'Rreth Nesh', href: '/about' },
-      { title: 'Makineria',  href: '/machines' },
-      { title: 'Portofoli',  href: '/portfolio' },
-      { title: 'Kontakt',    href: '/contact' },
+      { title: lang === 'al' ? 'Rreth Nesh' : 'About Us',  href: '/about' },
+      { title: lang === 'al' ? 'Makineria'  : 'Machines',  href: '/machines' },
+      { title: lang === 'al' ? 'Portofoli'  : 'Portfolio', href: '/portfolio' },
+      { title: lang === 'al' ? 'Kontakt'    : 'Contact',   href: '/contact' },
     ],
   },
   {
-    label: 'Porosit',
+    label: lang === 'al' ? 'Porosit' : 'Order',
     links: [
-      { title: 'Bëj Porosi',      href: '/order' },
-      { title: 'Merr Ofertë',     href: '/contact' },
-      { title: '+383 44 113 533', href: 'tel:+38344113533', icon: Phone },
+      { title: lang === 'al' ? 'Bëj Porosi'      : 'Place Order',        href: '/order' },
+      { title: lang === 'al' ? 'Merr Ofertë'     : 'Get a Quote',        href: '/contact' },
+      { title: '+383 44 113 533',                                          href: 'tel:+38344113533', icon: Phone },
     ],
   },
 ]
@@ -56,7 +56,9 @@ function AnimatedContainer({ delay = 0.1, children, ...props }) {
   )
 }
 
-export function StickyFooter({ className, ...props }) {
+export function StickyFooter({ lang = 'al', className, ...props }) {
+  const footerLinkGroups = getFooterLinkGroups(lang)
+
   return (
     <footer
       className={cn('relative md:h-[380px] w-full', className)}
@@ -66,7 +68,6 @@ export function StickyFooter({ className, ...props }) {
       <div className="md:fixed md:bottom-0 md:h-[380px] w-full">
         <div className="md:sticky md:top-[calc(100vh-380px)] h-full overflow-y-auto">
 
-          {/* ← background lives here */}
           <div className="relative flex h-full flex-col justify-between bg-[#0f1010] border-t border-white/10 px-4 py-6 md:px-12">
 
             {/* Green glow */}
@@ -83,7 +84,9 @@ export function StickyFooter({ className, ...props }) {
               <AnimatedContainer className="w-full max-w-xs space-y-3">
                 <img src={eraLogo} alt="ERA Print Pack" className="h-8 w-auto brightness-0 invert" />
                 <p className="text-sm text-white/50 leading-relaxed">
-                  Prodhues i ambalazheve nga lëtër në Kosovë. Gota, kupa, kuti dhe etiketa me printim të personalizuar.
+                  {lang === 'al'
+                    ? 'Prodhues i ambalazheve nga lëtër në Kosovë. Gota, kupa, kuti dhe etiketa me printim të personalizuar.'
+                    : 'Paper packaging manufacturer in Kosovo. Cups, bowls, boxes and labels with custom printing.'}
                 </p>
                 <div className="flex gap-2">
                   {socialLinks.map((link) => (
@@ -121,8 +124,12 @@ export function StickyFooter({ className, ...props }) {
 
             {/* Bottom bar */}
             <div className="relative z-10 flex flex-col items-center justify-between gap-2 border-t border-white/10 pt-4 text-xs text-white/30 md:flex-row">
-              <p>© 2025 NPT Shtypshkronja ERA. Të gjitha të drejtat e rezervuara.</p>
-              <p>Pristinë, Kosovë · +383 44 113 533</p>
+              <p>
+                {lang === 'al'
+                  ? '© 2026 NPT Shtypshkronja ERA. Të gjitha të drejtat e rezervuara.'
+                  : '© 2026 NPT Shtypshkronja ERA. All rights reserved.'}
+              </p>
+              <p>{lang === 'al' ? 'Prishtinë, Kosovë' : 'Pristina, Kosovo'} · +383 44 113 533</p>
             </div>
 
           </div>

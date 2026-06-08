@@ -22,16 +22,16 @@ useGLTF.preload(`${BASE}models/gota-12oz.glb`)
 // ─── Static data ───────────────────────────────────────────────────────────────
 
 const SIZES = [
-  { id: '3.5oz', ml: '100ml', al: 'E vogël',  use: 'Espresso'  },
-  { id: '7oz',   ml: '200ml', al: 'Mesme',    use: 'Kafeje'    },
-  { id: '12oz',  ml: '350ml', al: 'E madhe',  use: 'Kapuçino'  },
+  { id: '3.5oz', ml: '100ml', al: 'E vogël', en: 'Small',  use: { al: 'Espresso',  en: 'Espresso'   } },
+  { id: '7oz',   ml: '200ml', al: 'Mesme',   en: 'Medium', use: { al: 'Kafeje',    en: 'Coffee'     } },
+  { id: '12oz',  ml: '350ml', al: 'E madhe', en: 'Large',  use: { al: 'Kapuçino',  en: 'Cappuccino' } },
 ]
 
 const USE_CASES = [
-  { label: 'Kafene',     Icon: Coffee            },
-  { label: 'Restorante', Icon: ForkKnifeCrossed  },
-  { label: 'Fast-food',  Icon: ShoppingBag       },
-  { label: 'Hotele',     Icon: Building2         },
+  { al: 'Kafene',     en: 'Cafés',       Icon: Coffee            },
+  { al: 'Restorante', en: 'Restaurants', Icon: ForkKnifeCrossed  },
+  { al: 'Fast-food',  en: 'Fast Food',   Icon: ShoppingBag       },
+  { al: 'Hotele',     en: 'Hotels',      Icon: Building2         },
 ]
 
 const MODEL_URL = {
@@ -157,7 +157,7 @@ function GotaCanvas({ size, orbitRef, cupTexture }) {
 
 // ─── Template flow (Flow B) ────────────────────────────────────────────────────
 
-function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesignUpload, onFullDesignRemove }) {
+function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesignUpload, onFullDesignRemove, lang = 'al' }) {
   const TEMPLATE_DIMS = {
     '3.5oz': '154 × 53 mm',
     '7oz':   '182 × 73 mm',
@@ -171,8 +171,8 @@ function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesign
         <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gray-50 px-3 py-2.5">
           <div className="flex size-5 shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#c8ddb8] bg-[#f0f9e8] text-[8px] font-black text-[#4ca706]">1</div>
           <div>
-            <div className="text-[10px] font-bold text-gray-500">Zgjidh madhësinë dhe shkarko templatein</div>
-            <div className="text-[9px] text-gray-400">Ndikon edhe pamjen 3D të gotës</div>
+            <div className="text-[10px] font-bold text-gray-500">{lang === 'al' ? 'Zgjidh madhësinë dhe shkarko templatein' : 'Select size and download template'}</div>
+            <div className="text-[9px] text-gray-400">{lang === 'al' ? 'Ndikon edhe pamjen 3D të gotës' : 'Also affects the 3D preview'}</div>
           </div>
         </div>
         <div className="p-3">
@@ -189,11 +189,11 @@ function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesign
             ))}
           </div>
           <button
-            onClick={() => alert('Templatet do të jenë të disponueshme me editotin 3D.')}
+            onClick={() => alert(lang === 'al' ? 'Templatet do të jenë të disponueshme me editotin 3D.' : 'Templates will be available with the 3D editor.')}
             className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white py-2.5 text-[10px] font-bold text-gray-600 transition-all hover:border-[#4ca706]/40 hover:text-[#4ca706]"
           >
             <Download className="size-3.5" />
-            Shkarko Template — {selectedSize}
+            {lang === 'al' ? 'Shkarko Template' : 'Download Template'} — {selectedSize}
           </button>
           <div className="mt-2 flex gap-1.5">
             {['AI', 'PDF', 'PSD'].map(f => (
@@ -207,8 +207,8 @@ function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesign
         <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gray-50 px-3 py-2.5">
           <div className="flex size-5 shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#c8ddb8] bg-[#f0f9e8] text-[8px] font-black text-[#4ca706]">2</div>
           <div>
-            <div className="text-[10px] font-bold text-gray-500">Ngarko dizajnin e plotë</div>
-            <div className="text-[9px] text-gray-400">Skedari vendoset direkt mbi gotën 3D</div>
+            <div className="text-[10px] font-bold text-gray-500">{lang === 'al' ? 'Ngarko dizajnin e plotë' : 'Upload the full design'}</div>
+            <div className="text-[9px] text-gray-400">{lang === 'al' ? 'Skedari vendoset direkt mbi gotën 3D' : 'File is placed directly on the 3D cup'}</div>
           </div>
         </div>
         <div className="p-3">
@@ -216,12 +216,15 @@ function TemplateFlow({ selectedSize, onSizeChange, fullDesignFile, onFullDesign
             onUpload={onFullDesignUpload}
             uploadedFile={fullDesignFile}
             onRemove={onFullDesignRemove}
-            label="Ngarko dizajnin e përfunduar"
-            subLabel="Do të shfaqet direkt në gotën 3D"
+            label={lang === 'al' ? 'Ngarko dizajnin e përfunduar' : 'Upload the finished design'}
+            subLabel={lang === 'al' ? 'Do të shfaqet direkt në gotën 3D' : 'Will appear directly on the 3D cup'}
             formats={['PDF', 'AI', 'PNG']}
           />
           <p className="mt-2 text-[9px] leading-relaxed text-gray-400">
-            Templati ka <span className="font-semibold text-gray-500">bleed</span> dhe <span className="font-semibold text-gray-500">safe zone</span> të shënuara — dizajno brenda tyre para ngarkimit.
+            {lang === 'al'
+              ? <>{`Templati ka `}<span className="font-semibold text-gray-500">bleed</span>{` dhe `}<span className="font-semibold text-gray-500">safe zone</span>{` të shënuara — dizajno brenda tyre para ngarkimit.`}</>
+              : <>{`The template has `}<span className="font-semibold text-gray-500">bleed</span>{` and `}<span className="font-semibold text-gray-500">safe zone</span>{` marked — design within them before uploading.`}</>
+            }
           </p>
         </div>
       </div>
@@ -438,7 +441,7 @@ export function GotaEditorSection({ lang = 'al' }) {
               <svg viewBox="0 0 16 16" className="size-3 fill-none stroke-current" strokeWidth="1.5">
                 <path d="M8 2v3M6 4l2-2 2 2M8 14v-3M6 12l2 2 2-2M2 8h3M4 6l-2 2 2 2M14 8h-3M12 6l2 2-2 2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Rrotullohu me tërheqje
+              {lang === 'al' ? 'Rrotullohu me tërheqje' : 'Drag to rotate'}
             </div>
           </motion.div>
         )}
@@ -447,7 +450,7 @@ export function GotaEditorSection({ lang = 'al' }) {
       <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center">
         <button
           onClick={() => orbitRef.current?.reset()}
-          title="Rinis rrotullimin"
+          title={lang === 'al' ? 'Rinis rrotullimin' : 'Reset rotation'}
           className="flex size-7 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 shadow-sm transition-colors hover:text-[#4ca706]"
         >
           <RotateCcw className="size-3.5" />
@@ -456,7 +459,7 @@ export function GotaEditorSection({ lang = 'al' }) {
     </>
   )
 
-  const arButtonMain = <ARButton onClick={handleARClick} loading={arLoading} label="Shiko gotën tënde në AR" />
+  const arButtonMain = <ARButton onClick={handleARClick} loading={arLoading} label={lang === 'al' ? 'Shiko gotën tënde në AR' : 'See your cup in AR'} />
 
   const arButtonCompare = (
     <button
@@ -464,7 +467,7 @@ export function GotaEditorSection({ lang = 'al' }) {
       className="flex items-center gap-1.5 rounded-full border border-[#c8ddb8] bg-[#f0f9e8] px-4 py-2 text-[10px] font-bold text-[#4ca706] transition-all hover:bg-[#e4f5d4]"
     >
       <ScanEye className="size-3" />
-      Krahaso 3 madhësitë bashkë
+      {lang === 'al' ? 'Krahaso 3 madhësitë bashkë' : 'Compare all 3 sizes together'}
     </button>
   )
 
@@ -498,19 +501,19 @@ export function GotaEditorSection({ lang = 'al' }) {
               ⬡ Editor 3D
             </span>
             <h1 className="text-3xl font-black leading-tight tracking-tight text-gray-900 md:text-4xl">
-              Gota me <span className="text-[#4ca706]">printim</span><br />profesional
+              {lang === 'al' ? <>Gota me <span className="text-[#4ca706]">printim</span><br />profesional</> : <>Cups with <span className="text-[#4ca706]">professional</span><br />print</>}
             </h1>
             <div className="mt-4 flex flex-wrap gap-2">
-              {USE_CASES.map(({ label, Icon }, i) => (
+              {USE_CASES.map((uc, i) => (
                 <motion.span
-                  key={label}
+                  key={uc.al}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: i * 0.07 }}
                   className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-[10px] font-bold text-gray-600"
                 >
-                  <Icon className="size-3 text-[#4ca706]" />
-                  {label}
+                  <uc.Icon className="size-3 text-[#4ca706]" />
+                  {uc[lang]}
                 </motion.span>
               ))}
             </div>
@@ -522,16 +525,16 @@ export function GotaEditorSection({ lang = 'al' }) {
               ⬡ Editor 3D
             </span>
             <h1 className="text-3xl font-black leading-tight tracking-tight text-gray-900">
-              Gota me <span className="text-[#4ca706]">printim</span><br />profesional
+              {lang === 'al' ? <>Gota me <span className="text-[#4ca706]">printim</span><br />profesional</> : <>Cups with <span className="text-[#4ca706]">professional</span><br />print</>}
             </h1>
             <div className="mt-4 flex flex-wrap gap-2">
-              {USE_CASES.map(({ label, Icon }) => (
+              {USE_CASES.map(uc => (
                 <span
-                  key={label}
+                  key={uc.al}
                   className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-[10px] font-bold text-gray-600"
                 >
-                  <Icon className="size-3 text-[#4ca706]" />
-                  {label}
+                  <uc.Icon className="size-3 text-[#4ca706]" />
+                  {uc[lang]}
                 </span>
               ))}
             </div>
@@ -560,7 +563,7 @@ export function GotaEditorSection({ lang = 'al' }) {
 
           <div className="flex items-center justify-between border-b border-[#e8f3df] bg-[#f8fdf4] px-5 py-3">
             <span className="text-[9px] font-black uppercase tracking-[0.14em] text-[#4ca706]">
-              ⬡ Personalizo gotën tënde
+              ⬡ {lang === 'al' ? 'Personalizo gotën tënde' : 'Customise your cup'}
             </span>
           </div>
 
@@ -571,8 +574,8 @@ export function GotaEditorSection({ lang = 'al' }) {
               <div className="mb-3 flex items-start gap-2.5">
                 <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#4ca706] text-[10px] font-black text-white mt-0.5">1</div>
                 <div>
-                  <p className="text-[12px] font-black text-gray-800">Zgjidh madhësinë e gotës</p>
-                  <p className="mt-0.5 text-[10px] text-gray-400">Ndikon çmimin dhe madhësinë e printimit</p>
+                  <p className="text-[12px] font-black text-gray-800">{lang === 'al' ? 'Zgjidh madhësinë e gotës' : 'Select cup size'}</p>
+                  <p className="mt-0.5 text-[10px] text-gray-400">{lang === 'al' ? 'Ndikon çmimin dhe madhësinë e printimit' : 'Affects price and print area'}</p>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -584,9 +587,9 @@ export function GotaEditorSection({ lang = 'al' }) {
                       selectedSize === s.id ? 'border-[#4ca706] bg-[#f0f9e8] shadow-sm' : 'border-gray-200 bg-white hover:border-[#4ca706]/50'
                     }`}
                   >
-                    <div className={`text-[13px] font-black ${selectedSize === s.id ? 'text-[#4ca706]' : 'text-gray-700'}`}>{s.al}</div>
+                    <div className={`text-[13px] font-black ${selectedSize === s.id ? 'text-[#4ca706]' : 'text-gray-700'}`}>{s[lang]}</div>
                     <div className={`mt-0.5 text-[10px] font-semibold ${selectedSize === s.id ? 'text-[#7ec050]' : 'text-gray-400'}`}>{s.ml}</div>
-                    <div className={`text-[9px] ${selectedSize === s.id ? 'text-[#a3d070]' : 'text-gray-300'}`}>{s.use}</div>
+                    <div className={`text-[9px] ${selectedSize === s.id ? 'text-[#a3d070]' : 'text-gray-300'}`}>{s.use[lang]}</div>
                   </button>
                 ))}
               </div>
@@ -597,12 +600,12 @@ export function GotaEditorSection({ lang = 'al' }) {
               <div className="mb-3 flex items-start gap-2.5">
                 <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#4ca706] text-[10px] font-black text-white mt-0.5">2</div>
                 <div>
-                  <p className="text-[12px] font-black text-gray-800">Shto logon ose dizajnin tënd</p>
-                  <p className="mt-0.5 text-[10px] text-gray-400">ERA e vendos dhe pozicionon automatikisht në gotë</p>
+                  <p className="text-[12px] font-black text-gray-800">{lang === 'al' ? 'Shto logon ose dizajnin tënd' : 'Add your logo or design'}</p>
+                  <p className="mt-0.5 text-[10px] text-gray-400">{lang === 'al' ? 'ERA e vendos dhe pozicionon automatikisht në gotë' : 'ERA positions it automatically on your cup'}</p>
                 </div>
               </div>
               <div className="mb-3 flex gap-2">
-                {[{ id: 'logo', label: 'Kam logo gati' }, { id: 'template', label: 'Dizajn i plotë' }].map(tab => (
+                {[{ id: 'logo', al: 'Kam logo gati', en: 'I have a logo' }, { id: 'template', al: 'Dizajn i plotë', en: 'Full design' }].map(tab => (
                   <button
                     key={tab.id}
                     onClick={() => setUploadTab(tab.id)}
@@ -610,12 +613,15 @@ export function GotaEditorSection({ lang = 'al' }) {
                       uploadTab === tab.id ? 'border-[#4ca706] bg-[#f0f9e8] text-[#4ca706]' : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'
                     }`}
                   >
-                    {tab.label}
+                    {tab[lang]}
                   </button>
                 ))}
               </div>
               <p className="mb-3 text-[9px] leading-relaxed text-gray-400">
-                {uploadTab === 'logo' ? 'ERA e vendos logon automatikisht. Ngarko skedarin tënd.' : 'Shkarko templatein, vizatoje me dizajnerin tënd, ngarko rezultatin.'}
+                {uploadTab === 'logo'
+                  ? (lang === 'al' ? 'ERA e vendos logon automatikisht. Ngarko skedarin tënd.' : 'ERA positions the logo automatically. Upload your file.')
+                  : (lang === 'al' ? 'Shkarko templatein, vizatoje me dizajnerin tënd, ngarko rezultatin.' : 'Download the template, design with your designer, upload the result.')
+                }
               </p>
               <AnimatePresence mode="wait">
                 {uploadTab === 'logo' && (
@@ -624,20 +630,20 @@ export function GotaEditorSection({ lang = 'al' }) {
                       onUpload={setLogoFile}
                       uploadedFile={logoFile}
                       onRemove={() => setLogoFile(null)}
-                      label="Ngarko logon tënde"
-                      subLabel="SVG, PNG, PDF ose AI"
+                      label={lang === 'al' ? 'Ngarko logon tënde' : 'Upload your logo'}
+                      subLabel={lang === 'al' ? 'SVG, PNG, PDF ose AI' : 'SVG, PNG, PDF or AI'}
                       formats={['SVG', 'PNG', 'PDF', 'AI']}
                     />
                     {!logoFile && (
                       <a href="mailto:info@eraprintpack.com?subject=Logo%20për%20Gota%20Letre&body=Përshëndetje%2C%0A%0ADëshiroj%20të%20porosis%20gota%20dhe%20do%20ta%20dërgoj%20logon%20me%20email." className="mt-1 block text-center text-[9px] font-bold text-gray-400 transition-colors hover:text-[#4ca706]">
-                        Nuk ke skedar gati? Dërgona logon me email →
+                        {lang === 'al' ? 'Nuk ke skedar gati? Dërgona logon me email →' : "Don't have a file ready? Send us your logo by email →"}
                       </a>
                     )}
                     {logoFile && (
                       <div className="flex flex-col gap-2">
                         <LogoSizePicker logoSize={logoSize} setLogoSize={setLogoSize} />
                         <p className="rounded-lg border border-[#e8f3df] bg-[#f8fdf4] px-3 py-2 text-[9px] leading-relaxed text-gray-500">
-                          <span className="font-bold text-[#4ca706]">Logo vendoset</span> në të dy anët e gotës.
+                          <span className="font-bold text-[#4ca706]">{lang === 'al' ? 'Logo vendoset' : 'Logo is placed'}</span> {lang === 'al' ? 'në të dy anët e gotës.' : 'on both sides of your cup.'}
                         </p>
                       </div>
                     )}
@@ -651,6 +657,7 @@ export function GotaEditorSection({ lang = 'al' }) {
                       fullDesignFile={fullDesignFiles[selectedSize]}
                       onFullDesignUpload={f => setFullDesignFiles(prev => ({ ...prev, [selectedSize]: f }))}
                       onFullDesignRemove={() => setFullDesignFiles(prev => ({ ...prev, [selectedSize]: null }))}
+                      lang={lang}
                     />
                   </motion.div>
                 )}
@@ -680,9 +687,9 @@ export function GotaEditorSection({ lang = 'al' }) {
           >
             <div>
               <div className="text-[9px] font-semibold text-gray-400">
-                Gota {selectedSize} · {uploadTab === 'logo' ? 'logoja juaj' : 'dizajni juaj'}
+                {lang === 'al' ? 'Gota' : 'Cup'} {selectedSize} · {uploadTab === 'logo' ? (lang === 'al' ? 'logoja juaj' : 'your logo') : (lang === 'al' ? 'dizajni juaj' : 'your design')}
               </div>
-              <div className="text-[12.5px] font-black text-gray-900">Gati për ofertë ✓</div>
+              <div className="text-[12.5px] font-black text-gray-900">{lang === 'al' ? 'Gati për ofertë ✓' : 'Ready for a quote ✓'}</div>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -701,7 +708,7 @@ export function GotaEditorSection({ lang = 'al' }) {
                     </span>
                   )}
                 </div>
-                <span className="text-[9px] font-bold leading-none">Shiko live</span>
+                <span className="text-[9px] font-bold leading-none">{lang === 'al' ? 'Shiko live' : 'View live'}</span>
               </button>
               <a
                 href={buildEmailLink()}
