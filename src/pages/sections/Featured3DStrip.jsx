@@ -2,7 +2,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF, Float, useTexture } from '@react-three/drei'
 import { useRef, Suspense, useState, useEffect } from 'react'
 import { motion, useMotionValue, useTransform, useSpring, useReducedMotion, useInView } from 'framer-motion'
-import { Cuboid } from 'lucide-react'
+import { Cuboid, MessageCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import * as THREE from 'three'
 import { useNormalizedScene } from '@/lib/useNormalizedScene'
@@ -297,6 +297,42 @@ function TiltCard({ product, lang, i }) {
     y.set(0)
   }
 
+  const inner = (
+    <>
+      <ModelCanvas
+        models={product.models}
+        rotationOffset={product.rotationOffset}
+        spinAxis={product.spinAxis}
+        boomerang={product.boomerang}
+      />
+      <div className="flex flex-col gap-1 flex-1">
+        <h3 className="text-sm font-bold text-white leading-snug">
+          {lang === 'al' ? product.al : product.en}
+        </h3>
+        <p className="text-xs text-white/35">{product.variantLabel}</p>
+      </div>
+      <div className="flex items-center justify-between pt-1">
+        <span className={`text-[11px] font-bold ${product.active ? 'text-[#4ca706]' : 'text-white/20'}`}>
+          {product.active
+            ? (lang === 'al' ? 'Personalizo 3D →' : 'Personalise 3D →')
+            : (lang === 'al' ? 'Së shpejti' : 'Coming soon')}
+        </span>
+        {product.active && (
+          <a
+            href="https://wa.me/38344113533"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={e => e.stopPropagation()}
+            aria-label={lang === 'al' ? 'Merr ofertë në WhatsApp' : 'Get a quote on WhatsApp'}
+            className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#4ca706]/15 text-[#4ca706] transition-colors hover:bg-[#4ca706]/30"
+          >
+            <MessageCircle className="size-4" />
+          </a>
+        )}
+      </div>
+    </>
+  )
+
   return (
     <motion.div
       ref={ref}
@@ -307,65 +343,19 @@ function TiltCard({ product, lang, i }) {
       style={prefersReduced ? {} : { rotateX, rotateY, transformStyle: 'preserve-3d' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="group relative flex flex-col gap-3 rounded-2xl border border-[#4ca706]/25 bg-[#111] p-4 transition-colors duration-300 hover:border-[#4ca706]/60"
+      className="group relative rounded-2xl border border-[#4ca706]/25 bg-[#111] p-4 transition-colors duration-300 hover:border-[#4ca706]/60"
     >
       <span className="absolute right-4 top-4 z-10 flex items-center gap-1 rounded-full border border-[#4ca706]/30 bg-[#4ca706]/15 px-2.5 py-1 text-[10px] font-bold text-[#4ca706]">
         <Cuboid className="size-3" />
         3D
       </span>
-
-      <ModelCanvas
-        models={product.models}
-        rotationOffset={product.rotationOffset}
-        spinAxis={product.spinAxis}
-        boomerang={product.boomerang}
-      />
-
-      <div className="flex flex-col gap-1 flex-1">
-        <h3 className="text-sm font-bold text-white leading-snug">
-          {lang === 'al' ? product.al : product.en}
-        </h3>
-        <p className="text-xs text-white/35">{product.variantLabel}</p>
-      </div>
-
-      <div className="flex gap-2 mt-1">
-        {product.active ? (
-          <>
-            <Link
-              to={product.slug}
-              className="flex-1 rounded-lg border border-white/[0.08] py-2 text-center text-[11px] font-semibold text-white/50 transition-colors hover:border-white/20 hover:text-white/80"
-            >
-              {lang === 'al' ? 'Shiko detajet' : 'View details'}
-            </Link>
-            <Link
-              to={product.slug}
-              className="flex-1 rounded-lg bg-[#4ca706]/20 py-2 text-center text-[11px] font-semibold text-[#4ca706] transition-colors hover:bg-[#4ca706]/30"
-            >
-              {lang === 'al' ? 'Personalizo 3D' : 'Personalise 3D'}
-            </Link>
-          </>
-        ) : (
-          <>
-            <span
-              title={lang === 'al' ? 'Së shpejti' : 'Coming soon'}
-              aria-disabled="true"
-              className="flex-1 cursor-not-allowed rounded-lg border border-white/[0.06] py-2 text-center text-[11px] font-semibold text-white/20"
-            >
-              {lang === 'al' ? 'Shiko detajet' : 'View details'}
-            </span>
-            <span
-              title={lang === 'al' ? 'Së shpejti' : 'Coming soon'}
-              aria-disabled="true"
-              className="flex-1 cursor-not-allowed rounded-lg bg-[#4ca706]/20 py-2 text-center text-[11px] font-semibold text-[#4ca706]/40"
-            >
-              {lang === 'al' ? 'Personalizo 3D' : 'Personalise 3D'}
-            </span>
-          </>
-        )}
-      </div>
+      {product.active
+        ? <Link to={product.slug} className="flex flex-col gap-3 h-full">{inner}</Link>
+        : <div className="flex flex-col gap-3">{inner}</div>}
     </motion.div>
   )
 }
+
 
 export function Featured3DStrip({ lang = 'al' }) {
   return (

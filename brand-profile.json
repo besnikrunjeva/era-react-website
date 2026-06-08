@@ -1,0 +1,160 @@
+{
+  "company": {
+    "name": "Shtypshkronja ERA",
+    "legalName": "NPT Shtypshkronja ERA",
+    "shortName": "ERA",
+    "industry": "Paper packaging manufacturing",
+    "subIndustry": "Food-service custom packaging",
+    "founded": "~2011",
+    "yearsInBusiness": 15,
+    "location": {
+      "city": "Pristina",
+      "country": "Kosovo",
+      "region": "Balkans"
+    },
+    "website": "https://era-printpack.com",
+    "whatsapp": "+38344113533",
+    "phone": "+38344113533",
+    "email": "besnikdesigns@gmail.com",
+    "languages": ["Albanian (primary)", "English (secondary)"]
+  },
+
+  "brand": {
+    "primaryColor": "#4ca706",
+    "darkBackground": "#0f1010",
+    "tone": "Professional and trustworthy, but warm. B2B — the reader is a café or restaurant owner. Serious enough to earn trust, friendly enough to feel approachable.",
+    "voice": "Direct, confident, no filler. Speak to the business owner as a peer. Use 'ti' (informal) in Albanian.",
+    "positioning": "Kosovo's food-service packaging specialist with the only 3D configurator in the region — see your logo on the product before you order.",
+    "tagline": {
+      "al": "Shiko logon tënde para se të porosisësh",
+      "en": "See your logo before you order"
+    },
+    "uniqueDifferentiators": [
+      "Only packaging supplier in Kosovo with a live 3D product configurator in the browser",
+      "Food-service specialist — cups, boxes, holders all in one supplier",
+      "Custom print only — everything is made to order with client's logo and colors",
+      "15 years in business, 397+ partners across Kosovo and Albania",
+      "Local manufacturer — fast delivery, direct relationship, no middlemen",
+      "3.9 million units produced per year"
+    ]
+  },
+
+  "targetAudience": {
+    "primary": "Café and coffee shop owners in Kosovo and Albania",
+    "secondary": "Restaurant, fast food, and food delivery businesses",
+    "tertiary": "Hotels, catering companies, corporate food buyers",
+    "painPoints": [
+      "Generic unbranded packaging makes their business look unprofessional",
+      "Can't visualize how their logo will look before committing to a minimum order",
+      "Difficulty finding a local supplier who does custom print at accessible minimum quantities",
+      "Long lead times from international suppliers"
+    ],
+    "motivations": [
+      "Stand out from competitors with branded packaging",
+      "Impress customers with premium-looking cups and boxes",
+      "Support local — faster delivery and direct communication",
+      "Minimum order of 500 pcs is accessible for small businesses"
+    ],
+    "geography": "Kosovo (primary), Albania (secondary), regional diaspora businesses"
+  },
+
+  "products": [
+    {
+      "name": { "al": "Gota Letre", "en": "Paper Cups" },
+      "slug": "/products/gota",
+      "sizes": "3.5oz, 7oz, 12oz",
+      "category": "cups",
+      "has3D": true,
+      "description": "Custom-printed paper cups for espresso, coffee, and takeaway. Highest volume product."
+    },
+    {
+      "name": { "al": "Kupa Akullore", "en": "Ice Cream Cups" },
+      "slug": "/products/akullore",
+      "sizes": "S, M",
+      "category": "cups",
+      "has3D": true,
+      "description": "Paper cups for ice cream servings."
+    },
+    {
+      "name": { "al": "Kupa Supe", "en": "Soup/Pasta Cups" },
+      "slug": "/products/kupa-supe",
+      "sizes": "Standard",
+      "category": "cups",
+      "has3D": true,
+      "description": "Larger cups for pasta, soup, and noodles."
+    },
+    {
+      "name": { "al": "Kuti Hamburgeri", "en": "Burger Boxes" },
+      "slug": "/products/kuti-hamburgeri",
+      "category": "boxes",
+      "has3D": false,
+      "description": "Custom-printed burger and fast food boxes."
+    },
+    {
+      "name": { "al": "Kuti Sanduiçi", "en": "Sandwich Box" },
+      "slug": "/products/kuti-sanduic",
+      "category": "boxes",
+      "has3D": false,
+      "keyFeature": "Tear-open lid — no utensils needed to open",
+      "description": "Long rectangular sandwich box with tear-open top flap."
+    },
+    {
+      "name": { "al": "Kuti Pomfriti", "en": "French Fries Box" },
+      "slug": "/products/kuti-pomfrit",
+      "category": "boxes",
+      "has3D": false,
+      "description": "Pillow-shape fries box with full CMYK print."
+    },
+    {
+      "name": { "al": "Mbajtëse Kafeje", "en": "Coffee Cup Holder" },
+      "slug": "/products/mbajtese-kafe",
+      "category": "accessories",
+      "has3D": false,
+      "description": "2-cup cardboard carrier for takeaway coffee orders."
+    },
+    {
+      "name": { "al": "Letër Tavoline", "en": "Table Paper" },
+      "slug": "/products/leter-tavoline",
+      "category": "accessories",
+      "has3D": true,
+      "description": "Custom-printed table paper rolls for restaurants."
+    }
+  ],
+
+  "campaignContext": {
+    "goal": "Website traffic — drive café and restaurant owners to era-printpack.com to explore products and use the 3D configurator",
+    "platforms": ["Meta (Facebook + Instagram)", "TikTok", "Google Ads"],
+    "primaryCTA": "Shiko logon tënde — era-printpack.com",
+    "secondaryCTA": "Merr ofertë falas në WhatsApp",
+    "keyLandingPages": [
+      "https://era-printpack.com/",
+      "https://era-printpack.com/products",
+      "https://era-printpack.com/products/gota"
+    ],
+    "budget": "unspecified",
+    "existingAccounts": true,
+    "previousAdHistory": true
+  },
+
+  "competitors": [
+    {
+      "name": "Shtypshkronja SHPK",
+      "domain": "shtypshkronja.com",
+      "threat": "HIGH",
+      "notes": "50 years in business, enterprise clients (Burger King, ProCredit), has e-commerce shop. ERA must win on specialisation and 3D UX."
+    },
+    {
+      "name": "Viprint",
+      "domain": "vi-print.com",
+      "threat": "MEDIUM",
+      "notes": "Mostly general printing, minimal food packaging. 7-language site."
+    }
+  ],
+
+  "stats": {
+    "yearsActive": 15,
+    "partners": 397,
+    "unitsPerYear": 3900000,
+    "tagline": { "al": "397 partnerë · 15 vjet · 3.9M njësi/vit", "en": "397 partners · 15 years · 3.9M units/yr" }
+  }
+}

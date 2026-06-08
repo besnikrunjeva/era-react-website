@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, MessageCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
+import imgCajPfanta       from '@/assets/products/caj-pfanta-sage.jpg'
+import imgCajForestFruits from '@/assets/products/caj-forest-fruits.png'
 import imgKutiBurger  from '@/assets/products/kuti-burger.webp'
 import imgKutiSllajder  from '@/assets/products/kuti-sllajder-1.png'
 import imgKutiFastFood  from '@/assets/products/kuti-fast-food-v1.png'
@@ -13,8 +15,36 @@ import imgKutiMakaronash from '@/assets/products/kuti-makaronash-s.png'
 import imgKuti         from '@/assets/products/kuti.webp'
 import imgKapak        from '@/assets/products/kapak.webp'
 import imgLeter        from '@/assets/products/leter.webp'
+import imgFriesBox    from '@/assets/products/fries-box-studio.png'
+import imgCupHolder   from '@/assets/products/cup-holder-studio.png'
+import imgSanduic     from '@/assets/products/kuti-sanduic-studio.jpg'
 
 const GROUPS = [
+  {
+    id: 'paketime-caji',
+    al: 'Paketime Çaji',
+    en: 'Tea Packages',
+    products: [
+      {
+        id: 'caj-heksagonal',
+        slug: '/products/caj-heksagonal',
+        img: imgCajPfanta,
+        al: 'Kuti Çaji Heksagonale',
+        en: 'Hexagonal Tea Boxes',
+        desc: { al: 'Karton · Kraft · 2 materiale', en: 'Board · Kraft · 2 materials' },
+        available: true,
+      },
+      {
+        id: 'caj-gable-top',
+        slug: '/products/caj-gable-top',
+        img: imgCajForestFruits,
+        al: 'Qese Çaji Gable-Top',
+        en: 'Gable-Top Tea Bags',
+        desc: { al: 'Kraft · Karton · 2 materiale', en: 'Kraft · Board · 2 materials' },
+        available: true,
+      },
+    ],
+  },
   {
     id: 'kuti-ushqimore',
     al: 'Kuti',
@@ -63,6 +93,33 @@ const GROUPS = [
         al: 'Kuti e Hapur',
         en: 'Open Tray Box',
         desc: { al: 'Fast Food · Embëlsira · Sushi', en: 'Fast Food · Pastries · Sushi' },
+        available: true,
+      },
+      {
+        id: 'kuti-pomfrit',
+        slug: '/products/kuti-pomfrit',
+        img: imgFriesBox,
+        al: 'Kuti Pomfriti',
+        en: 'French Fries Box',
+        desc: { al: 'Formë jastëku · Karton', en: 'Pillow shape · Board' },
+        available: true,
+      },
+      {
+        id: 'mbajtese-kafe',
+        slug: '/products/mbajtese-kafe',
+        img: imgCupHolder,
+        al: 'Mbajtëse Kafeje',
+        en: 'Coffee Cup Holder',
+        desc: { al: '2 gota · Printim CMYK', en: '2 cups · CMYK Print' },
+        available: true,
+      },
+      {
+        id: 'kuti-sanduic',
+        slug: '/products/kuti-sanduic',
+        img: imgSanduic,
+        al: 'Kuti Sanduiçi',
+        en: 'Sandwich Box',
+        desc: { al: 'Kapak çirës · Karton', en: 'Tear-open lid · Board' },
         available: true,
       },
     ],
@@ -135,19 +192,15 @@ const GROUPS = [
 ]
 
 function ProductCard({ product, lang, index, compact = false }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-black/[0.07] bg-[#eeedea]"
-    >
+  const name = lang === 'al' ? product.al : product.en
+
+  const inner = (
+    <>
       {/* Photo */}
       <div className={`relative overflow-hidden ${compact ? 'h-36' : 'h-52'}`}>
         <img
           src={product.img}
-          alt={lang === 'al' ? product.al : product.en}
+          alt={name}
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           loading="lazy"
         />
@@ -159,42 +212,48 @@ function ProductCard({ product, lang, index, compact = false }) {
       </div>
 
       {/* Info panel */}
-      <div className={`flex flex-1 flex-col bg-[#eeedea] ${compact ? 'gap-2 p-3' : 'gap-3 p-5'}`}>
-        <div>
+      <div className={`flex flex-1 flex-col bg-[#eeedea] ${compact ? 'gap-1.5 p-3' : 'gap-2 p-4'}`}>
+        <div className="flex-1">
           <p className="text-[10px] font-medium tracking-wide text-black/35 truncate">{product.desc[lang]}</p>
-          <h3 className={`mt-0.5 font-extrabold leading-snug text-black/80 ${compact ? 'text-sm' : 'text-lg'}`}>
-            {lang === 'al' ? product.al : product.en}
+          <h3 className={`mt-0.5 font-extrabold leading-snug text-black/80 ${compact ? 'text-sm' : 'text-base'}`}>
+            {name}
           </h3>
         </div>
-        <div className={`mt-auto flex pt-1 ${compact ? 'flex-col gap-1.5' : 'flex-row gap-2'}`}>
-          {product.available ? (
-            <Link
-              to={product.slug}
-              className="flex-1 rounded-lg border border-black/[0.08] py-2 text-center text-[11px] font-semibold text-black/60 transition-colors hover:border-[#4ca706]/40 hover:text-[#4ca706]"
-            >
-              {lang === 'al' ? 'Shiko detajet' : 'View details'}
-            </Link>
-          ) : (
-            <span className="flex-1 cursor-not-allowed rounded-lg border border-black/[0.08] py-2 text-center text-[11px] font-semibold text-black/25">
-              {lang === 'al' ? 'Shiko detajet' : 'View details'}
-            </span>
-          )}
-          {product.available ? (
+        {/* Single CTA row */}
+        <div className="flex items-center justify-between gap-2 pt-1">
+          <span className={`text-[11px] font-bold transition-colors ${product.available ? 'text-[#4ca706]' : 'text-black/25'}`}>
+            {product.available
+              ? (lang === 'al' ? 'Shiko detajet →' : 'View details →')
+              : (lang === 'al' ? 'Së shpejti' : 'Coming soon')}
+          </span>
+          {product.available && (
             <a
               href="https://wa.me/38344113533"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 rounded-lg bg-[#4ca706]/10 py-2 text-center text-[11px] font-semibold text-[#4ca706] transition-colors hover:bg-[#4ca706]/20"
+              onClick={e => e.stopPropagation()}
+              aria-label={lang === 'al' ? 'Merr ofertë në WhatsApp' : 'Get a quote on WhatsApp'}
+              className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#4ca706]/10 text-[#4ca706] transition-colors hover:bg-[#4ca706]/20 active:bg-[#4ca706]/30"
             >
-              {lang === 'al' ? 'Merr ofertë' : 'Get a quote'}
+              <MessageCircle className="size-4" />
             </a>
-          ) : (
-            <span className="flex-1 cursor-not-allowed rounded-lg bg-[#4ca706]/10 py-2 text-center text-[11px] font-semibold text-[#4ca706]/40">
-              {lang === 'al' ? 'Interesohu' : 'Get notified'}
-            </span>
           )}
         </div>
       </div>
+    </>
+  )
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+      className="group flex flex-col overflow-hidden rounded-2xl border border-black/[0.07] bg-[#eeedea]"
+    >
+      {product.available
+        ? <Link to={product.slug} className="flex flex-1 flex-col">{inner}</Link>
+        : inner}
     </motion.div>
   )
 }
@@ -277,31 +336,41 @@ export function ProductsGrid({ lang = 'al' }) {
     <section className="bg-[#f5f4f0] py-20 px-4">
       <div className="mx-auto max-w-6xl flex flex-col gap-16">
 
-        {/* Group 1: Kuti — always 2-col */}
+        {/* Tea Packages */}
         <div>
-          <CategoryHeading label={lang === 'al' ? 'Kuti' : 'Boxes'} lang={lang} index={0} />
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <CategoryHeading label={lang === 'al' ? 'Paketime Çaji' : 'Tea Packages'} lang={lang} index={0} />
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {GROUPS[0].products.map((p, i) => (
               <ProductCard key={p.id} product={p} lang={lang} index={i} compact />
             ))}
           </div>
         </div>
 
-        {/* Group 3: Pastiçeri */}
+        {/* Kuti */}
         <div>
-          <CategoryHeading label={lang === 'al' ? 'Pastiçeri' : 'Pastry'} lang={lang} index={1} />
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <CategoryHeading label={lang === 'al' ? 'Kuti' : 'Boxes'} lang={lang} index={1} />
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
             {GROUPS[1].products.map((p, i) => (
               <ProductCard key={p.id} product={p} lang={lang} index={i} compact />
             ))}
           </div>
         </div>
 
-        {/* Group 4: Aksesorë & Letër */}
+        {/* Pastiçeri */}
         <div>
-          <CategoryHeading label={lang === 'al' ? 'Aksesorë & Letër' : 'Accessories & Paper'} lang={lang} index={2} />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <CategoryHeading label={lang === 'al' ? 'Pastiçeri' : 'Pastry'} lang={lang} index={2} />
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {GROUPS[2].products.map((p, i) => (
+              <ProductCard key={p.id} product={p} lang={lang} index={i} compact />
+            ))}
+          </div>
+        </div>
+
+        {/* Aksesorë & Letër */}
+        <div>
+          <CategoryHeading label={lang === 'al' ? 'Aksesorë & Letër' : 'Accessories & Paper'} lang={lang} index={3} />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {GROUPS[3].products.map((p, i) => (
               <ProductCard key={p.id} product={p} lang={lang} index={i} />
             ))}
           </div>
