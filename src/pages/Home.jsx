@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { MessageCircle, Package, Cuboid } from "lucide-react";
 import { InfiniteGrid } from "@/components/ui/infinite-grid";
 import { StatsPanel } from "@/components/ui/stat-card";
@@ -37,11 +37,6 @@ const stats = [
 ];
 
 export default function Home({ lang = "al" }) {
-  const prefersReduced = useReducedMotion()
-  const { scrollY } = useScroll()
-  const heroOpacity = useTransform(scrollY, [0, 380], prefersReduced ? [1, 1] : [1, 0])
-  const heroScale  = useTransform(scrollY, [0, 380], prefersReduced ? [1, 1] : [1, 0.96])
-  const heroY      = useTransform(scrollY, [0, 380], prefersReduced ? [0, 0] : [0, -24])
 
   useEffect(() => {
     document.title = lang === 'al'
@@ -56,7 +51,6 @@ export default function Home({ lang = "al" }) {
   return (
     <>
     <InfiniteGrid>
-      <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -107,7 +101,6 @@ export default function Home({ lang = "al" }) {
 
         {/* Stats */}
         <StatsPanel stats={stats.map(s => ({ value: s.value, label: s.label[lang] }))} />
-      </motion.div>
       </motion.div>
     </InfiniteGrid>
 
