@@ -112,7 +112,7 @@ function FilterBar({ lang, query, setQuery, activeType, setActiveType, activeUse
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder={lang === 'al' ? 'Kërko produktin…' : 'Search products…'}
-            className="w-full rounded-xl border border-black/[0.1] bg-white py-2.5 pl-9 pr-9 text-sm text-gray-900 placeholder-gray-400 shadow-sm outline-none transition focus:border-[#4ca706]/60 focus:ring-2 focus:ring-[#4ca706]/15"
+            className="w-full rounded-xl border border-black/[0.1] bg-gray-50 py-2.5 pl-9 pr-9 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-[#4ca706]/60 focus:ring-2 focus:ring-[#4ca706]/15"
           />
           {query && (
             <button
@@ -129,7 +129,7 @@ function FilterBar({ lang, query, setQuery, activeType, setActiveType, activeUse
         <button
           onClick={() => setFiltersOpen(v => !v)}
           className={`flex cursor-pointer items-center gap-1.5 rounded-xl border px-3 py-2.5 text-[11px] font-semibold transition-colors md:hidden ${
-            hasFilters ? 'border-[#4ca706] bg-[#4ca706]/8 text-[#4ca706]' : 'border-black/[0.1] bg-white text-gray-600 shadow-sm'
+            hasFilters ? 'border-[#4ca706] bg-[#4ca706]/8 text-[#4ca706]' : 'border-black/[0.1] bg-gray-50 text-gray-600'
           }`}
         >
           <SlidersHorizontal className="size-3.5" />
@@ -178,7 +178,7 @@ function FilterBar({ lang, query, setQuery, activeType, setActiveType, activeUse
 
       {/* Mobile — expanded filter panel */}
       {filtersOpen && (
-        <div className="mt-3 flex flex-col gap-3 rounded-xl border border-black/[0.08] bg-white p-3">
+        <div className="mt-3 flex flex-col gap-3 rounded-xl border border-black/[0.08] bg-gray-50 p-3">
           <div className="flex flex-wrap items-center gap-2">
             <span className="w-16 shrink-0 text-[10px] font-bold uppercase tracking-wider text-gray-400">
               {lang === 'al' ? 'Lloji' : 'Type'}
@@ -269,7 +269,7 @@ export function ProductsGrid({ lang = 'al' }) {
   }
 
   return (
-    <section className="bg-[#f5f4f0] px-4 py-16">
+    <section className="bg-white px-4 py-16">
       <div className="mx-auto max-w-6xl">
 
         {/* Section header */}
