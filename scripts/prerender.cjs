@@ -25,6 +25,7 @@ run({
     '/products/mbajtese-kafe',
     '/products/kuti-sanduic',
     '/products/kuti-dhurate',
+    '/products/kuti-muffins',
     '/machines',
     '/about',
     '/contact',

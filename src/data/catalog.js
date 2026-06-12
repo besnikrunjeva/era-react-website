@@ -16,6 +16,7 @@ import imgFriesBox        from '@/assets/products/fries-box-studio.png'
 import imgCupHolder       from '@/assets/products/cup-holder-studio.png'
 import imgSanduic         from '@/assets/products/kuti-sanduic-studio.jpg'
 import imgKutiDhurate    from '@/assets/products/kuti-dhurate-studio.webp'
+import imgKutiMuffins    from '@/assets/products/kuti-muffins-studio.webp'
 
 export const TYPES = [
   { id: 'kuti',     al: 'Kuti',          en: 'Boxes'         },
@@ -167,6 +168,18 @@ export const CATALOG = [
     img: imgKutiDhurate,
     type: 'kuti',
     useCases: ['dhurate'],
+    materials: ['karton'],
+    available: true,
+    is3D: false,
+  },
+  {
+    slug: '/products/kuti-muffins',
+    al: 'Kuti për Muffins',
+    en: 'Muffin Box',
+    desc: { al: 'Muffins · Cupcakes · Ëmbëlsira', en: 'Muffins · Cupcakes · Pastries' },
+    img: imgKutiMuffins,
+    type: 'kuti',
+    useCases: ['pasticeri'],
     materials: ['karton'],
     available: true,
     is3D: false,
