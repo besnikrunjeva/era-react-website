@@ -127,7 +127,7 @@ Two shared templates handle all product pages — never write a product page fro
 
 1. `npm run build` — builds Vite app then runs `scripts/prerender.cjs` (postbuild)
 2. `prerender.cjs` pre-renders all public routes to static HTML for AI crawlers
-3. Confirm output: `✅ crawled N out of N` where N = **number of routes in App.jsx** (currently **25**) — if any route fails, fix before pushing
+3. Confirm output: `✅ crawled N out of N` where N = **number of routes in App.jsx** (currently **26**) — if any route fails, fix before pushing
 4. `git add`, `git commit`, `git push` — GitHub Actions deploys to GitHub Pages automatically
 5. On CI: Chrome path is set via `PUPPETEER_EXECUTABLE_PATH=google-chrome-stable` in deploy.yml
 6. Locally: Chrome path falls back to `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`
@@ -187,6 +187,7 @@ Run through this every time a new product page is added:
 | `/products/kuti-sanduic` | `src/pages/ProductKutiSanduic.jsx` | flat page |
 | `/products/mbajtese-kafe` | `src/pages/ProductMbajtesekafe.jsx` | flat page |
 | `/products/kuti-dhurate` | `src/pages/ProductKutiDhurate.jsx` | flat page |
+| `/products/kuti-corndog` | `src/pages/ProductKutiCorndog.jsx` | flat page |
 | `/products/kuti-muffins` | `src/pages/ProductKutiMuffins.jsx` | flat page |
 | `/products/caj-heksagonal` | `src/pages/ProductCajHeksagonal.jsx` | flat page |
 | `/products/caj-gable-top` | `src/pages/ProductCajGableTop.jsx` | flat page |

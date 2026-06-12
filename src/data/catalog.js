@@ -17,6 +17,7 @@ import imgCupHolder       from '@/assets/products/cup-holder-studio.png'
 import imgSanduic         from '@/assets/products/kuti-sanduic-studio.jpg'
 import imgKutiDhurate    from '@/assets/products/kuti-dhurate-studio.webp'
 import imgKutiMuffins    from '@/assets/products/kuti-muffins-studio.webp'
+import imgKutiCorndog   from '@/assets/products/kuti-corndog-studio.webp'
 
 export const TYPES = [
   { id: 'kuti',     al: 'Kuti',          en: 'Boxes'         },
@@ -168,6 +169,18 @@ export const CATALOG = [
     img: imgKutiDhurate,
     type: 'kuti',
     useCases: ['dhurate'],
+    materials: ['karton'],
+    available: true,
+    is3D: false,
+  },
+  {
+    slug: '/products/kuti-corndog',
+    al: 'Kuti për Corndog',
+    en: 'Corndog Box',
+    desc: { al: 'Corndog · Hotdog · Snacks', en: 'Corndog · Hotdog · Snacks' },
+    img: imgKutiCorndog,
+    type: 'kuti',
+    useCases: ['fast-food'],
     materials: ['karton'],
     available: true,
     is3D: false,

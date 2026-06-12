@@ -33,6 +33,7 @@ import ProductMbajtesekafe from '@/pages/ProductMbajtesekafe'
 import ProductKutiSanduic from '@/pages/ProductKutiSanduic'
 import ProductKutiDhurate from '@/pages/ProductKutiDhurate'
 import ProductKutiMuffins from '@/pages/ProductKutiMuffins'
+import ProductKutiCorndog from '@/pages/ProductKutiCorndog'
 import Machines from '@/pages/Machines'
 import PreviewTest from '@/pages/PreviewTest'
 import ComingSoon from '@/pages/ComingSoon'
@@ -70,6 +71,7 @@ function App() {
             <Route path="/products/kuti-sanduic"     element={<ProductKutiSanduic lang={lang} />} />
             <Route path="/products/kuti-dhurate"     element={<ProductKutiDhurate lang={lang} />} />
             <Route path="/products/kuti-muffins"      element={<ProductKutiMuffins lang={lang} />} />
+            <Route path="/products/kuti-corndog"      element={<ProductKutiCorndog lang={lang} />} />
             <Route path="/machines"                  element={<Machines lang={lang} />} />
             <Route path="/about"                     element={<About lang={lang} />} />
             <Route path="/contact"                   element={<Contact lang={lang} />} />
