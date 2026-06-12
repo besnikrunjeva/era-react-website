@@ -15,6 +15,7 @@ import imgKapak           from '@/assets/products/kapak.webp'
 import imgFriesBox        from '@/assets/products/fries-box-studio.png'
 import imgCupHolder       from '@/assets/products/cup-holder-studio.png'
 import imgSanduic         from '@/assets/products/kuti-sanduic-studio.jpg'
+import imgKutiDhurate    from '@/assets/products/kuti-dhurate-studio.webp'
 
 export const TYPES = [
   { id: 'kuti',     al: 'Kuti',          en: 'Boxes'         },
@@ -27,6 +28,7 @@ export const USE_CASES = [
   { id: 'fast-food', al: 'Fast Food', en: 'Fast Food'  },
   { id: 'pasticeri', al: 'Pastiçeri', en: 'Pastry'     },
   { id: 'restorant', al: 'Restorant', en: 'Restaurant' },
+  { id: 'dhurate',   al: 'Dhurata',   en: 'Gifts'       },
 ]
 
 export const MATERIALS = [
@@ -153,6 +155,18 @@ export const CATALOG = [
     img: imgKuti6Pika,
     type: 'kuti',
     useCases: ['pasticeri'],
+    materials: ['karton'],
+    available: true,
+    is3D: false,
+  },
+  {
+    slug: '/products/kuti-dhurate',
+    al: 'Kuti Dhuratë',
+    en: 'Gift Box',
+    desc: { al: 'Dorezë e integruar · Kids menu · Dhurata', en: 'Built-in handle · Kids meal · Gifts' },
+    img: imgKutiDhurate,
+    type: 'kuti',
+    useCases: ['dhurate'],
     materials: ['karton'],
     available: true,
     is3D: false,

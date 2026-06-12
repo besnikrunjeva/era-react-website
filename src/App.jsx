@@ -31,6 +31,7 @@ import ProductCajGableTop from '@/pages/ProductCajGableTop'
 import ProductKutiPomfrit from '@/pages/ProductKutiPomfrit'
 import ProductMbajtesekafe from '@/pages/ProductMbajtesekafe'
 import ProductKutiSanduic from '@/pages/ProductKutiSanduic'
+import ProductKutiDhurate from '@/pages/ProductKutiDhurate'
 import Machines from '@/pages/Machines'
 import PreviewTest from '@/pages/PreviewTest'
 import ComingSoon from '@/pages/ComingSoon'
@@ -40,41 +41,41 @@ function App() {
 
   return (
     <BrowserRouter basename="/">
-      {/* ─── COMING SOON — remove <ComingSoon /> and restore Routes + header/footer to go live ─── */}
-      <ComingSoon />
-
-      {/* ─── FULL SITE — uncomment everything below when going live ─────────────────────────────
-      <ScrollToTop />
-      <SimpleHeader lang={lang} onLangChange={setLang} />
-      <LangToast lang={lang} onSwitch={setLang} />
-      <Routes>
-        <Route path="/"                          element={<Home lang={lang} />} />
-        <Route path="/products"                  element={<Products lang={lang} />} />
-        <Route path="/products/gota"             element={<ProductGota lang={lang} />} />
-        <Route path="/products/mbajtese"         element={<ProductMbajtese lang={lang} />} />
-        <Route path="/products/akullore"         element={<ProductAkullore lang={lang} />} />
-        <Route path="/products/kupa-supe"        element={<ProductKupaSupe lang={lang} />} />
-        <Route path="/products/leter-tavoline"   element={<ProductLeterTavoline lang={lang} />} />
-        <Route path="/products/kuti-hamburgeri"  element={<ProductKutiHamburgeri lang={lang} />} />
-        <Route path="/products/kuti-sllajder"    element={<ProductKutiSllajder lang={lang} />} />
-        <Route path="/products/kuti-fast-food"   element={<ProductKutiFastFood lang={lang} />} />
-        <Route path="/products/kuti-6pika"       element={<ProductKuti6Pika lang={lang} />} />
-        <Route path="/products/kuti-hapur"       element={<ProductKutiHapur lang={lang} />} />
-        <Route path="/products/kuti-krepa"       element={<ProductKutiKrepa lang={lang} />} />
-        <Route path="/products/kuti-sallata"     element={<ProductKutiSallata lang={lang} />} />
-        <Route path="/products/kuti-makaronash"  element={<ProductKutiMakaronash lang={lang} />} />
-        <Route path="/products/caj-heksagonal"   element={<ProductCajHeksagonal lang={lang} />} />
-        <Route path="/products/caj-gable-top"    element={<ProductCajGableTop lang={lang} />} />
-        <Route path="/products/kuti-pomfrit"     element={<ProductKutiPomfrit lang={lang} />} />
-        <Route path="/products/mbajtese-kafe"    element={<ProductMbajtesekafe lang={lang} />} />
-        <Route path="/products/kuti-sanduic"     element={<ProductKutiSanduic lang={lang} />} />
-        <Route path="/machines"                  element={<Machines lang={lang} />} />
-        <Route path="/about"                     element={<About lang={lang} />} />
-        <Route path="/contact"                   element={<Contact lang={lang} />} />
-        <Route path="/preview-test"              element={<PreviewTest />} />
-      </Routes>
-      <StickyFooter lang={lang} />
-      ─────────────────────────────────────────────────────────────────────────────────────────── */}
+      {import.meta.env.PROD ? <ComingSoon /> : (
+        <>
+          <ScrollToTop />
+          <SimpleHeader lang={lang} onLangChange={setLang} />
+          <LangToast lang={lang} onSwitch={setLang} />
+          <Routes>
+            <Route path="/"                          element={<Home lang={lang} />} />
+            <Route path="/products"                  element={<Products lang={lang} />} />
+            <Route path="/products/gota"             element={<ProductGota lang={lang} />} />
+            <Route path="/products/mbajtese"         element={<ProductMbajtese lang={lang} />} />
+            <Route path="/products/akullore"         element={<ProductAkullore lang={lang} />} />
+            <Route path="/products/kupa-supe"        element={<ProductKupaSupe lang={lang} />} />
+            <Route path="/products/leter-tavoline"   element={<ProductLeterTavoline lang={lang} />} />
+            <Route path="/products/kuti-hamburgeri"  element={<ProductKutiHamburgeri lang={lang} />} />
+            <Route path="/products/kuti-sllajder"    element={<ProductKutiSllajder lang={lang} />} />
+            <Route path="/products/kuti-fast-food"   element={<ProductKutiFastFood lang={lang} />} />
+            <Route path="/products/kuti-6pika"       element={<ProductKuti6Pika lang={lang} />} />
+            <Route path="/products/kuti-hapur"       element={<ProductKutiHapur lang={lang} />} />
+            <Route path="/products/kuti-krepa"       element={<ProductKutiKrepa lang={lang} />} />
+            <Route path="/products/kuti-sallata"     element={<ProductKutiSallata lang={lang} />} />
+            <Route path="/products/kuti-makaronash"  element={<ProductKutiMakaronash lang={lang} />} />
+            <Route path="/products/caj-heksagonal"   element={<ProductCajHeksagonal lang={lang} />} />
+            <Route path="/products/caj-gable-top"    element={<ProductCajGableTop lang={lang} />} />
+            <Route path="/products/kuti-pomfrit"     element={<ProductKutiPomfrit lang={lang} />} />
+            <Route path="/products/mbajtese-kafe"    element={<ProductMbajtesekafe lang={lang} />} />
+            <Route path="/products/kuti-sanduic"     element={<ProductKutiSanduic lang={lang} />} />
+            <Route path="/products/kuti-dhurate"     element={<ProductKutiDhurate lang={lang} />} />
+            <Route path="/machines"                  element={<Machines lang={lang} />} />
+            <Route path="/about"                     element={<About lang={lang} />} />
+            <Route path="/contact"                   element={<Contact lang={lang} />} />
+            <Route path="/preview-test"              element={<PreviewTest />} />
+          </Routes>
+          <StickyFooter lang={lang} />
+        </>
+      )}
     </BrowserRouter>
   )
 }
