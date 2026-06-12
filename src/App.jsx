@@ -33,12 +33,17 @@ import ProductMbajtesekafe from '@/pages/ProductMbajtesekafe'
 import ProductKutiSanduic from '@/pages/ProductKutiSanduic'
 import Machines from '@/pages/Machines'
 import PreviewTest from '@/pages/PreviewTest'
+import ComingSoon from '@/pages/ComingSoon'
 
 function App() {
   const [lang, setLang] = useState('al')
 
   return (
-    <BrowserRouter basename="/era-react-website">
+    <BrowserRouter basename="/">
+      {/* ─── COMING SOON — remove <ComingSoon /> and restore Routes + header/footer to go live ─── */}
+      <ComingSoon />
+
+      {/* ─── FULL SITE — uncomment everything below when going live ─────────────────────────────
       <ScrollToTop />
       <SimpleHeader lang={lang} onLangChange={setLang} />
       <LangToast lang={lang} onSwitch={setLang} />
@@ -59,7 +64,7 @@ function App() {
         <Route path="/products/kuti-sallata"     element={<ProductKutiSallata lang={lang} />} />
         <Route path="/products/kuti-makaronash"  element={<ProductKutiMakaronash lang={lang} />} />
         <Route path="/products/caj-heksagonal"   element={<ProductCajHeksagonal lang={lang} />} />
-        <Route path="/products/caj-gable-top"     element={<ProductCajGableTop lang={lang} />} />
+        <Route path="/products/caj-gable-top"    element={<ProductCajGableTop lang={lang} />} />
         <Route path="/products/kuti-pomfrit"     element={<ProductKutiPomfrit lang={lang} />} />
         <Route path="/products/mbajtese-kafe"    element={<ProductMbajtesekafe lang={lang} />} />
         <Route path="/products/kuti-sanduic"     element={<ProductKutiSanduic lang={lang} />} />
@@ -69,6 +74,7 @@ function App() {
         <Route path="/preview-test"              element={<PreviewTest />} />
       </Routes>
       <StickyFooter lang={lang} />
+      ─────────────────────────────────────────────────────────────────────────────────────────── */}
     </BrowserRouter>
   )
 }
