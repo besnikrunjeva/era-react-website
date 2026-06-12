@@ -85,6 +85,24 @@ export const PRODUCT = {
     { slug: '/products/kuti-fast-food',  img: imgKutiFastFood, al: 'Kuti Fast Food',  en: 'Fast Food Boxes', sub: 'Shawarme · Pule',   available: true },
   ],
 
+  useCases: [
+    {
+      img: imgVar1,
+      label: { al: 'Kids Menu',   en: 'Kids Meal'       },
+      desc:  { al: 'Happy meal, kids box, vakte fëmijësh', en: 'Happy meal, kids box, children\'s meals' },
+    },
+    {
+      img: imgVar2,
+      label: { al: 'Dhuratë Premium', en: 'Premium Gift'  },
+      desc:  { al: 'Dhurata luksit, evente, korporata',    en: 'Luxury gifts, events, corporate'         },
+    },
+    {
+      img: imgVar3,
+      label: { al: 'Pastiçeri',   en: 'Pastry'           },
+      desc:  { al: 'Tortë, ëmbëlsira, konfeksione',       en: 'Cake, sweets, confectionery'             },
+    },
+  ],
+
   whatsappText: {
     al: 'Pershendetje ERA, jam i interesuar per Kuti Dhurate me printim. Mund te me jepni nje oferte?',
     en: 'Hello ERA, I am interested in custom printed Gift Boxes. Can you give me a quote?',
