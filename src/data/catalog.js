@@ -18,6 +18,7 @@ import imgSanduic         from '@/assets/products/kuti-sanduic-studio.jpg'
 import imgKutiDhurate    from '@/assets/products/kuti-dhurate-studio.webp'
 import imgKutiMuffins    from '@/assets/products/kuti-muffins-studio.webp'
 import imgKutiCorndog   from '@/assets/products/kuti-corndog-studio.webp'
+import imgKutiFurre     from '@/assets/products/kuti-furre-studio.webp'
 
 export const TYPES = [
   { id: 'kuti',     al: 'Kuti',          en: 'Boxes'         },
@@ -169,6 +170,18 @@ export const CATALOG = [
     img: imgKutiDhurate,
     type: 'kuti',
     useCases: ['dhurate'],
+    materials: ['karton'],
+    available: true,
+    is3D: false,
+  },
+  {
+    slug: '/products/kuti-furre',
+    al: 'Kuti Furre',
+    en: 'Bakery Box',
+    desc: { al: 'Kroasanë · Eklerë · Bukë', en: 'Croissants · Éclairs · Bread' },
+    img: imgKutiFurre,
+    type: 'kuti',
+    useCases: ['pasticeri', 'kafene'],
     materials: ['karton'],
     available: true,
     is3D: false,

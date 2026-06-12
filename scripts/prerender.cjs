@@ -27,6 +27,7 @@ run({
     '/products/kuti-dhurate',
     '/products/kuti-muffins',
     '/products/kuti-corndog',
+    '/products/kuti-furre',
     '/machines',
     '/about',
     '/contact',
