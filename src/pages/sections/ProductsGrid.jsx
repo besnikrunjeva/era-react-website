@@ -124,6 +124,7 @@ function FilterBar({ lang, query, setQuery, activeType, setActiveType, activeUse
           {query && (
             <button
               onClick={() => setQuery('')}
+              aria-label={lang === 'al' ? 'Pastro kërkimin' : 'Clear search'}
               className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-gray-600"
             >
               <X className="size-3.5" />
@@ -286,7 +287,7 @@ export function ProductsGrid({ lang = 'al' }) {
         {filtered.length === 0 ? (
           <EmptyState lang={lang} onClear={clearAll} />
         ) : (
-          <motion.div layout className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+          <motion.div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
             <AnimatePresence mode="popLayout">
               {filtered.map((product, i) => (
                 <ProductCard key={product.slug} product={product} lang={lang} index={i} />
