@@ -1,38 +1,32 @@
 import { motion } from 'framer-motion'
 import { MessageCircle } from 'lucide-react'
 import { InfiniteGrid } from '@/components/ui/infinite-grid'
+import eraLogo from '@/assets/era-logo.png'
 
 export default function ComingSoon() {
   return (
-    <InfiniteGrid dark className="min-h-[100dvh]">
+    <InfiniteGrid className="min-h-[100dvh]">
       <motion.div
         initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 flex flex-col items-center gap-6 px-6 text-center"
       >
-        {/* Brand name */}
-        <div className="flex flex-col items-center gap-1">
-          <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#4ca706]">
-            Shtypshkronja
-          </p>
-          <h1 className="text-5xl font-black tracking-tight text-white md:text-7xl">
-            ERA
-          </h1>
-        </div>
+        {/* Logo */}
+        <img src={eraLogo} alt="Shtypshkronja ERA" className="h-16 w-auto" />
 
         {/* Divider */}
         <div className="h-px w-16 bg-[#4ca706]/50" />
 
         {/* Coming soon */}
         <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl font-bold tracking-tight text-white md:text-3xl">
+          <p className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
             Së shpejti
             <span className="mx-3 text-[#4ca706]/40">·</span>
             Coming soon
           </p>
-          <p className="max-w-sm text-sm leading-relaxed text-white/40">
-            {`Ambalazhe letre me printim profesional — prodhuar në Kosovë.`}
+          <p className="max-w-sm text-sm leading-relaxed text-gray-500">
+            Ambalazhe letre me printim profesional — prodhuar në Kosovë.
           </p>
         </div>
 
@@ -50,7 +44,7 @@ export default function ComingSoon() {
         </motion.a>
 
         {/* Phone */}
-        <p className="text-xs text-white/25">+383 44 113 533</p>
+        <p className="text-xs text-gray-400">+383 44 113 533</p>
       </motion.div>
     </InfiniteGrid>
   )
