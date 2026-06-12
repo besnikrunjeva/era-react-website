@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/era-react-website/',
+  base: '/',
   server: {
     host: true,
   },
