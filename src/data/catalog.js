@@ -1,8 +1,4 @@
 // src/data/catalog.js
-import imgGota            from '@/assets/products/gota.webp'
-import imgAkullore        from '@/assets/products/akullore.webp'
-import imgKupaSupe        from '@/assets/products/tas-supe.webp'
-import imgMbajtese        from '@/assets/products/mbajtese.webp'
 import imgLeter           from '@/assets/products/leter.webp'
 import imgCajPfanta       from '@/assets/products/caj-pfanta-sage.jpg'
 import imgCajForestFruits from '@/assets/products/caj-forest-fruits.png'
@@ -21,7 +17,6 @@ import imgCupHolder       from '@/assets/products/cup-holder-studio.png'
 import imgSanduic         from '@/assets/products/kuti-sanduic-studio.jpg'
 
 export const TYPES = [
-  { id: 'gota',     al: 'Gota & Kupa',   en: 'Cups & Bowls'  },
   { id: 'kuti',     al: 'Kuti',          en: 'Boxes'         },
   { id: 'caj',      al: 'Paketime Çaji', en: 'Tea Packages'  },
   { id: 'aksesore', al: 'Aksesorë',      en: 'Accessories'   },
@@ -41,43 +36,6 @@ export const MATERIALS = [
 ]
 
 export const CATALOG = [
-  // ── Gota & Kupa ──────────────────────────────────────────────────────
-  {
-    slug: '/products/gota',
-    al: 'Gota Letre',
-    en: 'Paper Cups',
-    desc: { al: '3.5oz · 7oz · 12oz', en: '3.5oz · 7oz · 12oz' },
-    img: imgGota,
-    type: 'gota',
-    useCases: ['kafene', 'restorant'],
-    materials: ['food-grade'],
-    available: true,
-    is3D: true,
-  },
-  {
-    slug: '/products/kupa-supe',
-    al: 'Kupa Supe',
-    en: 'Soup Cups',
-    desc: { al: 'Standarde', en: 'Standard' },
-    img: imgKupaSupe,
-    type: 'gota',
-    useCases: ['restorant', 'fast-food'],
-    materials: ['food-grade'],
-    available: true,
-    is3D: true,
-  },
-  {
-    slug: '/products/akullore',
-    al: 'Kupa Akullore',
-    en: 'Ice Cream Cups',
-    desc: { al: 'S · M', en: 'S · M' },
-    img: imgAkullore,
-    type: 'gota',
-    useCases: ['pasticeri', 'kafene'],
-    materials: ['food-grade'],
-    available: true,
-    is3D: true,
-  },
   // ── Kuti ─────────────────────────────────────────────────────────────
   {
     slug: '/products/kuti-hamburgeri',
@@ -237,30 +195,6 @@ export const CATALOG = [
     is3D: false,
   },
   // ── Aksesorë ──────────────────────────────────────────────────────────
-  {
-    slug: '/products/mbajtese',
-    al: 'Mbajtëse Lugësh',
-    en: 'Cutlery Holders',
-    desc: { al: 'Standarde', en: 'Standard' },
-    img: imgMbajtese,
-    type: 'aksesore',
-    useCases: ['kafene', 'restorant'],
-    materials: ['food-grade'],
-    available: true,
-    is3D: true,
-  },
-  {
-    slug: '/products/leter-tavoline',
-    al: 'Letër Tavoline',
-    en: 'Table Paper',
-    desc: { al: 'Roll · Logo custom', en: 'Roll · Custom logo' },
-    img: imgLeter,
-    type: 'aksesore',
-    useCases: ['restorant', 'kafene'],
-    materials: ['karton'],
-    available: true,
-    is3D: true,
-  },
   {
     slug: '/products/mbajtese-kafe',
     al: 'Mbajtëse Kafeje',
