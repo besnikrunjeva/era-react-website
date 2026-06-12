@@ -89,7 +89,7 @@ function FilterChip({ label, active, onClick }) {
 }
 
 // ── FilterBar ────────────────────────────────────────────────────────────
-function FilterBar({ lang, query, setQuery, activeType, setActiveType, activeUseCases, setActiveUseCases, activeMaterials, setActiveMaterials, count }) {
+function FilterBar({ lang, query, setQuery, activeType, setActiveType, activeUseCases, setActiveUseCases, activeMaterials, setActiveMaterials, onClearAll }) {
   const [filtersOpen, setFiltersOpen] = useState(false)
   const hasFilters = query || activeType || activeUseCases.length > 0 || activeMaterials.length > 0
 
@@ -101,25 +101,18 @@ function FilterBar({ lang, query, setQuery, activeType, setActiveType, activeUse
     setActiveMaterials(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
   }
 
-  function clearAll() {
-    setQuery('')
-    setActiveType(null)
-    setActiveUseCases([])
-    setActiveMaterials([])
-  }
-
   return (
-    <div className="mb-8 rounded-2xl border border-black/[0.06] bg-white p-4 md:p-5">
-      {/* Search row */}
+    <div className="mb-6">
+      {/* Search + mobile toggle */}
       <div className="flex items-center gap-3">
-        <div className="relative flex-1 md:max-w-xs">
+        <div className="relative w-full md:max-w-sm">
           <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder={lang === 'al' ? 'Kërko produktin…' : 'Search products…'}
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2.5 pl-9 pr-9 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-[#4ca706]/50 focus:ring-2 focus:ring-[#4ca706]/15"
+            className="w-full rounded-xl border border-black/[0.1] bg-white py-2.5 pl-9 pr-9 text-sm text-gray-900 placeholder-gray-400 shadow-sm outline-none transition focus:border-[#4ca706]/60 focus:ring-2 focus:ring-[#4ca706]/15"
           />
           {query && (
             <button
@@ -132,82 +125,89 @@ function FilterBar({ lang, query, setQuery, activeType, setActiveType, activeUse
           )}
         </div>
 
-        {/* Mobile toggle */}
+        {/* Mobile filter toggle */}
         <button
           onClick={() => setFiltersOpen(v => !v)}
           className={`flex cursor-pointer items-center gap-1.5 rounded-xl border px-3 py-2.5 text-[11px] font-semibold transition-colors md:hidden ${
-            hasFilters ? 'border-[#4ca706] bg-[#4ca706]/5 text-[#4ca706]' : 'border-gray-200 text-gray-600'
+            hasFilters ? 'border-[#4ca706] bg-[#4ca706]/8 text-[#4ca706]' : 'border-black/[0.1] bg-white text-gray-600 shadow-sm'
           }`}
         >
           <SlidersHorizontal className="size-3.5" />
           {lang === 'al' ? 'Filtro' : 'Filter'}
           {hasFilters && <span className="size-1.5 rounded-full bg-[#4ca706]" />}
         </button>
+      </div>
 
-        {/* Desktop count + clear */}
-        <div className="ml-auto hidden items-center gap-3 md:flex">
-          <span className="whitespace-nowrap text-[11px] text-gray-400">
-            {count} {lang === 'al' ? 'produktë' : 'products'}
-          </span>
-          {hasFilters && (
-            <button onClick={clearAll} className="cursor-pointer text-[11px] font-semibold text-[#4ca706] hover:underline">
-              {lang === 'al' ? 'Pastro filtrat' : 'Clear filters'}
+      {/* Desktop — all chips in one compact row with group dividers */}
+      <div className="mt-3 hidden flex-wrap items-center gap-x-1 gap-y-2 md:flex">
+        {TYPES.map(t => (
+          <FilterChip
+            key={t.id}
+            label={lang === 'al' ? t.al : t.en}
+            active={activeType === t.id}
+            onClick={() => setActiveType(prev => prev === t.id ? null : t.id)}
+          />
+        ))}
+        <span className="mx-1.5 h-3.5 w-px bg-black/15" />
+        {USE_CASES.map(u => (
+          <FilterChip
+            key={u.id}
+            label={lang === 'al' ? u.al : u.en}
+            active={activeUseCases.includes(u.id)}
+            onClick={() => toggleUseCase(u.id)}
+          />
+        ))}
+        <span className="mx-1.5 h-3.5 w-px bg-black/15" />
+        {MATERIALS.map(m => (
+          <FilterChip
+            key={m.id}
+            label={lang === 'al' ? m.al : m.en}
+            active={activeMaterials.includes(m.id)}
+            onClick={() => toggleMaterial(m.id)}
+          />
+        ))}
+        {hasFilters && (
+          <>
+            <span className="mx-1.5 h-3.5 w-px bg-black/15" />
+            <button onClick={onClearAll} className="cursor-pointer text-[11px] font-semibold text-[#4ca706] hover:underline">
+              {lang === 'al' ? 'Pastro' : 'Clear'}
             </button>
-          )}
-        </div>
+          </>
+        )}
       </div>
 
-      {/* Filter chips — always on desktop, toggled on mobile */}
-      <div className={`flex-col gap-3 mt-4 ${filtersOpen ? 'flex' : 'hidden md:flex'}`}>
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="w-16 shrink-0 text-[10px] font-bold uppercase tracking-wider text-gray-400">
-            {lang === 'al' ? 'Lloji' : 'Type'}
-          </span>
-          {TYPES.map(t => (
-            <FilterChip
-              key={t.id}
-              label={lang === 'al' ? t.al : t.en}
-              active={activeType === t.id}
-              onClick={() => setActiveType(prev => prev === t.id ? null : t.id)}
-            />
-          ))}
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="w-16 shrink-0 text-[10px] font-bold uppercase tracking-wider text-gray-400">
-            {lang === 'al' ? 'Biznesi' : 'Use'}
-          </span>
-          {USE_CASES.map(u => (
-            <FilterChip
-              key={u.id}
-              label={lang === 'al' ? u.al : u.en}
-              active={activeUseCases.includes(u.id)}
-              onClick={() => toggleUseCase(u.id)}
-            />
-          ))}
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="w-16 shrink-0 text-[10px] font-bold uppercase tracking-wider text-gray-400">
-            {lang === 'al' ? 'Materiali' : 'Material'}
-          </span>
-          {MATERIALS.map(m => (
-            <FilterChip
-              key={m.id}
-              label={lang === 'al' ? m.al : m.en}
-              active={activeMaterials.includes(m.id)}
-              onClick={() => toggleMaterial(m.id)}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Mobile count + clear */}
-      {(filtersOpen || hasFilters) && (
-        <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-3 md:hidden">
-          <span className="text-[11px] text-gray-400">
-            {count} {lang === 'al' ? 'produktë' : 'products'}
-          </span>
+      {/* Mobile — expanded filter panel */}
+      {filtersOpen && (
+        <div className="mt-3 flex flex-col gap-3 rounded-xl border border-black/[0.08] bg-white p-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="w-16 shrink-0 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+              {lang === 'al' ? 'Lloji' : 'Type'}
+            </span>
+            {TYPES.map(t => (
+              <FilterChip key={t.id} label={lang === 'al' ? t.al : t.en} active={activeType === t.id}
+                onClick={() => setActiveType(prev => prev === t.id ? null : t.id)} />
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="w-16 shrink-0 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+              {lang === 'al' ? 'Biznesi' : 'Use'}
+            </span>
+            {USE_CASES.map(u => (
+              <FilterChip key={u.id} label={lang === 'al' ? u.al : u.en} active={activeUseCases.includes(u.id)}
+                onClick={() => toggleUseCase(u.id)} />
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="w-16 shrink-0 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+              {lang === 'al' ? 'Materiali' : 'Material'}
+            </span>
+            {MATERIALS.map(m => (
+              <FilterChip key={m.id} label={lang === 'al' ? m.al : m.en} active={activeMaterials.includes(m.id)}
+                onClick={() => toggleMaterial(m.id)} />
+            ))}
+          </div>
           {hasFilters && (
-            <button onClick={clearAll} className="cursor-pointer text-[11px] font-semibold text-[#4ca706] hover:underline">
+            <button onClick={onClearAll} className="cursor-pointer self-start text-[11px] font-semibold text-[#4ca706] hover:underline">
               {lang === 'al' ? 'Pastro filtrat' : 'Clear filters'}
             </button>
           )}
@@ -271,6 +271,24 @@ export function ProductsGrid({ lang = 'al' }) {
   return (
     <section className="bg-[#f5f4f0] px-4 py-16">
       <div className="mx-auto max-w-6xl">
+
+        {/* Section header */}
+        <div className="mb-8 flex items-end justify-between gap-4">
+          <div>
+            <h2 className="text-3xl font-black leading-tight tracking-tight text-gray-900 md:text-4xl">
+              {lang === 'al' ? 'Produktet Tona' : 'Our Products'}
+            </h2>
+            <p className="mt-1 text-sm text-gray-500">
+              {lang === 'al'
+                ? 'Paketime letre me printim profesional'
+                : 'Paper packaging with professional printing'}
+            </p>
+          </div>
+          <span className="shrink-0 rounded-full border border-black/[0.08] bg-white px-3 py-1 text-[11px] font-semibold text-gray-500 shadow-sm">
+            {filtered.length} {lang === 'al' ? 'produktë' : 'products'}
+          </span>
+        </div>
+
         <FilterBar
           lang={lang}
           query={query}
@@ -281,8 +299,11 @@ export function ProductsGrid({ lang = 'al' }) {
           setActiveUseCases={setActiveUseCases}
           activeMaterials={activeMaterials}
           setActiveMaterials={setActiveMaterials}
-          count={filtered.length}
+          onClearAll={clearAll}
         />
+
+        {/* Divider */}
+        <div className="mb-8 h-px bg-black/[0.07]" />
 
         {filtered.length === 0 ? (
           <EmptyState lang={lang} onClear={clearAll} />
