@@ -4,6 +4,7 @@ import { Package } from 'lucide-react'
 import { InfiniteGrid } from '@/components/ui/infinite-grid'
 import { Featured3DStrip } from '@/pages/sections/Featured3DStrip'
 import { ProductsGrid } from '@/pages/sections/ProductsGrid'
+import { PremiumStrip } from '@/pages/sections/PremiumStrip'
 import { BottomCTA } from '@/pages/sections/BottomCTA'
 
 export default function Products({ lang = 'al' }) {
@@ -20,7 +21,7 @@ export default function Products({ lang = 'al' }) {
   return (
     <>
       {/* Hero */}
-      <InfiniteGrid className="min-h-[60vh]">
+      <InfiniteGrid dark className="min-h-[60vh]">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
@@ -32,7 +33,7 @@ export default function Products({ lang = 'al' }) {
             {lang === 'al' ? 'Produktet Tona' : 'Our Products'}
           </span>
 
-          <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
             {lang === 'al' ? (
               <>Ambalazhe letre me{' '}<span className="text-[#4ca706]">printim profesional</span></>
             ) : (
@@ -40,7 +41,7 @@ export default function Products({ lang = 'al' }) {
             )}
           </h1>
 
-          <p className="max-w-xl text-base text-gray-500 md:text-lg">
+          <p className="max-w-xl text-base text-white/60 md:text-lg">
             {lang === 'al'
               ? 'Gota letre, kupa, kuti dhe paketime me logo të personalizuar — prodhuar në Kosovë.'
               : 'Paper cups, bowls, boxes and custom-logo packaging — made in Kosovo.'}
@@ -53,6 +54,9 @@ export default function Products({ lang = 'al' }) {
 
       {/* Zone B — Photo product grid */}
       <ProductsGrid lang={lang} />
+
+      {/* Zone C — Premium finishes upsell */}
+      <PremiumStrip lang={lang} />
 
       <BottomCTA lang={lang} />
     </>
