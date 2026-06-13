@@ -10,7 +10,7 @@ const STEPS = [
 
 export function MachinesProcess({ lang = 'al' }) {
   return (
-    <section className="border-y border-gray-100 bg-[#f9fdf6] py-6 px-4">
+    <section className="border-y border-white/10 bg-[#0f1010] py-6 px-4">
       <div className="mx-auto max-w-5xl">
         <div className="relative flex items-start justify-between">
           {/* Connector line */}
@@ -32,7 +32,7 @@ export function MachinesProcess({ lang = 'al' }) {
               <div className="flex size-9 items-center justify-center rounded-full bg-[#4ca706] shadow-sm shadow-[#4ca706]/20">
                 <span className="text-[10px] font-black text-white">{step.n}</span>
               </div>
-              <span className="hidden text-center text-[11px] font-semibold text-gray-500 sm:block">
+              <span className="hidden text-center text-[11px] font-semibold text-white/40 sm:block">
                 {step[lang]}
               </span>
             </motion.div>

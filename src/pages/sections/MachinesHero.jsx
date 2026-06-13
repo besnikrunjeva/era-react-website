@@ -1,14 +1,6 @@
 import { motion } from 'framer-motion'
 import { Cpu } from 'lucide-react'
 import { InfiniteGrid } from '@/components/ui/infinite-grid'
-import { StatsPanel } from '@/components/ui/stat-card'
-
-const STATS = [
-  { value: '13',    label: { al: 'Makina Prodhimi',  en: 'Production Machines' } },
-  { value: '4',     label: { al: 'Kategori',          en: 'Categories' } },
-  { value: '3.9M+', label: { al: 'Njësi / Vit',      en: 'Units / Year' } },
-  { value: '15+',   label: { al: 'Vite Eksperiencë', en: 'Years Experience' } },
-]
 
 export function MachinesHero({ lang = 'al' }) {
   return (
@@ -37,8 +29,6 @@ export function MachinesHero({ lang = 'al' }) {
             ? 'Nga shtypja offset Heidelberg deri tek formueset e gotave letre — kapacitet i plotë prodhimi në Prishtinë.'
             : 'From Heidelberg offset printing to paper cup forming — full production capacity in Pristina.'}
         </p>
-
-        <StatsPanel stats={STATS.map(s => ({ value: s.value, label: s.label[lang] }))} className="mt-2" />
       </motion.div>
     </InfiniteGrid>
   )

@@ -32,21 +32,6 @@ export const PRODUCT = {
       label: { al: 'Studio', en: 'Studio' },
       imgAlt: { al: 'Kuti dhuratë studio — ERA Print Pack', en: 'Gift box studio — ERA Print Pack' },
     },
-    {
-      img: imgVar1,
-      label: { al: 'Fëmijë', en: 'Kids' },
-      imgAlt: { al: 'Kuti dhuratë kids party — ERA Print Pack', en: 'Kids party gift box — ERA Print Pack' },
-    },
-    {
-      img: imgVar2,
-      label: { al: 'Premium', en: 'Premium' },
-      imgAlt: { al: 'Kuti dhuratë premium lux — ERA Print Pack', en: 'Premium luxury gift box — ERA Print Pack' },
-    },
-    {
-      img: imgVar3,
-      label: { al: 'Artizanal', en: 'Artisan' },
-      imgAlt: { al: 'Kuti dhuratë artizanale — ERA Print Pack', en: 'Artisan gift box — ERA Print Pack' },
-    },
   ],
 
   badges: [

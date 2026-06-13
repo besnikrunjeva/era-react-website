@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { MachinesHero } from '@/pages/sections/MachinesHero'
 import { MachinesProcess } from '@/pages/sections/MachinesProcess'
 import { MachinesBody } from '@/pages/sections/MachinesBody'
+import { MachineVideos } from '@/pages/sections/MachineVideos'
 import { BottomCTA } from '@/pages/sections/BottomCTA'
 
 export default function Machines({ lang = 'al' }) {
@@ -20,6 +21,7 @@ export default function Machines({ lang = 'al' }) {
       <MachinesHero lang={lang} />
       <MachinesProcess lang={lang} />
       <MachinesBody lang={lang} />
+      <MachineVideos lang={lang} />
       <BottomCTA lang={lang} />
     </>
   )

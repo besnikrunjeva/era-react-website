@@ -42,7 +42,7 @@ export default function About({ lang = 'al' }) {
   return (
     <>
       {/* 1. Hero — InfiniteGrid background */}
-      <InfiniteGrid className="min-h-[70vh]">
+      <InfiniteGrid dark className="min-h-[70vh]">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ export default function About({ lang = 'al' }) {
           </div>
 
           {/* H1 */}
-          <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
             {lang === 'al' ? (
               <>
                 Kur biznesi yt meriton{' '}
@@ -71,7 +71,7 @@ export default function About({ lang = 'al' }) {
           </h1>
 
           {/* Subtext */}
-          <p className="max-w-xl text-base text-gray-500 md:text-lg">
+          <p className="max-w-xl text-base text-white/60 md:text-lg">
             {lang === 'al'
               ? '15 vite eksperiencë, 13 makina prodhimi, 397+ partnerë — e gjitha në Kosovë.'
               : '15 years experience, 13 production machines, 397+ clients — all based in Kosovo.'}

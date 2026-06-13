@@ -30,7 +30,7 @@ const GridPattern = ({ offsetX, offsetY }) => (
   </svg>
 )
 
-export function InfiniteGrid({ children, className }) {
+export function InfiniteGrid({ children, className, dark = false }) {
   const containerRef = useRef(null)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -55,12 +55,13 @@ export function InfiniteGrid({ children, className }) {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       className={cn(
-        "relative w-full min-h-[100dvh] flex flex-col items-center justify-center bg-white",
+        "relative w-full min-h-[100dvh] flex flex-col items-center justify-center",
+        dark ? "bg-[#0f1010]" : "bg-white",
         className
       )}
     >
       {/* Base dim grid */}
-      <div className="absolute inset-0 z-0 text-[#4ca706] opacity-[0.07]">
+      <div className={`absolute inset-0 z-0 text-[#4ca706] ${dark ? 'opacity-[0.04]' : 'opacity-[0.07]'}`}>
         <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
       </div>
 
@@ -83,8 +84,8 @@ export function InfiniteGrid({ children, className }) {
         {children}
       </div>
 
-      {/* Bottom fade to white */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-40 z-[5] bg-gradient-to-t from-white to-transparent" />
+      {/* Bottom fade */}
+      <div className={`pointer-events-none absolute bottom-0 left-0 right-0 h-40 z-[5] bg-gradient-to-t ${dark ? 'from-[#0f1010]' : 'from-white'} to-transparent`} />
     </div>
   )
 }
