@@ -24,6 +24,7 @@ We produce custom-printed paper cups, food boxes, labels, and packaging for cafe
 - /products/kuti-furre — Bakery boxes (Kuti Furre) long hinged-lid box, premium board, custom CMYK print, ideal for croissants, eclairs and bread
 - /products/kuti-corndog — Corndog boxes (Kuti për Corndog) open tray, food-grade board, custom CMYK print, ideal for corndogs, hotdogs and snacks
 - /products/kuti-muffins — Muffin boxes (Kuti për Muffins) with fold-over lid, premium white board, custom CMYK print, ideal for muffins, cupcakes and pastries
+- /products/kuti-torte — Cake boxes (Kuti Torte) square box with hinged lid, premium white board, custom CMYK print, ideal for cake slices, éclairs and pastries
 - /machines — Our 13 production machines
 - /about — Company story, values, client sectors, regional presence
 - /contact — Order request form, WhatsApp, FAQ

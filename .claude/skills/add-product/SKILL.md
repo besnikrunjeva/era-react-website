@@ -78,7 +78,11 @@ Download the result to the project:
 curl -L "<url from creations_wait>" -o "/Users/macbookpro/era-react/src/assets/products/[slug]-studio.webp"
 ```
 
-Repeat for each photo (if multiple: `[slug]-studio-1.webp`, `[slug]-studio-2.webp`, etc.).
+**If the product has both a closed and open photo**, name them:
+- `[slug]-studio.webp` — closed/exterior view
+- `[slug]-open-studio.webp` — open/interior view
+
+Do NOT use numbered suffixes (`-studio-1`, `-studio-2`) for open/closed pairs — use the explicit `-open-` naming.
 
 ### 2c — Ask Besnik what the use-case cards should show
 
@@ -162,7 +166,17 @@ curl -L "<url>" -o "/Users/macbookpro/era-react/src/assets/products/[slug]-var-3
 
 Show Besnik all 3 results. Ask: "Dëshiron të ripërsëris ndonjë prej tyre?"
 
-The **studio photo** (`[slug]-studio.webp`) becomes the primary `img` in the catalog and data file, and is the **only entry in the `sizes` array** (the thumbnail picker shows only Studio).
+The **studio photo** (`[slug]-studio.webp`) becomes the primary `img` in the catalog and data file.
+
+**`sizes` array rules:**
+- If only one studio photo exists → single entry with `label: { al: 'Studio', en: 'Studio' }`
+- If both closed and open photos exist → two entries:
+  ```js
+  { img: imgStudio,     label: { al: 'E Mbyllur', en: 'Closed' }, imgAlt: { ... } },
+  { img: imgOpenStudio, label: { al: 'E Hapur',   en: 'Open'   }, imgAlt: { ... } },
+  ```
+  Import the open photo as `imgOpenStudio from '@/assets/products/[slug]-open-studio.webp'`.
+
 The **variations** (`[slug]-var-1.webp`, `[slug]-var-2.webp`, `[slug]-var-3.webp`) are used exclusively as the **`useCases` images** in the data file (see Step 4) — do NOT add them to `sizes`.
 
 ---
@@ -297,6 +311,7 @@ git add src/data/products/[slug].js \
         src/data/catalog.js \
         src/App.jsx \
         src/assets/products/[slug]-studio.webp \
+        src/assets/products/[slug]-open-studio.webp \   # only if open photo exists
         src/assets/products/[slug]-var-1.webp \
         src/assets/products/[slug]-var-2.webp \
         src/assets/products/[slug]-var-3.webp \

@@ -19,6 +19,7 @@ import imgKutiDhurate    from '@/assets/products/kuti-dhurate-studio.webp'
 import imgKutiMuffins    from '@/assets/products/kuti-muffins-studio.webp'
 import imgKutiCorndog   from '@/assets/products/kuti-corndog-studio.webp'
 import imgKutiFurre     from '@/assets/products/kuti-furre-studio.webp'
+import imgKutiTorte    from '@/assets/products/kuti-torte-studio.webp'
 
 export const TYPES = [
   { id: 'kuti',     al: 'Kuti',          en: 'Boxes'         },
@@ -204,6 +205,18 @@ export const CATALOG = [
     en: 'Muffin Box',
     desc: { al: 'Muffins · Cupcakes · Ëmbëlsira', en: 'Muffins · Cupcakes · Pastries' },
     img: imgKutiMuffins,
+    type: 'kuti',
+    useCases: ['pasticeri'],
+    materials: ['karton'],
+    available: true,
+    is3D: false,
+  },
+  {
+    slug: '/products/kuti-torte',
+    al: 'Kuti Torte',
+    en: 'Cake Box',
+    desc: { al: 'Copa tortash · Eklerë · Ëmbëlsira', en: 'Cake slices · Éclairs · Pastries' },
+    img: imgKutiTorte,
     type: 'kuti',
     useCases: ['pasticeri'],
     materials: ['karton'],
