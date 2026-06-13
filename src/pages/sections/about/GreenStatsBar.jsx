@@ -34,20 +34,20 @@ const stats = [
 
 export function GreenStatsBar({ lang = 'al' }) {
   return (
-    <div className="bg-[#4ca706]">
+    <div className="bg-[#0f1010]">
       <div className="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-4">
         {stats.map((stat, i) => (
           <div
             key={stat.value}
             className={`flex flex-col items-center justify-center px-6 py-10 text-center
-              ${i < stats.length - 1 ? 'border-r border-white/20' : ''}
-              ${i < 2 ? 'border-b border-white/20 md:border-b-0' : ''}
+              ${i < stats.length - 1 ? 'border-r border-white/10' : ''}
+              ${i < 2 ? 'border-b border-white/10 md:border-b-0' : ''}
             `}
           >
-            <span className="text-3xl font-bold text-white md:text-4xl">
+            <span className="text-3xl font-bold text-[#4ca706] md:text-4xl">
               <CountUp value={stat.value} />
             </span>
-            <span className="mt-1.5 text-xs font-semibold uppercase tracking-widest text-white/75">
+            <span className="mt-1.5 text-xs font-semibold uppercase tracking-widest text-white/50">
               {stat.label[lang]}
             </span>
           </div>
